@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일일시황리포트 2026.03.30</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #f5f5f0; --surface: #ffffff; --surface2: #f0efe8;
+  --border: #d8d8d0; --accent: #c8a96e; --accent2: #2196F3;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #1a1a1a; --muted: #6b7280; --dim: #9ca3af;
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg: #0a0b0e; --surface: #111318; --surface2: #1a1d26;
+  --border: #2a2d3a; --accent: #c8a96e; --accent2: #4fc3f7;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #e8e6e0; --muted: #7a7f8e; --dim: #4a4f5e;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.4);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 0 20px 60px; }
+
+/* Sticky Nav */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+.nav-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem; color: var(--accent);
+  white-space: nowrap;
+}
+.nav-logo span { color: var(--muted); font-size: 0.75rem; font-family: 'IBM Plex Mono', monospace; margin-left: 8px; }
+.nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav-links a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem; color: var(--muted);
+  text-decoration: none; padding: 4px 10px;
+  border-radius: 6px; transition: all 0.2s;
+  border: 1px solid transparent;
+}
+.nav-links a:hover { color: var(--accent); border-color: var(--accent); }
+.theme-toggle {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 4px 10px; cursor: pointer;
+  font-size: 1rem; color: var(--text);
+}
+
+/* Hero */
+.hero {
+  text-align: center; padding: 48px 0 32px;
+}
+.hero-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem; color: var(--accent);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem; font-weight: 400;
+  margin-bottom: 6px; color: var(--text);
+}
+.hero-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem; color: var(--muted);
+}
+.brand-tag {
+  display: inline-block; margin-top: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem; color: var(--accent);
+  border: 1px solid var(--accent); border-radius: 20px;
+  padding: 3px 14px; letter-spacing: 1px;
+}
+
+/* Section Header */
+section { margin-top: 40px; }
+.section-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px; padding-bottom: 14px;
+  border-bottom: 2px solid var(--accent);
+}
+.sec-icon {
+  width: 44px; height: 44px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+}
+.sec-title-ko {
+  font-size: 1.15rem; font-weight: 700; color: var(--text);
+}
+.sec-title-en {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem; color: var(--dim);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+
+/* Index Cards */
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.index-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+}
+.index-card::before {
+  content: ''; position: absolute; top:0; left:0; right:0;
+  height: 3px;
+}
+.index-card.down::before { background: var(--down); }
+.index-card.up::before { background: var(--up); }
+.idx-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem; color: var(--muted);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.idx-value {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.9rem; margin: 4px 0;
+}
+.idx-change {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem; font-weight: 600;
+}
+.idx-change.neg { color: var(--down); }
+.idx-change.pos { color: var(--up); }
+.idx-meta {
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+}
+.idx-meta-item {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem; color: var(--muted);
+}
+.idx-meta-item span { color: var(--text); font-weight: 500; }
+
+/* Flow Table */
+.flow-table-wrap {
+  overflow-x: auto; margin-top: 20px;
+}
+.flow-table {
+  width: 100%; border-collapse: collapse;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+}
+.flow-table th {
+  background: var(--surface2);
+  padding: 10px 12px; text-align: right;
+  color: var(--muted); font-weight: 500;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+.flow-table th:first-child { text-align: left; }
+.flow-table td {
+  padding: 10px 12px; text-align: right;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.flow-table td:first-child { text-align: left; font-weight: 600; color: var(--text); }
+.flow-table .buy { color: var(--up); font-weight: 600; }
+.flow-table .sell { color: var(--down); font-weight: 600; }
+
+/* Macro Grid */
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px; margin-top: 20px;
+}
+.macro-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.macro-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem; color: var(--muted);
+  margin-bottom: 4px;
+}
+.macro-val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.1rem; font-weight: 600;
+}
+.macro-chg {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem; margin-top: 2px;
+}
+
+/* Sector Tags */
+.sector-list { display: flex; flex-direction: column; gap: 12px; }
+.sector-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  box-shadow: var(--shadow);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.sector-name { font-weight: 500; font-size: 0.95rem; }
+.sector-pct {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.95rem; font-weight: 700;
+}
+.sector-desc {
+  font-size: 0.8rem; color: var(--muted); margin-top: 4px;
+}
+
+/* Stock Grid */
+.stock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+.stock-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.stock-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.stock-name { font-weight: 700; font-size: 1rem; }
+.stock-code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem; color: var(--dim);
+}
+.stock-pct {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.05rem; font-weight: 700;
+}
+.stock-price {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem; color: var(--muted);
+  margin-top: 4px;
+}
+.stock-reason {
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--muted); line-height: 1.5;
+}
+
+/* News */
+.news-list { display: flex; flex-direction: column; gap: 14px; }
+.news-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.news-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+.news-body { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.news-tag {
+  display: inline-block; margin-top: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem; padding: 2px 10px;
+  border-radius: 12px;
+}
+.news-tag.neg { background: rgba(76,175,130,0.12); color: var(--down); }
+.news-tag.pos { background: rgba(224,92,92,0.12); color: var(--up); }
+.news-tag.neutral { background: var(--surface2); color: var(--muted); }
+
+/* Summary */
+.summary-box {
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  font-size: 0.95rem; line-height: 1.9;
+}
+
+/* Overseas */
+.overseas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px; margin-top: 16px;
+}
+.overseas-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px; text-align: center;
+  box-shadow: var(--shadow);
+}
+.overseas-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem; color: var(--muted);
+  margin-bottom: 4px;
+}
+.overseas-val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem; font-weight: 600;
+}
+.overseas-chg {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem; margin-top: 2px;
+}
+
+footer {
+  text-align: center; padding: 40px 0 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem; color: var(--dim);
+}
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 1.6rem; }
+  .nav-links { display: none; }
+  .index-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav-inner">
+    <div class="nav-logo">AI투자브리핑 <span>by 한상훈</span></div>
+    <div class="nav-links">
+      <a href="#s1">지수</a>
+      <a href="#s2">섹터</a>
+      <a href="#s3">종목</a>
+      <a href="#s4">뉴스</a>
+      <a href="#s5">총평</a>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-date">2026 . 03 . 30 MON</div>
+    <h1>일일 시황 리포트</h1>
+    <div class="hero-sub">KRX Daily Market Report</div>
+    <div class="brand-tag">한상훈_AI_투자브리핑</div>
+  </div>
+
+  <!-- S1: Daily Index -->
+  <section id="s1">
+    <div class="section-header">
+      <div class="sec-icon">📊</div>
+      <div>
+        <div class="sec-title-ko">일일 지수 요약</div>
+        <div class="sec-title-en">Daily Indices</div>
+      </div>
+    </div>
+    <div class="index-grid">
+      <div class="index-card down">
+        <div class="idx-name">KOSPI</div>
+        <div class="idx-value">5,277.30</div>
+        <div class="idx-change neg">▼ 161.57 (−2.97%)</div>
+        <div class="idx-meta">
+          <div class="idx-meta-item">거래대금 <span>20.7조</span></div>
+          <div class="idx-meta-item">시가 <span>5,181.80</span></div>
+          <div class="idx-meta-item">장중저가 <span>5,151.22</span></div>
+          <div class="idx-meta-item">3일 연속 하락</div>
+        </div>
+      </div>
+      <div class="index-card down">
+        <div class="idx-name">KOSDAQ</div>
+        <div class="idx-value">1,107.05</div>
+        <div class="idx-change neg">▼ 34.46 (−3.02%)</div>
+        <div class="idx-meta">
+          <div class="idx-meta-item">거래대금 <span>9.8조</span></div>
+          <div class="idx-meta-item">시가 <span>1,101.77</span></div>
+          <div class="idx-meta-item">하루 만에 하락</div>
+          <div class="idx-meta-item">외국인·기관 매도</div>
+        </div>
+      </div>
+      <div class="index-card down">
+        <div class="idx-name">KRX300</div>
+        <div class="idx-value">3,511.37</div>
+        <div class="idx-change neg">▼ 110.91 (−3.06%)</div>
+        <div class="idx-meta">
+          <div class="idx-meta-item">거래대금 <span>19.8조</span></div>
+          <div class="idx-meta-item">선물 <span>3,515.00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investor Flow -->
+    <div class="flow-table-wrap">
+      <table class="flow-table">
+        <thead>
+          <tr>
+            <th>KOSPI (억원)</th><th>외국인</th><th>기관</th><th>금투</th><th>보험</th><th>투신</th><th>연기금</th><th>개인</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>현물</td>
+            <td class="sell">−21,335</td>
+            <td class="buy">+8,814</td>
+            <td class="buy">+7,805</td>
+            <td class="buy">+93</td>
+            <td class="buy">+730</td>
+            <td class="sell">−812</td>
+            <td class="buy">+9,016</td>
+          </tr>
+          <tr>
+            <td>선물</td>
+            <td class="buy">+2,309</td>
+            <td class="sell">−3,090</td>
+            <td class="sell">−965</td>
+            <td class="buy">+649</td>
+            <td class="sell">−2,798</td>
+            <td class="buy">+64</td>
+            <td class="buy">+808</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flow-table-wrap" style="margin-top:12px;">
+      <table class="flow-table">
+        <thead>
+          <tr>
+            <th>KOSDAQ (억원)</th><th>외국인</th><th>기관</th><th>금투</th><th>보험</th><th>투신</th><th>연기금</th><th>개인</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>현물</td>
+            <td class="sell">−1,323</td>
+            <td class="sell">−1,178</td>
+            <td class="sell">−406</td>
+            <td class="sell">−48</td>
+            <td class="sell">−209</td>
+            <td class="sell">−303</td>
+            <td class="buy">+3,007</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Macro -->
+    <div class="macro-grid">
+      <div class="macro-item">
+        <div class="macro-label">원/달러</div>
+        <div class="macro-val">1,515.6</div>
+        <div class="macro-chg" style="color:var(--up);">+4.2원 (5일 연속 약세)</div>
+      </div>
+      <div class="macro-item">
+        <div class="macro-label">WTI 유가</div>
+        <div class="macro-val">$101.05</div>
+        <div class="macro-chg" style="color:var(--up);">+1.42% (3일 연속 상승)</div>
+      </div>
+      <div class="macro-item">
+        <div class="macro-label">Brent 유가</div>
+        <div class="macro-val">$105.32</div>
+        <div class="macro-chg" style="color:var(--up);">+3.43%</div>
+      </div>
+      <div class="macro-item">
+        <div class="macro-label">국고채 3년</div>
+        <div class="macro-val">3.541%</div>
+        <div class="macro-chg" style="color:var(--down);">−3.2bp</div>
+      </div>
+      <div class="macro-item">
+        <div class="macro-label">국고채 10년</div>
+        <div class="macro-val">3.889%</div>
+        <div class="macro-chg" style="color:var(--down);">−1.8bp</div>
+      </div>
+      <div class="macro-item">
+        <div class="macro-label">US 10년</div>
+        <div class="macro-val">4.434%</div>
+        <div class="macro-chg" style="color:var(--up);">+1.4bp</div>
+      </div>
+    </div>
+
+    <!-- Overseas -->
+    <div style="margin-top:24px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--muted);margin-bottom:10px;">GLOBAL INDICES (전일 종가 기준)</div>
+      <div class="overseas-grid">
+        <div class="overseas-item">
+          <div class="overseas-name">🇺🇸 DOW</div>
+          <div class="overseas-val">45,167</div>
+          <div class="overseas-chg" style="color:var(--down);">−1.7%</div>
+        </div>
+        <div class="overseas-item">
+          <div class="overseas-name">🇺🇸 NASDAQ</div>
+          <div class="overseas-val">20,948</div>
+          <div class="overseas-chg" style="color:var(--down);">−2.2%</div>
+        </div>
+        <div class="overseas-item">
+          <div class="overseas-name">🇩🇪 DAX</div>
+          <div class="overseas-val">22,301</div>
+          <div class="overseas-chg" style="color:var(--down);">−1.4%</div>
+        </div>
+        <div class="overseas-item">
+          <div class="overseas-name">🇯🇵 NIKKEI</div>
+          <div class="overseas-val">51,886</div>
+          <div class="overseas-chg" style="color:var(--down);">−2.8%</div>
+        </div>
+        <div class="overseas-item">
+          <div class="overseas-name">🇨🇳 SHANGHAI</div>
+          <div class="overseas-val">3,922</div>
+          <div class="overseas-chg" style="color:var(--up);">+0.2%</div>
+        </div>
+        <div class="overseas-item">
+          <div class="overseas-name">🇹🇼 TAIEX</div>
+          <div class="overseas-val">32,518</div>
+          <div class="overseas-chg" style="color:var(--down);">−1.8%</div>
+        </div>
+        <div class="overseas-item">
+          <div class="overseas-name">🇭🇰 HSI</div>
+          <div class="overseas-val">24,808</div>
+          <div class="overseas-chg" style="color:var(--down);">−0.6%</div>
+        </div>
+        <div class="overseas-item">
+          <div class="overseas-name">🇦🇺 ASX</div>
+          <div class="overseas-val">8,658</div>
+          <div class="overseas-chg" style="color:var(--down);">−0.6%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S2: Sector -->
+  <section id="s2">
+    <div class="section-header">
+      <div class="sec-icon">🏭</div>
+      <div>
+        <div class="sec-title-ko">섹터 분석</div>
+        <div class="sec-title-en">Sector Analysis</div>
+      </div>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--muted);margin-bottom:14px;">
+      KOSPI 규모별 ◆ 大 −3.0% ｜ 中 −2.6% ｜ 小 −1.7%
+    </div>
+    <div class="sector-list">
+      <div class="sector-item">
+        <div>
+          <div class="sector-name">🔋 2차전지 (에너지화학)</div>
+          <div class="sector-desc">유가 급등 → 내연기관 대체 수요 기대 + 유일한 나홀로 강세 업종</div>
+        </div>
+        <div class="sector-pct" style="color:var(--up);">▲ 강세</div>
+      </div>
+      <div class="sector-item">
+        <div>
+          <div class="sector-name">📉 증권</div>
+          <div class="sector-desc">거래대금 감소 우려 및 중동 리스크 직격</div>
+        </div>
+        <div class="sector-pct" style="color:var(--down);">−6.3%</div>
+      </div>
+      <div class="sector-item">
+        <div>
+          <div class="sector-name">📉 일반서비스</div>
+          <div class="sector-desc">경기 둔화 우려 확산에 소비 관련주 동반 하락</div>
+        </div>
+        <div class="sector-pct" style="color:var(--down);">−4.6%</div>
+      </div>
+      <div class="sector-item">
+        <div>
+          <div class="sector-name">📉 기계·장비</div>
+          <div class="sector-desc">글로벌 제조업 PMI 둔화 우려 + 원자재 비용 부담</div>
+        </div>
+        <div class="sector-pct" style="color:var(--down);">−4.4%</div>
+      </div>
+      <div class="sector-item">
+        <div>
+          <div class="sector-name">📉 비금속 / 의료·정밀기기</div>
+          <div class="sector-desc">비금속 −4.3%, 의료·정밀기기 −4.2%로 전업종 약세</div>
+        </div>
+        <div class="sector-pct" style="color:var(--down);">−4.2~4.3%</div>
+      </div>
+      <div class="sector-item">
+        <div>
+          <div class="sector-name">📉 금융</div>
+          <div class="sector-desc">금리 변동성 확대 + 사모대출 부실 우려 파급</div>
+        </div>
+        <div class="sector-pct" style="color:var(--down);">−4.0%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S3: Stocks -->
+  <section id="s3">
+    <div class="section-header">
+      <div class="sec-icon">⚡</div>
+      <div>
+        <div class="sec-title-ko">주목 종목</div>
+        <div class="sec-title-en">Notable Stocks</div>
+      </div>
+    </div>
+    <div class="stock-grid">
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">LG에너지솔루션</div>
+            <div class="stock-code">373220</div>
+          </div>
+          <div class="stock-pct" style="color:var(--up);">+3.93%</div>
+        </div>
+        <div class="stock-price">410,000원</div>
+        <div class="stock-reason">유가 급등에 따른 내연기관 대체 수요 부각. 2차전지 업종 전반 '나홀로 강세'. 호르무즈 해협 봉쇄 장기화 시 전기차 전환 가속 기대.</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">삼천당제약</div>
+            <div class="stock-code">000250</div>
+          </div>
+          <div class="stock-pct" style="color:var(--up);">+6.57%</div>
+        </div>
+        <div class="stock-price">1,184,000원</div>
+        <div class="stock-reason">바이오 섹터 내 강세 지속. 비만치료제 등 파이프라인 모멘텀 유지되며 개인 매수세 집중.</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">삼성SDI</div>
+            <div class="stock-code">006400</div>
+          </div>
+          <div class="stock-pct" style="color:var(--up);">+1.73%</div>
+        </div>
+        <div class="stock-price">412,500원</div>
+        <div class="stock-reason">2차전지 동반 강세. ESS 중앙계약시장 2차 입찰 기대감 + 전고체 배터리 양산 모멘텀.</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">SK하이닉스</div>
+            <div class="stock-code">000660</div>
+          </div>
+          <div class="stock-pct" style="color:var(--down);">−5.31%</div>
+        </div>
+        <div class="stock-price">873,000원</div>
+        <div class="stock-reason">구글 '터보퀀트' 메모리 압축 기술 여파 지속 + 외국인 전기·전자 −1조6,872억 집중 매도.</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">미래에셋증권</div>
+            <div class="stock-code">006800</div>
+          </div>
+          <div class="stock-pct" style="color:var(--down);">−6.56%</div>
+        </div>
+        <div class="stock-price">62,700원</div>
+        <div class="stock-reason">증권업종 −6.3% 급락. 거래 위축 우려 및 중동 리스크에 따른 시장 변동성 확대 부담.</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">SK스퀘어</div>
+            <div class="stock-code">402340</div>
+          </div>
+          <div class="stock-pct" style="color:var(--down);">−6.25%</div>
+        </div>
+        <div class="stock-price">510,000원</div>
+        <div class="stock-reason">SK하이닉스 지분 가치 하락 연동. 반도체 약세 직격탄.</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">두산</div>
+            <div class="stock-code">000150</div>
+          </div>
+          <div class="stock-pct" style="color:var(--down);">−7.56%</div>
+        </div>
+        <div class="stock-price">1,112,000원</div>
+        <div class="stock-reason">전력인프라 관련주 전반 약세. 유가 급등에 따른 원가 부담 확대 우려.</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">효성중공업</div>
+            <div class="stock-code">298040</div>
+          </div>
+          <div class="stock-pct" style="color:var(--down);">−6.46%</div>
+        </div>
+        <div class="stock-price">2,503,000원</div>
+        <div class="stock-reason">전력기기 관련주 연일 조정. 전 거래일 −6.4% 이어 이틀 연속 급락.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: News -->
+  <section id="s4">
+    <div class="section-header">
+      <div class="sec-icon">📰</div>
+      <div>
+        <div class="sec-title-ko">주요 뉴스</div>
+        <div class="sec-title-en">News Digest</div>
+      </div>
+    </div>
+    <div class="news-list">
+      <div class="news-item">
+        <div class="news-title">이스라엘, 이란 핵시설 2곳 공습 — 후티 미사일 참전으로 전쟁 공포 증폭</div>
+        <div class="news-body">이스라엘이 이란 내 핵시설 두 곳을 공습하고 예멘 후티 반군이 미사일로 참전하면서 전쟁 확전 우려가 급격히 고조되었다. 트럼프 대통령이 이란 석유 통제권 장악을 위한 대규모 공격 가능성을 시사하며 긴장감이 더해졌다.</div>
+        <span class="news-tag neg">증시 부정적</span>
+      </div>
+      <div class="news-item">
+        <div class="news-title">브렌트유 한때 $115 돌파 — 호르무즈 해협 봉쇄 장기화 우려</div>
+        <div class="news-body">국제 유가가 호르무즈 해협 봉쇄 우려에 급등세를 이어가고 있다. WTI $101, 브렌트 $105로 마감했으나 장중 한때 브렌트가 $115를 돌파했다. 정부는 나프타 수출 통제 등 긴급수급조정조치를 시행할 예정이다.</div>
+        <span class="news-tag neg">증시 부정적</span>
+      </div>
+      <div class="news-item">
+        <div class="news-title">외국인, 3월 한 달간 유가증권시장 36조 8,674억 순매도</div>
+        <div class="news-body">외국인 투자자가 2월 27일부터 3월 27일까지 한 달간 36.9조원을 순매도하며 대규모 자금 이탈을 기록했다. 삼성전자 외국인 지분율은 48.90%로 2013년 10월 이후 약 12년 6개월 만에 최저 수준에 도달했다.</div>
+        <span class="news-tag neg">증시 부정적</span>
+      </div>
+      <div class="news-item">
+        <div class="news-title">2차전지주, 유가 급등에 '나홀로 강세' — LG엔솔·삼성SDI 동반 상승</div>
+        <div class="news-body">중동 정세 악화로 국제 유가가 급등하면서 내연기관 대체 수요 기대가 부각되었다. LG에너지솔루션(+3.93%), 삼성SDI(+1.73%), 포스코퓨처엠(+2.63%) 등 2차전지 관련주가 시장 하락 속에서도 강세를 보였다.</div>
+        <span class="news-tag pos">2차전지 긍정적</span>
+      </div>
+      <div class="news-item">
+        <div class="news-title">원/달러 환율 1,515.6원 — 5일 연속 약세, 수입 물가 부담 가중</div>
+        <div class="news-body">원화가 5거래일 연속 약세를 보이며 달러당 1,515.6원에 마감했다. 유가 급등에 따른 무역수지 악화 우려와 외국인 자금 이탈이 겹치면서 환율 상승 압력이 지속되고 있다.</div>
+        <span class="news-tag neg">증시 부정적</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- S5: Summary -->
+  <section id="s5">
+    <div class="section-header">
+      <div class="sec-icon">📋</div>
+      <div>
+        <div class="sec-title-ko">금일 총평</div>
+        <div class="sec-title-en">Daily Summary</div>
+      </div>
+    </div>
+    <div class="summary-box">
+      <p>
+        금일 코스피는 이스라엘의 이란 핵시설 공습과 후티 반군 참전 소식에 장 초반 4.73% 급락 출발한 뒤,
+        개인·기관의 저가 매수세에 힘입어 낙폭을 일부 만회하며 −2.97%(5,277.30)로 마감했다.
+        코스닥도 중동 정세 불확실성과 환율 급등 영향으로 외국인·기관이 동반 매도에 나서며 −3.02%(1,107.05)로 하락했다.
+      </p>
+      <p style="margin-top:14px;">
+        외국인은 코스피에서 2조 1,335억원을 순매도하며 하락을 주도했고, 특히 전기·전자(−1조 6,872억)와 금융(−2,009억)에서 집중적인 매도세가 출회됐다.
+        반면 2차전지 업종은 유가 급등에 따른 내연기관 대체 수요 기대로 LG에너지솔루션(+3.93%), 삼성SDI(+1.73%) 등이 '나홀로 강세'를 기록하며 유일하게 상승 섹터로 자리잡았다.
+      </p>
+      <p style="margin-top:14px;">
+        원/달러 환율은 1,515.6원으로 5일 연속 약세를 보이고, WTI는 $101을 돌파하며 3일 연속 상승했다.
+        호르무즈 해협 봉쇄 장기화와 트럼프 대통령의 대이란 군사 압박 발언이 지속되는 한 높은 변동성은 당분간 이어질 전망이다.
+        다만, 코스피 12개월 선행 PER이 8배 초반의 역사적 저점 구간에 근접해 있어 밸류에이션 부담은 완화된 상태이며,
+        협상 시그널 전환 시 빠른 반등 가능성도 열어둘 필요가 있다.
+      </p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  ⓒ 2026 한상훈_AI_투자브리핑 · 본 리포트는 투자 참고자료이며, 투자 판단의 책임은 본인에게 있습니다.
+</footer>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+}
+// Smooth scroll
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
