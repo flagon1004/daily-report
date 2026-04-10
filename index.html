@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업무 일지 통합 시스템</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; text-align: center; background-color: #f0f2f5; margin: 0; padding-top: 100px; }
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: inline-block; width: 320px; }
+        h2 { color: #333; margin-bottom: 25px; font-size: 22px; }
+        input[type="date"] { padding: 12px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; margin-bottom: 20px; outline: none; }
+        input[type="date"]:focus { border-color: #007bff; }
+        button { padding: 15px; font-size: 18px; background-color: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s; }
+        button:hover { background-color: #0056b3; }
+        .info { margin-top: 15px; font-size: 13px; color: #666; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>📅 보고서 날짜 선택</h2>
+        <input type="date" id="datePicker">
+        <button onclick="openReport()">보고서 열기</button>
+        <p class="info">선택한 날짜의 HTML 파일로 이동합니다.</p>
+    </div>
+
+    <script>
+        // 기본값으로 오늘 날짜 설정
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('datePicker').value = today;
+
+        function openReport() {
+            const fullDate = document.getElementById('datePicker').value; // 예: "2026-04-10"
+            if (!fullDate) {
+                alert("날짜를 선택해주세요.");
+                return;
+            }
+
+            // "2026-04-10" -> "260410" 형식으로 변환
+            const dateParts = fullDate.split('-'); // ['2026', '04', '10']
+            const yymmdd = dateParts[0].substring(2) + dateParts[1] + dateParts[2]; // "26" + "04" + "10"
+
+            // 파일 경로 설정 (파일명: 260410.html)
+            const fileName = `${yymmdd}.html`;
+            
+            // 이동
+            window.location.href = fileName;
+        }
+    </script>
+
+</body>
+</html>
