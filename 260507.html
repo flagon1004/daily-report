@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한상훈_AI_투자브리핑 | 일일 시황 2026.05.07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #f5f5f0; --surface: #ffffff; --surface2: #f0efe8;
+  --border: #d8d8d0; --accent: #c8a96e; --accent2: #2196F3;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #1a1a1a; --muted: #6b7280; --dim: #9ca3af;
+  --radius: 12px;
+  --shadow: 0 1px 4px rgba(0,0,0,0.08);
+  --nav-bg: rgba(245,245,240,0.95);
+}
+[data-theme="dark"] {
+  --bg: #0a0b0e; --surface: #111318; --surface2: #1a1d26;
+  --border: #2a2d3a; --accent: #c8a96e; --accent2: #4fc3f7;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #e8e6e0; --muted: #7a7f8e; --dim: #4a4f5e;
+  --nav-bg: rgba(10,11,14,0.95);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; font-size:14px; }
+
+/* NAV */
+nav {
+  position:sticky; top:0; z-index:100;
+  background:var(--nav-bg); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 24px; height:56px;
+  display:flex; align-items:center; gap:12px;
+}
+.nav-brand { font-family:'DM Serif Display',serif; font-size:16px; color:var(--accent); margin-right:8px; white-space:nowrap; }
+.nav-date { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); margin-right:auto; }
+.nav-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); background:none; border:1px solid var(--border); border-radius:6px; padding:4px 10px; cursor:pointer; transition:.2s; text-decoration:none; white-space:nowrap; }
+.nav-btn:hover { color:var(--accent); border-color:var(--accent); }
+.theme-toggle { font-size:14px; background:none; border:1px solid var(--border); border-radius:6px; padding:4px 8px; cursor:pointer; color:var(--muted); }
+
+/* MAIN */
+.container { max-width:920px; margin:0 auto; padding:32px 20px 60px; }
+section { margin-bottom:40px; }
+
+/* SECTION HEADER */
+.section-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; padding-bottom:12px; border-bottom:2px solid var(--accent); }
+.sec-icon { font-size:24px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; background:var(--surface2); border-radius:10px; }
+.sec-title-ko { font-family:'Noto Sans KR',sans-serif; font-size:18px; font-weight:700; color:var(--text); }
+.sec-title-en { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); margin-top:2px; letter-spacing:.5px; }
+
+/* HERO */
+.hero { text-align:center; padding:32px 0 24px; }
+.hero-brand { font-family:'DM Serif Display',serif; font-size:13px; color:var(--accent); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.hero-title { font-family:'DM Serif Display',serif; font-size:32px; color:var(--text); margin-bottom:6px; }
+.hero-date { font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:4px; }
+.hero-sub { font-size:13px; color:var(--muted); }
+.hero-badge { display:inline-flex; align-items:center; gap:6px; background:var(--up); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; border-radius:20px; padding:4px 12px; margin-top:12px; }
+
+/* INDEX CARDS */
+.index-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:24px; }
+.index-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); }
+.index-card .label { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:.5px; margin-bottom:8px; }
+.index-card .value { font-family:'DM Serif Display',serif; font-size:28px; color:var(--text); margin-bottom:6px; }
+.index-card .change { font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; }
+.up { color:var(--up); }
+.down { color:var(--down); }
+.index-card .sub-row { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--dim); margin-top:4px; }
+
+/* FLOW GRID */
+.flow-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.flow-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center; box-shadow:var(--shadow); }
+.flow-card .who { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); margin-bottom:6px; letter-spacing:.5px; }
+.flow-card .amount { font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; }
+.flow-card .market { font-size:11px; color:var(--dim); margin-top:4px; }
+.flow-note { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-top:14px; font-size:12px; color:var(--muted); line-height:1.6; }
+.flow-note strong { color:var(--up); }
+
+/* SECTOR */
+.sector-table { width:100%; border-collapse:collapse; background:var(--surface); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+.sector-table th { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); background:var(--surface2); padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); letter-spacing:.3px; }
+.sector-table td { padding:12px 14px; border-bottom:1px solid var(--border); font-size:13px; }
+.sector-table tr:last-child td { border-bottom:none; }
+.sector-name { font-weight:600; color:var(--text); }
+.sector-note { font-size:12px; color:var(--muted); margin-top:3px; }
+.bar-wrap { display:flex; align-items:center; gap:8px; }
+.bar { height:6px; border-radius:3px; min-width:4px; }
+.pct-lbl { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; }
+
+/* STOCK CARDS */
+.stock-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.stock-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:8px; }
+.stock-top { display:flex; justify-content:space-between; align-items:flex-start; }
+.stock-name { font-weight:700; font-size:15px; color:var(--text); }
+.stock-code { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--dim); }
+.stock-pct { font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600; }
+.stock-reason { font-size:12px; color:var(--muted); line-height:1.6; }
+.stock-tag { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10px; background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:2px 7px; color:var(--dim); margin-right:4px; }
+
+/* NEWS */
+.news-list { display:flex; flex-direction:column; gap:12px; }
+.news-item { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:start; }
+.news-num { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); font-weight:600; margin-top:2px; }
+.news-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:4px; }
+.news-summary { font-size:12px; color:var(--muted); line-height:1.6; }
+.news-impact { font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; border-radius:4px; padding:3px 8px; white-space:nowrap; }
+.impact-pos { background:rgba(224,92,92,.12); color:var(--up); }
+.impact-neg { background:rgba(76,175,130,.12); color:var(--down); }
+.impact-neu { background:var(--surface2); color:var(--muted); }
+
+/* THEME SECTION */
+.theme-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+.theme-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); }
+.theme-rank { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--accent); font-weight:700; margin-bottom:4px; }
+.theme-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.theme-desc { font-size:12px; color:var(--muted); line-height:1.7; margin-bottom:10px; }
+.theme-stocks { display:flex; flex-wrap:wrap; gap:6px; }
+.theme-stock-tag { font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--surface2); border:1px solid var(--border); border-radius:5px; padding:3px 8px; color:var(--text); }
+.theme-catalyst { font-size:11px; color:var(--accent); font-weight:500; margin-top:8px; }
+
+/* RECOMMEND TABLE */
+.rec-table { width:100%; border-collapse:collapse; background:var(--surface); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+.rec-table th { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); background:var(--surface2); padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); }
+.rec-table td { padding:12px 14px; border-bottom:1px solid var(--border); font-size:13px; }
+.rec-table tr:last-child td { border-bottom:none; }
+.rec-name { font-weight:700; color:var(--text); }
+.rec-code { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--dim); display:block; }
+.rec-theme { font-size:11px; background:rgba(200,169,110,.15); color:var(--accent); border-radius:4px; padding:2px 7px; display:inline-block; }
+.rec-rationale { font-size:12px; color:var(--muted); line-height:1.6; }
+.rec-risk { font-size:11px; color:var(--up); }
+.priority-high { border-left:3px solid var(--up); }
+.priority-mid  { border-left:3px solid var(--accent); }
+.priority-low  { border-left:3px solid var(--down); }
+
+/* SUMMARY */
+.summary-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); }
+.summary-lead { font-family:'DM Serif Display',serif; font-size:18px; color:var(--text); line-height:1.7; margin-bottom:16px; }
+.summary-bullets { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.summary-bullets li { display:flex; gap:10px; font-size:13px; color:var(--muted); line-height:1.6; }
+.summary-bullets li::before { content:'→'; color:var(--accent); font-family:'IBM Plex Mono',monospace; font-weight:700; flex-shrink:0; margin-top:1px; }
+
+/* DISCLAIMER */
+.disclaimer { text-align:center; font-size:11px; color:var(--dim); margin-top:48px; padding-top:24px; border-top:1px solid var(--border); line-height:1.8; }
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .index-grid { grid-template-columns:1fr; }
+  .flow-grid { grid-template-columns:1fr; }
+  .stock-grid { grid-template-columns:1fr; }
+  .theme-grid { grid-template-columns:1fr; }
+  .news-item { grid-template-columns:auto 1fr; }
+  .news-impact { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">한상훈_AI_투자브리핑</span>
+  <span class="nav-date">2026.05.07 THU</span>
+  <a class="nav-btn" href="#s1">지수</a>
+  <a class="nav-btn" href="#s2">섹터</a>
+  <a class="nav-btn" href="#s3">종목</a>
+  <a class="nav-btn" href="#s4">뉴스</a>
+  <a class="nav-btn" href="#s5">5월테마</a>
+  <a class="nav-btn" href="#s6">총평</a>
+  <button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme==='dark'?'light':'dark'">🌓</button>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-brand">한상훈 · AI · 투자브리핑</div>
+    <div class="hero-title">일일 시황 리포트</div>
+    <div class="hero-date">2026년 5월 7일 (목) · 장 마감 기준</div>
+    <div class="hero-sub">코스피 사상 최고치 재경신 · 외국인 역대 최대 순매도 기록</div>
+    <div class="hero-badge">🔴 KOSPI 7,490.05 &nbsp;+1.43%</div>
+  </div>
+
+  <!-- S1: 지수 요약 -->
+  <section id="s1">
+    <div class="section-header">
+      <div class="sec-icon">📊</div>
+      <div>
+        <div class="sec-title-ko">일일 지수 요약</div>
+        <div class="sec-title-en">Daily Indices</div>
+      </div>
+    </div>
+
+    <div class="index-grid">
+      <!-- KOSPI -->
+      <div class="index-card" style="border-top:3px solid var(--up);">
+        <div class="label">KOSPI</div>
+        <div class="value">7,490.05</div>
+        <div class="change up">▲ 105.49 (+1.43%)</div>
+        <div class="sub-row">장중 최고 7,531.88 · 역대 최고치 재경신</div>
+        <div class="sub-row">거래대금 49조7,884억원</div>
+      </div>
+      <!-- KOSDAQ -->
+      <div class="index-card" style="border-top:3px solid var(--down);">
+        <div class="label">KOSDAQ</div>
+        <div class="value">1,199.18</div>
+        <div class="change down">▼ 10.99 (−0.91%)</div>
+        <div class="sub-row">1,210 출발 → 장중 1,219 후 하락 전환</div>
+        <div class="sub-row">거래대금 16조8,877억원</div>
+      </div>
+      <!-- 환율 -->
+      <div class="index-card" style="border-top:3px solid var(--accent);">
+        <div class="label">USD/KRW</div>
+        <div class="value">1,454.0</div>
+        <div class="change down">▼ 1.1원 (원화 강세)</div>
+        <div class="sub-row">전일 대비 원화 소폭 절상</div>
+        <div class="sub-row">미-이란 협상 기대 반영</div>
+      </div>
+    </div>
+
+    <!-- 투자자별 수급 -->
+    <div class="section-header" style="margin-top:28px;">
+      <div class="sec-icon">💰</div>
+      <div>
+        <div class="sec-title-ko">투자자별 수급</div>
+        <div class="sec-title-en">Investor Flow</div>
+      </div>
+    </div>
+    <div style="margin-bottom:12px; font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace; font-weight:600; letter-spacing:.5px;">◎ KOSPI</div>
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="who">INDIVIDUAL</div>
+        <div class="amount up">+5조9,913억</div>
+        <div class="market">개인 순매수</div>
+      </div>
+      <div class="flow-card">
+        <div class="who">INSTITUTION</div>
+        <div class="amount up">+1조 954억</div>
+        <div class="market">기관 순매수</div>
+      </div>
+      <div class="flow-card">
+        <div class="who">FOREIGN</div>
+        <div class="amount down">−7조1,509억</div>
+        <div class="market">외국인 순매도 <span style="color:var(--up); font-size:10px;">★역대최대</span></div>
+      </div>
+    </div>
+    <div style="margin-top:16px; margin-bottom:12px; font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace; font-weight:600; letter-spacing:.5px;">◎ KOSDAQ</div>
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="who">INDIVIDUAL</div>
+        <div class="amount down">−123억</div>
+        <div class="market">개인 순매도</div>
+      </div>
+      <div class="flow-card">
+        <div class="who">INSTITUTION</div>
+        <div class="amount down">−1,350억</div>
+        <div class="market">기관 순매도</div>
+      </div>
+      <div class="flow-card">
+        <div class="who">FOREIGN</div>
+        <div class="amount up">+1,694억</div>
+        <div class="market">외국인 순매수</div>
+      </div>
+    </div>
+    <div class="flow-note">
+      <strong>⚠ 주목:</strong> 외국인이 코스피에서 역대 최대 규모(7조1,509억원) 순매도를 기록했음에도, 개인(5조9,913억원)과 기관(1조954억원)이 동반 순매수하며 지수를 상승 마감으로 이끌었습니다. 전날 역대 최대 순매수를 기록한 외국인이 3거래일 만에 대규모 차익 실현. 코스닥에서는 반대로 외국인이 순매수 전환하며 차별화된 수급 흐름이 나타났습니다.
+    </div>
+  </section>
+
+  <!-- S2: 섹터 분석 -->
+  <section id="s2">
+    <div class="section-header">
+      <div class="sec-icon">🏭</div>
+      <div>
+        <div class="sec-title-ko">섹터 분석</div>
+        <div class="sec-title-en">Sector Analysis</div>
+      </div>
+    </div>
+    <table class="sector-table">
+      <thead>
+        <tr>
+          <th>업종</th>
+          <th>등락률</th>
+          <th>코멘트</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="sector-name">건설</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--up); width:90px;"></div>
+              <span class="pct-lbl up">+6.83%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">미-이란 종전협상 기대감·중동 재건 수혜. 삼성E&A +21% 이상 급등으로 섹터 주도</div></td>
+        </tr>
+        <tr>
+          <td><div class="sector-name">기계</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--up); width:55px;"></div>
+              <span class="pct-lbl up">+4.03%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">에너지 플랜트 재건 수혜 기대, 두산에너빌리티 +7.40% 강세</div></td>
+        </tr>
+        <tr>
+          <td><div class="sector-name">조선</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--up); width:50px;"></div>
+              <span class="pct-lbl up">+3.70%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">중동 물류·에너지 재건 물동량 증가 기대, HD현대중공업 +6.94%</div></td>
+        </tr>
+        <tr>
+          <td><div class="sector-name">자동차</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--up); width:42px;"></div>
+              <span class="pct-lbl up">+3.16%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">미국 유럽산 자동차 관세 인상 반사이익, 현대차 +4.00% 강세</div></td>
+        </tr>
+        <tr>
+          <td><div class="sector-name">운송창고</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--up); width:48px;"></div>
+              <span class="pct-lbl up">+3.80%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">중동 종전 기대에 따른 물류 정상화·원유 운임 안정 기대</div></td>
+        </tr>
+        <tr>
+          <td><div class="sector-name">전기전자(반도체)</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--up); width:28px;"></div>
+              <span class="pct-lbl up">+2.17%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">외국인 대규모 차익 실현에도 기관 저가 매수로 오후 반등. 삼성전자 +2.07%, SK하이닉스 +3.31%</div></td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td><div class="sector-name" style="color:var(--muted);">증권</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--down); width:60px;"></div>
+              <span class="pct-lbl down">−4.56%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">전날 불장 기대감에 급등했던 미래에셋증권 −5.73%, 키움증권 −3.82% 급반락</div></td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td><div class="sector-name" style="color:var(--muted);">우주항공·국방</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--down); width:95px;"></div>
+              <span class="pct-lbl down">−7.32%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">미-이란 종전협상 기대에 따른 지정학 리스크 프리미엄 축소로 방산주 급락</div></td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td><div class="sector-name" style="color:var(--muted);">화학</div></td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar" style="background:var(--down); width:18px;"></div>
+              <span class="pct-lbl down">−1.39%</span>
+            </div>
+          </td>
+          <td><div class="sector-note">수급 관망세. 이렇다 할 모멘텀 부재로 약세 지속</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- S3: 주도 종목 -->
+  <section id="s3">
+    <div class="section-header">
+      <div class="sec-icon">⚡</div>
+      <div>
+        <div class="sec-title-ko">주도 종목</div>
+        <div class="sec-title-en">Notable Stocks</div>
+      </div>
+    </div>
+    <div class="stock-grid">
+
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">삼성E&A</div>
+            <div class="stock-code">028050 · 코스피</div>
+          </div>
+          <div class="stock-pct up">+21%↑</div>
+        </div>
+        <div>
+          <span class="stock-tag">건설</span>
+          <span class="stock-tag">중동재건</span>
+        </div>
+        <div class="stock-reason">미-이란 종전협상 기대감 속 중동 에너지 시설 재건 최대 수혜주. 사우디 파딜리 가스증설(8.5조원) 등 사상 최대 수주 사이클과 이익 성장 재개 구간이 맞물리며 급등.</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">두산에너빌리티</div>
+            <div class="stock-code">034020 · 코스피</div>
+          </div>
+          <div class="stock-pct up">+7.40%</div>
+        </div>
+        <div>
+          <span class="stock-tag">기계</span>
+          <span class="stock-tag">원전·에너지</span>
+        </div>
+        <div class="stock-reason">중동 에너지 플랜트 복구 수혜 기대 + 원전 수출 모멘텀 동시 작용. 기관 강력 매수세 유입으로 급등.</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">HD현대중공업</div>
+            <div class="stock-code">329180 · 코스피</div>
+          </div>
+          <div class="stock-pct up">+6.94%</div>
+        </div>
+        <div>
+          <span class="stock-tag">조선</span>
+          <span class="stock-tag">중동재건</span>
+        </div>
+        <div class="stock-reason">중동 종전 기대에 따른 LNG·원유 운반선 수주 증가 기대감. 외국인 매도에도 개인·기관이 강력 매수.</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">현대차</div>
+            <div class="stock-code">005380 · 코스피</div>
+          </div>
+          <div class="stock-pct up">+4.00%</div>
+        </div>
+        <div>
+          <span class="stock-tag">자동차</span>
+          <span class="stock-tag">관세반사익</span>
+        </div>
+        <div class="stock-reason">미국의 유럽산 자동차 추가 관세 부과에 따른 반사 수혜 기대. 현대차·기아 글로벌 시장점유율 확대 전망.</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">빛샘전자</div>
+            <div class="stock-code">코스닥</div>
+          </div>
+          <div class="stock-pct up">상한가</div>
+        </div>
+        <div>
+          <span class="stock-tag">광통신</span>
+          <span class="stock-tag">AI인프라</span>
+        </div>
+        <div class="stock-reason">코닝-엔비디아 광 인터커넥트 용량 10배 확대 파트너십 체결 소식이 국내 광통신 업체로 확산. 당일 상한가 직행.</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">SK하이닉스</div>
+            <div class="stock-code">000660 · 코스피</div>
+          </div>
+          <div class="stock-pct up">+3.31%</div>
+        </div>
+        <div>
+          <span class="stock-tag">반도체</span>
+          <span class="stock-tag">HBM</span>
+        </div>
+        <div class="stock-reason">외국인 2조4,659억 순매도에도 기관 4,096억 순매수로 방어. 메모리 슈퍼사이클 지속 전망, 목표주가 230만원 제시(유진투자증권).</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">대한광통신</div>
+            <div class="stock-code">010170 · 코스닥</div>
+          </div>
+          <div class="stock-pct up">외국인↑</div>
+        </div>
+        <div>
+          <span class="stock-tag">광섬유</span>
+          <span class="stock-tag">광통신</span>
+        </div>
+        <div class="stock-reason">코스닥 외국인 순매수 1위. 코닝-엔비디아 광통신 파트너십 확산 수혜 + 미국향 수출 급증으로 외국인 적극 매집.</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">삼성전자</div>
+            <div class="stock-code">005930 · 코스피</div>
+          </div>
+          <div class="stock-pct up">+2.07%</div>
+        </div>
+        <div>
+          <span class="stock-tag">반도체</span>
+          <span class="stock-tag">AI</span>
+        </div>
+        <div class="stock-reason">외국인 2조7,811억 순매도 압박에도 오후 기관 1,687억 매수로 반등 성공. 선행PER 5.2배(엔비디아 21.8배 대비 극심한 저평가). KB증권 목표주가 40만원.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- S4: 주요 뉴스 -->
+  <section id="s4">
+    <div class="section-header">
+      <div class="sec-icon">📰</div>
+      <div>
+        <div class="sec-title-ko">주요 뉴스</div>
+        <div class="sec-title-en">News Digest</div>
+      </div>
+    </div>
+    <div class="news-list">
+
+      <div class="news-item">
+        <div class="news-num">01</div>
+        <div>
+          <div class="news-title">미-이란 종전 협상 기대감 확산 · 중동 재건 본격화 신호</div>
+          <div class="news-summary">미국과 이란 간 종전 협상 기대감이 시장에 빠르게 반영되며 국내 건설·조선·기계 섹터로 대규모 순환매가 전개됐다. IEA 집계 기준 중동 에너지 시설 복구 비용은 총 250억 달러(약 35조원) 규모로, 한국 건설사가 수주 우위를 점할 가능성이 높다는 분석이 나왔다.</div>
+        </div>
+        <span class="news-impact impact-pos">건설↑ 방산↓</span>
+      </div>
+
+      <div class="news-item">
+        <div class="news-num">02</div>
+        <div>
+          <div class="news-title">외국인 코스피 역대 최대 순매도 7조1,509억 기록</div>
+          <div class="news-summary">전날 역대 최대 순매수를 기록한 외국인이 3거래일 만에 삼성전자·SK하이닉스 중심으로 대규모 차익 실현에 나섰다. 한국거래소에 따르면 이날 외국인 순매도액은 직전 역대 최대(2월 27일, 7조530억원)를 뛰어넘는 사상 최대 수치를 기록했다. 그러나 개인과 기관이 동반 순매수하며 지수는 오히려 상승 마감했다.</div>
+        </div>
+        <span class="news-impact impact-neu">수급 이벤트</span>
+      </div>
+
+      <div class="news-item">
+        <div class="news-num">03</div>
+        <div>
+          <div class="news-title">코닝-엔비디아 광 인터커넥트 용량 10배 확대 파트너십 체결</div>
+          <div class="news-summary">코닝과 엔비디아의 광 인터커넥트 용량 10배 확대 파트너십 체결 소식이 국내 광통신 업계로 확산되며 빛샘전자 상한가, 대한광통신·오이솔루션 등 관련주가 코스닥 외국인 순매수 상위를 휩쓸었다. AI 데이터센터 광통신 인프라 수요 확대의 구조적 신호로 해석된다.</div>
+        </div>
+        <span class="news-impact impact-pos">광통신↑</span>
+      </div>
+
+      <div class="news-item">
+        <div class="news-num">04</div>
+        <div>
+          <div class="news-title">코스피 7,531.88 장중 역대 최고치 재경신 · "7천피" 안착 본격화</div>
+          <div class="news-summary">5월 6일 코스피 첫 7,000선 돌파에 이어 7일 장중 7,531까지 상승하며 사상 최고치를 재차 경신했다. 이재명 정부의 상법 개정·배당소득 분리과세 등 친주식 정책 기조와 AI 반도체 수퍼사이클이 맞물린 결과로 분석된다. 증권가는 삼성전자 목표주가 40만원, SK하이닉스 230만원을 제시했다.</div>
+        </div>
+        <span class="news-impact impact-pos">증시 강세</span>
+      </div>
+
+      <div class="news-item">
+        <div class="news-num">05</div>
+        <div>
+          <div class="news-title">방산주 급락 · 우주항공·국방 섹터 −7.32%</div>
+          <div class="news-summary">미-이란 종전 협상 기대감이 부상하자 지정학 리스크 프리미엄이 축소되며 방산주가 급락했다. 전날 코스피 7,000 돌파 수혜주로 주목받던 증권주도 차익 실현 매물이 쏟아지며 동반 약세를 보였다.</div>
+        </div>
+        <span class="news-impact impact-neg">방산·증권↓</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- S5: 5월 주도 테마 및 종목 추천 -->
+  <section id="s5">
+    <div class="section-header">
+      <div class="sec-icon">🎯</div>
+      <div>
+        <div class="sec-title-ko">5월 예상 주도 테마 &amp; 종목 추천</div>
+        <div class="sec-title-en">May Leading Themes &amp; Stock Picks</div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-bottom:20px; font-size:13px; color:var(--muted); line-height:1.7;">
+      💡 <strong style="color:var(--text);">5월 시장 핵심 키워드:</strong>
+      코스피 7,000 안착 → <strong style="color:var(--up);">차별화 장세</strong> 본격화.
+      반도체 단기 차익 매물 소화 구간, 중동재건·광통신·자동차 섹터로의 순환매가 확대 중.
+      외국인 대규모 매도 이후 <strong style="color:var(--up);">가격 메리트 부각</strong> 종목 중심 재편 예상.
+    </div>
+
+    <div class="theme-grid">
+
+      <div class="theme-card">
+        <div class="theme-rank">THEME 01 · ★★★★★</div>
+        <div class="theme-name">🏗 중동 재건 플랜트·건설</div>
+        <div class="theme-desc">미-이란 종전 협상 진전 시 250억달러 규모 에너지 시설 복구 프로젝트가 국내 건설사에 집중 발주될 전망. 삼성E&A, 현대건설, DL이앤씨 등이 기존 현지 거점과 공사 이력에서 글로벌 경쟁사 대비 압도적 우위. 수주 가시화 시점(5~6월)이 최대 모멘텀.</div>
+        <div class="theme-stocks">
+          <span class="theme-stock-tag">삼성E&A (028050)</span>
+          <span class="theme-stock-tag">현대건설 (000720)</span>
+          <span class="theme-stock-tag">DL이앤씨 (375500)</span>
+          <span class="theme-stock-tag">삼성물산 (028260)</span>
+          <span class="theme-stock-tag">GS건설 (006360)</span>
+        </div>
+        <div class="theme-catalyst">⚡ 핵심 촉매: 미-이란 공식 종전 합의 / 사우디 네옴시티 재개</div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-rank">THEME 02 · ★★★★★</div>
+        <div class="theme-name">🔬 AI 반도체 (HBM·메모리)</div>
+        <div class="theme-desc">외국인 역대 최대 순매도 이후 가격 메리트 극대화. 삼성전자 선행PER 5.2배, SK하이닉스 4.8배는 엔비디아(21.8배) 대비 극심한 저평가 영역. 2027년까지 메모리 공급 부족 지속 전망으로 실적 모멘텀 유효. 5월 외국인 재유입 시 빠른 주가 회복 가능.</div>
+        <div class="theme-stocks">
+          <span class="theme-stock-tag">삼성전자 (005930)</span>
+          <span class="theme-stock-tag">SK하이닉스 (000660)</span>
+          <span class="theme-stock-tag">SK스퀘어 (402340)</span>
+        </div>
+        <div class="theme-catalyst">⚡ 핵심 촉매: 외국인 재유입 / 2분기 실적 가이던스 상향</div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-rank">THEME 03 · ★★★★☆</div>
+        <div class="theme-name">💡 광통신·AI 인프라</div>
+        <div class="theme-desc">코닝-엔비디아 광 인터커넥트 파트너십으로 AI 데이터센터 광통신 수요가 구조적 성장 국면에 진입. 글로벌 빅테크 CAPEX 확대가 국내 광섬유·트랜시버 업체로 직접 연결되는 밸류체인 수혜. 단기 급등 이후 기술적 조정 시 분할 매수 전략이 유효.</div>
+        <div class="theme-stocks">
+          <span class="theme-stock-tag">대한광통신 (010170)</span>
+          <span class="theme-stock-tag">오이솔루션 (138080)</span>
+          <span class="theme-stock-tag">서진시스템 (178320)</span>
+          <span class="theme-stock-tag">우리로 (115440)</span>
+        </div>
+        <div class="theme-catalyst">⚡ 핵심 촉매: 엔비디아·코닝 파트너십 수주 발표 / MS·구글 CAPEX 확대</div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-rank">THEME 04 · ★★★★☆</div>
+        <div class="theme-name">⚓ 조선·에너지 기자재</div>
+        <div class="theme-desc">중동 종전 후 에너지 운반 물동량 회복과 LNG선 발주 재개 기대. 두산에너빌리티는 원전 수출과 중동 플랜트 복구 이중 모멘텀 보유. HD현대중공업은 역대급 수주 잔고에 중동발 추가 수주가 더해지는 구조.</div>
+        <div class="theme-stocks">
+          <span class="theme-stock-tag">HD현대중공업 (329180)</span>
+          <span class="theme-stock-tag">두산에너빌리티 (034020)</span>
+          <span class="theme-stock-tag">한화오션 (042660)</span>
+          <span class="theme-stock-tag">HD한국조선해양 (009540)</span>
+        </div>
+        <div class="theme-catalyst">⚡ 핵심 촉매: 중동 종전 / LNG선 발주 재개 / 원전 수출 계약</div>
+      </div>
+
+      <div class="theme-card">
+        <div class="theme-rank">THEME 05 · ★★★☆☆</div>
+        <div class="theme-name">🚗 자동차·모빌리티</div>
+        <div class="theme-desc">미국의 유럽산 자동차 추가 관세 부과로 현대차·기아가 대미 수출 경쟁력을 추가 확보. 글로벌 전기차 시장 회복 국면에서 가격 경쟁력이 부각. 다만 원화 강세 지속 시 수출 채산성 악화 리스크 상존.</div>
+        <div class="theme-stocks">
+          <span class="theme-stock-tag">현대차 (005380)</span>
+          <span class="theme-stock-tag">기아 (000270)</span>
+          <span class="theme-stock-tag">현대모비스 (012330)</span>
+        </div>
+        <div class="theme-catalyst">⚡ 핵심 촉매: 미국 유럽차 관세 추가 인상 / 전기차 인센티브 확대</div>
+      </div>
+
+      <div class="theme-card" style="border-left-color:var(--down);">
+        <div class="theme-rank" style="color:var(--muted);">CAUTION · ⚠</div>
+        <div class="theme-name" style="color:var(--muted);">🚫 5월 주의 섹터</div>
+        <div class="theme-desc">① <strong style="color:var(--text);">방산:</strong> 종전협상 기대에 지정학 프리미엄 소멸 위험. 단기 급락 후 바닥 확인 전까지 관망.<br>② <strong style="color:var(--text);">증권:</strong> 불장 수혜 기대감 선반영 후 차익 실현. 코스피 7,500 박스권 시 추가 하락 우려.<br>③ <strong style="color:var(--text);">화학:</strong> 중국 과잉 공급 구조 미해결, 뚜렷한 모멘텀 부재.</div>
+        <div class="theme-stocks">
+          <span class="theme-stock-tag" style="color:var(--down); border-color:var(--down);">한화에어로스페이스 ⚠</span>
+          <span class="theme-stock-tag" style="color:var(--down); border-color:var(--down);">미래에셋증권 ⚠</span>
+        </div>
+        <div class="theme-catalyst" style="color:var(--down);">⚠ 리스크: 종전 협상 결렬 시 방산 단기 급반등 가능</div>
+      </div>
+
+    </div>
+
+    <!-- 종목 추천 테이블 -->
+    <div style="margin-top:8px; margin-bottom:12px; font-weight:700; font-size:15px; color:var(--text);">📋 5월 집중 관심 종목 리스트</div>
+    <table class="rec-table">
+      <thead>
+        <tr>
+          <th>종목</th>
+          <th>테마</th>
+          <th>투자 포인트</th>
+          <th>리스크</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="priority-high">
+          <td><div class="rec-name">삼성E&A</div><span class="rec-code">028050</span></td>
+          <td><span class="rec-theme">중동재건</span></td>
+          <td class="rec-rationale">사우디 파딜리 8.5조원 잔고 + 종전 시 추가 수주. 금일 +21% 급등에도 수주 가시화 시 추가 상승 여력 충분.</td>
+          <td class="rec-risk">단기 급등 피로감 / 협상 결렬 시 급락</td>
+        </tr>
+        <tr class="priority-high">
+          <td><div class="rec-name">SK하이닉스</div><span class="rec-code">000660</span></td>
+          <td><span class="rec-theme">AI반도체</span></td>
+          <td class="rec-rationale">외국인 7조 매도 후 최대 저가 메리트. 선행PER 4.8배 극저평가, 목표주가 230만원. 2027년 메모리 부족 지속 전망.</td>
+          <td class="rec-risk">외국인 추가 매도 / 단기 변동성 확대</td>
+        </tr>
+        <tr class="priority-high">
+          <td><div class="rec-name">대한광통신</div><span class="rec-code">010170</span></td>
+          <td><span class="rec-theme">광통신</span></td>
+          <td class="rec-rationale">코스닥 외국인 순매수 1위. 광섬유 원재료~완성품 수직계열화, 미국 수출 급증. 코닝-엔비디아 파트너십 직접 수혜.</td>
+          <td class="rec-risk">단기 급등 후 조정 / 글로벌 광섬유 단가 하락</td>
+        </tr>
+        <tr class="priority-mid">
+          <td><div class="rec-name">두산에너빌리티</div><span class="rec-code">034020</span></td>
+          <td><span class="rec-theme">조선·에너지</span></td>
+          <td class="rec-rationale">원전 수출 + 중동 플랜트 복구 이중 모멘텀. 기관 집중 매수. 에너지 전환 장기 수혜주.</td>
+          <td class="rec-risk">원전 수출 일정 지연 / 중동 공사 재개 불확실성</td>
+        </tr>
+        <tr class="priority-mid">
+          <td><div class="rec-name">현대차</div><span class="rec-code">005380</span></td>
+          <td><span class="rec-theme">자동차</span></td>
+          <td class="rec-rationale">유럽차 미국 관세 인상 반사익 + 전기차 라인업 확대. 글로벌 점유율 꾸준히 상승 중.</td>
+          <td class="rec-risk">원화 강세 지속 시 수출 채산성 악화</td>
+        </tr>
+        <tr class="priority-mid">
+          <td><div class="rec-name">삼성전자</div><span class="rec-code">005930</span></td>
+          <td><span class="rec-theme">AI반도체</span></td>
+          <td class="rec-rationale">선행PER 5.2배, 목표주가 40만원(KB증권). 외국인 차익 실현 마무리 후 재유입 기대. 시총 1조달러 돌파 이후 글로벌 재평가 진행 중.</td>
+          <td class="rec-risk">외국인 추가 매도 / 단기 변동성</td>
+        </tr>
+        <tr class="priority-low">
+          <td><div class="rec-name">오이솔루션</div><span class="rec-code">138080</span></td>
+          <td><span class="rec-theme">광통신</span></td>
+          <td class="rec-rationale">코스닥 외국인·기관 동반 순매수. 광트랜시버 전문 기업으로 AI 데이터센터 광통신 수요 직접 수혜.</td>
+          <td class="rec-risk">개인 수급 의존도 높아 변동성 대비 필요</td>
+        </tr>
+        <tr class="priority-low">
+          <td><div class="rec-name">DL이앤씨</div><span class="rec-code">375500</span></td>
+          <td><span class="rec-theme">중동재건</span></td>
+          <td class="rec-rationale">중동 에너지 시설 카타르·UAE 공사 참여 이력. 종전 시 추가 발주 대상 1순위. 밸류에이션 저평가.</td>
+          <td class="rec-risk">협상 장기화 시 모멘텀 약화</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- S6: 금일 총평 -->
+  <section id="s6">
+    <div class="section-header">
+      <div class="sec-icon">📋</div>
+      <div>
+        <div class="sec-title-ko">금일 총평</div>
+        <div class="sec-title-en">Daily Summary</div>
+      </div>
+    </div>
+    <div class="summary-box">
+      <div class="summary-lead">
+        외국인의 역대 최대 순매도(7조1,509억원)라는 전례 없는 매도 압력 속에서도 개인·기관의 동반 매수로 코스피가 사상 최고치를 재경신하며 7,490선에 안착했다. 이는 7,000선 돌파 이후에도 시장의 상승 의지가 여전히 강력함을 방증한다.
+      </div>
+      <ul class="summary-bullets">
+        <li>미-이란 종전 협상 기대감이 시장의 새로운 로테이션 트리거로 작동 — 건설·조선·기계로 대규모 순환매가 발생하며 삼성E&A +21%, 두산에너빌리티 +7.4% 급등.</li>
+        <li>반도체 쏠림에서 차별화 장세로의 전환이 가속화. 외국인의 삼성전자·SK하이닉스 차익 실현은 단기 부담이나, 선행PER 기준 여전히 역사적 저평가 영역.</li>
+        <li>코닝-엔비디아 광통신 파트너십 소식이 광통신 섹터 불씨를 되살리며 코스닥 외국인 자금을 광통신 관련주로 집중 유도.</li>
+        <li>코스닥은 코스피와 차별화된 약세(−0.91%) — 코스피 불장 수혜 기대로 급등했던 증권주 차익 실현이 지수를 끌어내렸으나, 외국인이 코스닥 광통신·반도체 소부장으로 저가 매입 진행.</li>
+        <li>5월 시장 키워드: 중동재건·광통신·자동차 섹터 순환매 확대 + 반도체 외국인 재유입 시점 포착이 핵심. "셀 인 메이"를 거스른 코스피 7천 시대의 본격적 차별화 장세 진입.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<div class="disclaimer">
+  본 리포트는 한상훈_AI_투자브리핑에서 생성한 정보 제공 목적의 AI 분석 자료입니다.<br>
+  투자 판단 및 이로 인한 손익에 대한 책임은 전적으로 투자자 본인에게 있으며, 본 내용은 투자 권유가 아닙니다.<br>
+  데이터 출처: 파이낸셜뉴스 · 뉴스핌 · 한국경제 · 연합뉴스 · 2026.05.07 장 마감 기준
+</div>
+
+</body>
+</html>
