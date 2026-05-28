@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한상훈_AI_투자브리핑 | 일일시황 2026.05.28</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --bg:#f5f5f0;--surface:#ffffff;--surface2:#f0efe8;
+  --border:#d8d8d0;--accent:#c8a96e;--accent2:#2196F3;
+  --up:#e05c5c;--down:#4caf82;
+  --text:#1a1a1a;--muted:#6b7280;--dim:#9ca3af;
+  --radius:12px;
+}
+[data-theme="dark"]{
+  --bg:#0a0b0e;--surface:#111318;--surface2:#1a1d26;
+  --border:#2a2d3a;--accent:#c8a96e;--accent2:#4fc3f7;
+  --up:#e05c5c;--down:#4caf82;
+  --text:#e8e6e0;--muted:#7a7f8e;--dim:#4a4f5e;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:12px;height:52px;box-shadow:0 1px 6px rgba(0,0,0,.06);}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:15px;color:var(--accent);white-space:nowrap;margin-right:8px;}
+.nav-links{display:flex;gap:4px;flex:1;}
+.nav-links a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:6px;white-space:nowrap;transition:all .2s;}
+.nav-links a:hover{background:var(--surface2);color:var(--text);}
+.theme-btn{margin-left:auto;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'IBM Plex Mono',monospace;}
+
+/* HERO */
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:28px 32px 20px;}
+.hero-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:.05em;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--text);margin-bottom:4px;}
+.hero-sub{font-size:13px;color:var(--muted);}
+
+/* SECTIONS */
+.section{padding:32px 32px;max-width:1100px;margin:0 auto;}
+.section-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+.sec-icon{font-size:26px;width:44px;height:44px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.sec-title-ko{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);}
+.sec-title-en{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.08em;margin-top:2px;}
+
+/* INDEX CARDS */
+.index-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
+.idx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.idx-name{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;margin-bottom:8px;}
+.idx-val{font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);}
+.idx-chg{font-family:'IBM Plex Mono',monospace;font-size:13px;margin-top:4px;}
+.idx-vol{font-size:12px;color:var(--muted);margin-top:6px;}
+.up{color:var(--up);}
+.down{color:var(--down);}
+
+/* FLOW CARDS */
+.flow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.flow-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.flow-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;margin-bottom:6px;}
+.flow-val{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:600;}
+.flow-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+
+/* MACRO ROW */
+.macro-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.macro-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-align:center;}
+.macro-lbl{font-size:10px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-bottom:4px;}
+.macro-val{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text);}
+.macro-chg{font-size:10px;margin-top:2px;font-family:'IBM Plex Mono',monospace;}
+
+/* SECTOR */
+.sector-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.sector-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.sector-name{font-weight:500;margin-bottom:6px;font-size:14px;}
+.sector-bar-wrap{background:var(--surface2);border-radius:4px;height:6px;overflow:hidden;margin:8px 0;}
+.sector-bar{height:100%;border-radius:4px;}
+.sector-desc{font-size:12px;color:var(--muted);}
+.badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 8px;border-radius:4px;margin-left:8px;}
+.badge-up{background:rgba(224,92,92,.12);color:var(--up);}
+.badge-down{background:rgba(76,175,130,.12);color:var(--down);}
+
+/* STOCKS */
+.stock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.stock-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;gap:14px;align-items:flex-start;}
+.stock-pct{font-family:'DM Serif Display',serif;font-size:22px;min-width:70px;}
+.stock-name{font-weight:500;font-size:14px;margin-bottom:4px;}
+.stock-code{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);}
+.stock-price{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);margin-top:2px;}
+.stock-reason{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
+
+/* NEWS */
+.news-list{display:flex;flex-direction:column;gap:14px;}
+.news-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;}
+.news-num{font-family:'DM Serif Display',serif;font-size:28px;color:var(--accent);line-height:1;min-width:32px;}
+.news-title{font-weight:600;font-size:14px;margin-bottom:6px;}
+.news-body{font-size:13px;color:var(--muted);line-height:1.6;}
+.impact-tag{display:inline-block;font-size:10px;font-family:'IBM Plex Mono',monospace;padding:2px 8px;border-radius:4px;margin-top:8px;font-weight:600;letter-spacing:.04em;}
+.impact-neg{background:rgba(224,92,92,.12);color:var(--up);}
+.impact-pos{background:rgba(76,175,130,.12);color:var(--down);}
+.impact-neu{background:rgba(200,169,110,.15);color:var(--accent);}
+
+/* SUMMARY */
+.summary-box{background:var(--surface);border:1px solid var(--accent);border-radius:var(--radius);padding:28px 32px;border-left:4px solid var(--accent);}
+.summary-box p{font-size:14px;line-height:1.9;color:var(--text);}
+
+/* FOOTER */
+footer{text-align:center;padding:32px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);border-top:1px solid var(--border);margin-top:20px;}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:0 32px;}
+
+@media(max-width:700px){
+  .index-grid,.flow-grid,.macro-row,.sector-grid,.stock-grid{grid-template-columns:1fr;}
+  .section{padding:24px 16px;}
+  .hero{padding:20px 16px;}
+  nav{padding:0 12px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">한상훈_AI_투자브리핑</span>
+  <div class="nav-links">
+    <a href="#s1">📊 지수</a>
+    <a href="#s2">🏭 섹터</a>
+    <a href="#s3">⚡ 종목</a>
+    <a href="#s4">📰 빅뉴스</a>
+    <a href="#s5">📋 총평</a>
+  </div>
+  <button class="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-meta">2026.05.28 (목) · KRX Brief + CSV 데이터 기반 · 마감 기준</div>
+  <div class="hero-title">일일 시황 리포트</div>
+  <div class="hero-sub">KOSPI 5일 만에 하락 · KOSDAQ 2일 연속 하락 · 미·이란 충돌 지정학적 리스크 부각</div>
+</div>
+
+<!-- S1: 지수 -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="sec-icon">📊</div>
+    <div>
+      <div class="sec-title-ko">일일 지수 요약</div>
+      <div class="sec-title-en">DAILY INDICES</div>
+    </div>
+  </div>
+
+  <div class="index-grid">
+    <div class="idx-card">
+      <div class="idx-name">KOSPI</div>
+      <div class="idx-val">8,185.29</div>
+      <div class="idx-chg down">▼ 43.41 (-0.53%)</div>
+      <div class="idx-vol">거래대금 52.1조원 (전일比 -4.7%)</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">KOSDAQ</div>
+      <div class="idx-val">1,104.36</div>
+      <div class="idx-chg down">▼ 28.77 (-2.54%)</div>
+      <div class="idx-vol">거래대금 12.7조원 (전일比 -2.6%)</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">KRX300</div>
+      <div class="idx-val">5,655.69</div>
+      <div class="idx-chg down">▼ 31.06 (-0.55%)</div>
+      <div class="idx-vol">거래대금 50.9조원 (전일比 -5.6%)</div>
+    </div>
+  </div>
+
+  <!-- 투자자별 현물 -->
+  <div style="margin-bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;">KOSPI 현물 · 투자자별 순매수</div>
+  <div class="flow-grid">
+    <div class="flow-card">
+      <div class="flow-label">외국인</div>
+      <div class="flow-val down">-28,908억원</div>
+      <div class="flow-sub">전기·전자 -2.7조 / 운송장비 -703억</div>
+    </div>
+    <div class="flow-card">
+      <div class="flow-label">기관</div>
+      <div class="flow-val down">-8,895억원</div>
+      <div class="flow-sub">투신 -6,509억 / 금투 -2,076억</div>
+    </div>
+    <div class="flow-card">
+      <div class="flow-label">개인</div>
+      <div class="flow-val up">+36,355억원</div>
+      <div class="flow-sub">외국인·기관 매도 물량 전량 소화</div>
+    </div>
+  </div>
+
+  <!-- 매크로 -->
+  <div style="margin:20px 0 12px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;">매크로 지표</div>
+  <div class="macro-row">
+    <div class="macro-card">
+      <div class="macro-lbl">원/달러</div>
+      <div class="macro-val">1,502.1</div>
+      <div class="macro-chg up">+2.7원</div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-lbl">WTI 유가</div>
+      <div class="macro-val">$91.38</div>
+      <div class="macro-chg up">+3.04%</div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-lbl">국채 3년</div>
+      <div class="macro-val">3.765%</div>
+      <div class="macro-chg up">+6.5bp</div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-lbl">국채 10년</div>
+      <div class="macro-val">4.148%</div>
+      <div class="macro-chg up">+5.5bp</div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-lbl">US10년</div>
+      <div class="macro-val">4.484%</div>
+      <div class="macro-chg down">-0.5bp</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S2: 섹터 -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="sec-icon">🏭</div>
+    <div>
+      <div class="sec-title-ko">섹터 분석</div>
+      <div class="sec-title-en">SECTOR ANALYSIS</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);">KOSPI 약세 · 업종 전반 하락 (大 -0.4% / 中 -2.1% / 小 -0.7%)</div>
+  <div class="sector-grid">
+    <div class="sector-card">
+      <div class="sector-name">MLCC·전자부품 <span class="badge badge-up">강세</span></div>
+      <div class="sector-bar-wrap"><div class="sector-bar" style="width:78%;background:var(--up);"></div></div>
+      <div class="sector-desc">삼성전기 +13.4%, LG이노텍 +8.6%, 삼화콘덴서 +24.1%. AI 서버용 MLCC 가격 인상 사이클 진입과 KB증권 목표가 대폭 상향이 전자부품 밸류체인 전반으로 확산.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">이차전지 <span class="badge badge-up">강세</span></div>
+      <div class="sector-bar-wrap"><div class="sector-bar" style="width:62%;background:var(--up);"></div></div>
+      <div class="sector-desc">LG에너지솔루션 +15.3%, 삼성SDI +7.3%. LG엔솔의 2.4조원 ESS 대형 계약이 섹터 심리를 끌어올림. AI 데이터센터 ESS 수요가 이차전지 모멘텀의 핵심.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">기계·장비 <span class="badge badge-down">약세</span></div>
+      <div class="sector-bar-wrap"><div class="sector-bar" style="width:80%;background:var(--down);"></div></div>
+      <div class="sector-desc">KOSPI -4.0%, KOSDAQ -4.1%. 미·이란 충돌 불확실성 속 운송장비·부품과 기계 업종에 외국인 차익매물 집중. 전일 급등 피로감 반영.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">증권·오락·통신 <span class="badge badge-down">약세</span></div>
+      <div class="sector-bar-wrap"><div class="sector-bar" style="width:70%;background:var(--down);"></div></div>
+      <div class="sector-desc">증권 -3.5%, 오락·문화 -2.9%, 통신 -2.8%. 지정학 리스크에 내수·금융 업종 전반 약세. 유가 급등에 따른 인플레 우려가 금리 부담 업종을 압박.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">반도체 <span class="badge" style="background:rgba(200,169,110,.15);color:var(--accent);">혼조</span></div>
+      <div class="sector-bar-wrap"><div class="sector-bar" style="width:45%;background:var(--accent);"></div></div>
+      <div class="sector-desc">SK하이닉스 +2.05%(2,289,000원), 삼성전자 -2.44%(299,500원). 미 필라델피아 반도체지수 약세와 전일 랠리 피로가 맞물려 혼조세. 거래대금 합산 22.9조원으로 시장 주도.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">KOSDAQ 전반 <span class="badge badge-down">약세</span></div>
+      <div class="sector-bar-wrap"><div class="sector-bar" style="width:88%;background:var(--down);"></div></div>
+      <div class="sector-desc">운송장비·부품 -4.3% / 기계·장비 -4.1% / 유통 -3.7%. 전날 나스닥 상승으로 이차전지주 강세 출발했으나 바이오 관련주 급락이 코스닥 전체를 끌어내림.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S3: 주도 종목 -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="sec-icon">⚡</div>
+    <div>
+      <div class="sec-title-ko">주도 종목</div>
+      <div class="sec-title-en">NOTABLE STOCKS</div>
+    </div>
+  </div>
+
+  <div class="stock-grid">
+    <div class="stock-card">
+      <div class="stock-pct up">+24.1%</div>
+      <div>
+        <div class="stock-name">삼화콘덴서 <span class="badge badge-up">상한가근접</span></div>
+        <div class="stock-code">KOSPI · 001820</div>
+        <div class="stock-price">156,200원 · 거래대금 8,011억</div>
+        <div class="stock-reason">삼성전기 급등에 따른 MLCC 반사수혜. AI 데이터센터향 고부가 MLCC 수요 구조적 확대 기대. 52주 최고가 경신.</div>
+      </div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-pct up">+15.3%</div>
+      <div>
+        <div class="stock-name">LG에너지솔루션 <span class="badge badge-up">이슈</span></div>
+        <div class="stock-code">KOSPI · 373220</div>
+        <div class="stock-price">442,000원 · 거래대금 7,190억</div>
+        <div class="stock-reason">미국 DTE에너지와 6GWh 규모 ESS 배터리 공급계약 체결(약 2.4조원). Oracle AI 데이터센터 전력망 사업 연계.</div>
+      </div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-pct up">+13.4%</div>
+      <div>
+        <div class="stock-name">삼성전기 <span class="badge badge-up">급등</span></div>
+        <div class="stock-code">KOSPI · 009150</div>
+        <div class="stock-price">1,849,000원 · 거래대금 4.33조</div>
+        <div class="stock-reason">KB증권 목표가 220만원으로 상향. MLCC 가격 인상 사이클 본격 진입 + 실리콘 커패시터 대형 계약 기업가치 재평가.</div>
+      </div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-pct up">+8.6%</div>
+      <div>
+        <div class="stock-name">LG이노텍 <span class="badge badge-up">동반상승</span></div>
+        <div class="stock-code">KOSPI · 011070</div>
+        <div class="stock-price">1,134,000원 · 거래대금 9,834억</div>
+        <div class="stock-reason">삼성전기 MLCC 랠리에 반도체기판 사업 기대감 동반 부각. AI GPU·ASIC 기판 수요 공급 초과 구간 진입.</div>
+      </div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-pct up">+7.3%</div>
+      <div>
+        <div class="stock-name">삼성SDI <span class="badge badge-up">이차전지</span></div>
+        <div class="stock-code">KOSPI · 006400</div>
+        <div class="stock-price">676,000원 · 거래대금 1.06조</div>
+        <div class="stock-reason">LG엔솔 ESS 계약 호재에 이차전지 섹터 전반 동반 강세. AI 데이터센터 ESS 수요가 2차전지 모멘텀 핵심으로 재부각.</div>
+      </div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-pct down">-2.4%</div>
+      <div>
+        <div class="stock-name">삼성전자 <span class="badge badge-down">차익실현</span></div>
+        <div class="stock-code">KOSPI · 005930</div>
+        <div class="stock-price">299,500원 · 거래대금 9.01조</div>
+        <div class="stock-reason">미 필라델피아 반도체지수 약세 + 전일 반도체 랠리 차익실현 매물 출회. 외국인 전기·전자 -2.72조원 순매도 집중.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S4: Big News Top-5 -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="sec-icon">📰</div>
+    <div>
+      <div class="sec-title-ko">투자자 필독 — 오늘의 Big News Top-5</div>
+      <div class="sec-title-en">BIG NEWS DIGEST · 2026.05.28</div>
+    </div>
+  </div>
+
+  <div class="news-list">
+
+    <div class="news-card">
+      <div class="news-num">01</div>
+      <div>
+        <div class="news-title">미·이란 무력 충돌 — 코스피 장중 8,000선 붕괴, 7,900선까지 급락</div>
+        <div class="news-body">
+          28일 장 중 미국과 이란의 무력 충돌 소식이 전해지며 코스피가 274포인트(3.33%) 급락해 7,954선까지 밀렸다. 미·이란 종전협상 불확실성이 가장 큰 위험 요인으로 부상. 다행히 종가는 8,185p로 낙폭 대부분 회복됐으나 지정학 리스크는 상존. 국제유가(WTI)는 91.38달러로 3일 만에 반등하며 인플레 우려를 자극했다.
+        </div>
+        <span class="impact-tag impact-neg">📛 증시 충격 · 유가 급등</span>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-num">02</div>
+      <div>
+        <div class="news-title">LG에너지솔루션, 미 DTE에너지와 2.4조원 ESS 공급계약 체결</div>
+        <div class="news-body">
+          LG에너지솔루션이 미국 미시간주 최대 에너지기업 DTE에너지와 6GWh 규모의 ESS 배터리 공급계약(약 16억 달러, 2.4조원)을 체결했다. Oracle AI 데이터센터 등 8개 핵심 전력망 프로젝트에 공급 예정. 이날 LG엔솔 주가는 +15%대 강세로 반응했으며, 삼성SDI·더블유씨피 등 배터리 밸류체인 전반으로 매수세 확산.
+        </div>
+        <span class="impact-tag impact-pos">✅ 이차전지 섹터 강세 모멘텀</span>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-num">03</div>
+      <div>
+        <div class="news-title">삼성전기 MLCC 가격 인상 사이클 진입 — KB증권 목표가 220만원 상향</div>
+        <div class="news-body">
+          KB증권이 전일 삼성전기 목표주가를 기존 160만원에서 220만원으로 대폭 상향했다. AI 데이터센터 확대로 고사양 MLCC 수요가 공급을 웃돌며 가격 인상 사이클에 진입했다는 분석이 핵심. 삼성전기는 이날 +13.4% 급등, 삼화콘덴서도 +24% 상한가 근접으로 MLCC 밸류체인 전반에 걸쳐 강세장 형성.
+        </div>
+        <span class="impact-tag impact-pos">✅ 전자부품 밸류체인 재평가</span>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-num">04</div>
+      <div>
+        <div class="news-title">외국인 2.89조 + 기관 8,895억 동반 순매도 — 개인이 3.6조 홀로 받아냄</div>
+        <div class="news-body">
+          외국인이 전기·전자(-2.72조), 운송장비(-703억) 중심으로 총 -28,908억원을 순매도했고 기관도 -8,895억원을 팔았다. 개인이 +36,355억원을 순매수해 시장을 방어했으나, 이 같은 외국인·기관 동반 이탈 패턴은 상승 사이클 피로 신호이기도 하다. 프로그램 비차익 -23,903억원 집중 매도도 주목할 포인트.
+        </div>
+        <span class="impact-tag impact-neg">⚠️ 수급 불안 · 차익실현 압력</span>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-num">05</div>
+      <div>
+        <div class="news-title">SK하이닉스 시총 1조 달러 클럽 유지 — 반도체 단일종목 레버리지 ETF 신규 상장</div>
+        <div class="news-body">
+          미래에셋이 'TIGER 삼성전자·SK하이닉스 단일종목 레버리지 ETF'를 신규 상장. 단일종목 레버리지 ETF 출시는 기관·개인 모두에게 반도체 대형주 접근성을 높이며 수급에 긍정적. SK하이닉스(+2.05%, 229만원)는 시총 1조 달러 클럽을 삼성전자에 이어 유지하며 시장의 관심을 지속적으로 받고 있다.
+        </div>
+        <span class="impact-tag impact-neu">📌 반도체 수급 긍정 · 관심 지속</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S5: 총평 -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="sec-icon">📋</div>
+    <div>
+      <div class="sec-title-ko">금일 총평</div>
+      <div class="sec-title-en">DAILY SUMMARY</div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <p>
+      오늘 국내 증시는 <strong>지정학 충격(미·이란 무력 충돌)과 AI 섹터 호재가 교차하는 혼조의 날</strong>이었다.
+      장 중 코스피가 8,000선을 이탈하며 7,900선까지 급락하는 충격이 있었으나, 이차전지·MLCC 테마 급등주들이 지수를 방어하며 결국 8,185포인트로 회복 마감(-0.53%)했다.
+      <br><br>
+      테마별로는 LG에너지솔루션의 <strong>2.4조원 미국 ESS 대형 계약</strong>이 이차전지 섹터 전반에 불을 지폈고, <strong>삼성전기의 MLCC 가격 인상 사이클 진입</strong>은 전자부품 밸류체인(삼화콘덴서·LG이노텍)을 동반 강세로 이끌었다.
+      반면 반도체 대장주 삼성전자(-2.44%)와 코스닥(-2.54%)은 외국인·기관 차익실현 매물에 밀렸다.
+      <br><br>
+      <strong>주목할 리스크</strong>는 두 가지다. 첫째, WTI 유가 91달러 돌파와 이란 리스크 지속은 글로벌 인플레 압력 재상승을 시사하며, 한국 국채금리 상승(3년 +6.5bp)과 원화 약세(1,502원)를 동반하고 있다. 둘째, 외국인이 2.89조원이라는 대규모 순매도를 이어가며 개인이 홀로 방어하는 수급 구조는 지속 가능하지 않다.
+      <br><br>
+      내일은 <strong>미·이란 정세 추가 변화</strong>와 <strong>글로벌 반도체 지수 동향</strong>이 핵심 변수다. MLCC·이차전지 테마의 추가 모멘텀 여부와 외국인 매도 추세 지속 여부를 함께 모니터링할 필요가 있다.
+    </p>
+  </div>
+</div>
+
+<footer>
+  한상훈_AI_투자브리핑 · 2026.05.28 · KRX Brief + CSV 데이터 기반<br>
+  본 리포트는 투자 참고용이며, 투자 판단의 책임은 본인에게 있습니다.
+</footer>
+
+<script>
+function toggleTheme(){
+  const html = document.documentElement;
+  const btn = document.querySelector('.theme-btn');
+  if(html.dataset.theme === 'light'){
+    html.dataset.theme = 'dark';
+    btn.textContent = '☀️ Light';
+  } else {
+    html.dataset.theme = 'light';
+    btn.textContent = '🌙 Dark';
+  }
+}
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>
