@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한상훈_AI_투자브리핑 | 일일 시황 2026.06.02</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #f5f5f0; --surface: #ffffff; --surface2: #f0efe8;
+  --border: #d8d8d0; --accent: #c8a96e; --accent2: #2196F3;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #1a1a1a; --muted: #6b7280; --dim: #9ca3af;
+  --radius: 12px;
+}
+[data-theme="dark"] {
+  --bg: #0a0b0e; --surface: #111318; --surface2: #1a1d26;
+  --border: #2a2d3a; --accent: #c8a96e; --accent2: #4fc3f7;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #e8e6e0; --muted: #7a7f8e; --dim: #4a4f5e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', sans-serif; line-height: 1.6; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 56px;
+}
+.nav-brand { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; color: var(--accent); }
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--muted); text-decoration: none; padding: 6px 10px;
+  border-radius: 6px; transition: all 0.2s;
+}
+.nav-links a:hover { background: var(--surface2); color: var(--text); }
+.theme-btn {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 12px; cursor: pointer;
+  font-size: 12px; color: var(--muted);
+}
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+section { margin-bottom: 52px; }
+
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+.sec-icon { font-size: 26px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--surface2); border-radius: 12px; }
+.sec-title-ko { font-family: 'DM Serif Display', serif; font-size: 22px; }
+.sec-title-en { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 1px; margin-top: 2px; }
+
+/* HERO */
+.hero { padding: 36px 0 28px; }
+.hero-date { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 2px; margin-bottom: 10px; }
+.hero-title { font-family: 'DM Serif Display', serif; font-size: 34px; margin-bottom: 8px; }
+.hero-sub { font-size: 14px; color: var(--muted); line-height: 1.8; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.badge {
+  padding: 5px 14px; border-radius: 20px; font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace; font-weight: 600; letter-spacing: 0.3px;
+}
+.badge-gold { background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.4); color: var(--accent); }
+.badge-warn { background: rgba(224,92,92,0.08); border: 1px solid rgba(224,92,92,0.3); color: var(--up); }
+.badge-neutral { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); }
+
+/* INDEX */
+.index-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+.idx-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px 20px;
+}
+.idx-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px; }
+.idx-value { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600; margin-bottom: 6px; }
+.idx-change { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; }
+.idx-change.up { color: var(--up); }
+.idx-change.down { color: var(--down); }
+.idx-meta { font-size: 11px; color: var(--dim); margin-top: 8px; font-family: 'IBM Plex Mono', monospace; line-height: 1.7; }
+.idx-streak { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 10px; font-family: 'IBM Plex Mono', monospace; font-weight: 600; margin-top: 4px; }
+.streak-up { background: rgba(224,92,92,0.1); color: var(--up); border: 1px solid rgba(224,92,92,0.2); }
+.streak-down { background: rgba(76,175,130,0.1); color: var(--down); border: 1px solid rgba(76,175,130,0.2); }
+
+/* FLOW */
+.flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.flow-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.flow-who { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1px; margin-bottom: 6px; }
+.flow-amt { font-family: 'IBM Plex Mono', monospace; font-size: 17px; font-weight: 600; }
+.flow-amt.buy { color: var(--up); }
+.flow-amt.sell { color: var(--down); }
+.flow-detail { font-size: 11px; color: var(--dim); margin-top: 4px; line-height: 1.5; }
+
+/* MACRO ROW */
+.macro-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.macro-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.macro-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 5px; }
+.macro-val { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600; }
+.macro-chg { font-size: 11px; margin-top: 3px; }
+.macro-chg.up { color: var(--up); }
+.macro-chg.down { color: var(--down); }
+.macro-chg.flat { color: var(--dim); }
+
+/* SECTOR */
+.sector-list { display: flex; flex-direction: column; gap: 8px; }
+.sector-row { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; gap: 14px; }
+.sector-name { font-size: 13px; font-weight: 500; min-width: 130px; }
+.sector-bar-wrap { flex: 1; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.sector-bar { height: 100%; border-radius: 3px; }
+.sector-bar.up { background: var(--up); }
+.sector-bar.down { background: var(--down); }
+.sector-pct { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; min-width: 60px; text-align: right; }
+.sector-pct.up { color: var(--up); }
+.sector-pct.down { color: var(--down); }
+.sector-note { font-size: 11px; color: var(--muted); min-width: 200px; text-align: right; }
+.sector-divider { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; margin: 12px 0 6px; }
+.sd-up { color: var(--up); }
+.sd-down { color: var(--down); }
+
+/* STOCK GRID */
+.stock-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.stock-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+.stock-card:hover { border-color: var(--accent); }
+.stock-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+.stock-name { font-size: 14px; font-weight: 700; }
+.stock-code { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--dim); margin-top: 2px; }
+.stock-pct { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; }
+.stock-pct.up { color: var(--up); }
+.stock-pct.down { color: var(--down); }
+.stock-reason { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.stock-vol { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--dim); margin-top: 5px; }
+.stock-tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 9px; font-family: 'IBM Plex Mono', monospace; font-weight: 600; margin-bottom: 6px; }
+.tag-r { background: rgba(224,92,92,0.08); color: var(--up); border: 1px solid rgba(224,92,92,0.2); }   /* 급등 */
+.tag-f { background: rgba(76,175,130,0.08); color: var(--down); border: 1px solid rgba(76,175,130,0.2); } /* 급락 */
+.tag-n { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }             /* 중립 */
+
+/* NEWS */
+.news-list { display: flex; flex-direction: column; gap: 12px; }
+.news-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; display: flex; gap: 14px; }
+.news-impact { min-width: 44px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-family: 'IBM Plex Mono', monospace; font-weight: 600; margin-top: 2px; }
+.ni-pos { background: rgba(224,92,92,0.1); color: var(--up); border: 1px solid rgba(224,92,92,0.2); }
+.ni-neg { background: rgba(76,175,130,0.1); color: var(--down); border: 1px solid rgba(76,175,130,0.2); }
+.ni-neu { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+.news-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.news-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* SUMMARY */
+.summary-box { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 22px 24px; }
+.summary-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 2px; margin-bottom: 10px; }
+.summary-text { font-size: 14px; line-height: 1.95; }
+
+/* NEXT WEEK */
+.event-timeline { display: flex; flex-direction: column; gap: 0; margin-bottom: 24px; position: relative; }
+.event-timeline::before {
+  content: ''; position: absolute; left: 70px; top: 8px; bottom: 8px;
+  width: 2px; background: var(--border);
+}
+.event-row { display: flex; gap: 20px; align-items: flex-start; padding: 10px 0; }
+.event-date {
+  min-width: 60px; text-align: right;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+  color: var(--accent); padding-top: 2px;
+}
+.event-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg);
+  margin-top: 4px; flex-shrink: 0; position: relative; z-index: 1;
+}
+.event-dot.hot { background: var(--up); }
+.event-content { flex: 1; }
+.event-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.event-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+.theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.theme-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+.theme-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 1px; margin-bottom: 6px; }
+.theme-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.theme-reason { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.watch-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.chip { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
+.chip-hot { background: rgba(224,92,92,0.07); border: 1px solid rgba(224,92,92,0.25); color: var(--up); }
+.chip-neu { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+
+/* RISK BOX */
+.risk-box { background: rgba(76,175,130,0.04); border: 1px solid rgba(76,175,130,0.2); border-radius: var(--radius); padding: 18px 20px; margin-top: 18px; }
+.risk-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--down); letter-spacing: 1px; margin-bottom: 10px; }
+.risk-list { display: flex; flex-direction: column; gap: 6px; }
+.risk-item { font-size: 13px; color: var(--text); display: flex; gap: 10px; }
+.risk-item::before { content: '▸'; color: var(--down); font-size: 10px; margin-top: 3px; flex-shrink: 0; }
+
+/* PRO VIEW */
+.pro-box { background: linear-gradient(135deg, rgba(200,169,110,0.06), rgba(33,150,243,0.04)); border: 1px solid rgba(200,169,110,0.25); border-radius: var(--radius); padding: 22px 24px; margin-top: 16px; }
+.pro-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 2px; margin-bottom: 12px; }
+.pro-text { font-size: 13px; color: var(--text); line-height: 2; }
+
+footer {
+  text-align: center; padding: 28px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--dim); font-family: 'IBM Plex Mono', monospace; line-height: 2;
+}
+
+@media (max-width: 680px) {
+  .index-grid, .flow-grid, .stock-grid, .theme-grid { grid-template-columns: 1fr 1fr; }
+  .macro-row { grid-template-columns: 1fr 1fr; }
+  .sector-note { display: none; }
+  .nav-links { display: none; }
+}
+@media (max-width: 440px) {
+  .index-grid, .flow-grid, .stock-grid, .theme-grid, .macro-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">한상훈_AI_투자브리핑</div>
+  <div class="nav-links">
+    <a href="#s1">지수</a>
+    <a href="#s2">섹터</a>
+    <a href="#s3">종목</a>
+    <a href="#s4">뉴스</a>
+    <a href="#s5">총평</a>
+    <a href="#s6">이벤트/추천</a>
+  </div>
+  <button class="theme-btn" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">☀ / ☾</button>
+</nav>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-date">2026.06.02 (TUE) · MARKET CLOSE</div>
+    <div class="hero-title">강보합 속 수급 대전환</div>
+    <div class="hero-sub">
+      외국인 6.6조 역대급 순매도 / 개인 6.3조 대규모 매수 / 젠슨 황 6.5 방한 확정<br>
+      피지컬AI·로봇株 분화 / 단기 급등주 차익실현 출회 / 코스닥 5일 연속 하락
+    </div>
+    <div class="badge-row">
+      <span class="badge badge-gold">🤖 젠슨황 6/5 방한 확정</span>
+      <span class="badge badge-warn">⚡ 외국인 -6.6조 역대급 매도</span>
+      <span class="badge badge-neutral">KOSPI 8,801 · 3일 연속 상승</span>
+    </div>
+  </div>
+
+  <!-- S1: 지수 -->
+  <section id="s1">
+    <div class="section-header">
+      <div class="sec-icon">📊</div>
+      <div>
+        <div class="sec-title-ko">일일 지수 요약</div>
+        <div class="sec-title-en">DAILY INDICES</div>
+      </div>
+    </div>
+
+    <div class="index-grid">
+      <div class="idx-card">
+        <div class="idx-label">KOSPI</div>
+        <div class="idx-value">8,801.49</div>
+        <div class="idx-change up">▲ +13.11 (+0.15%)</div>
+        <div class="idx-meta">거래대금: 67.5조 (-6.8조)<br>강보합 · 변동성 장세</div>
+        <div class="idx-streak streak-up">3일 연속 ▲</div>
+      </div>
+      <div class="idx-card">
+        <div class="idx-label">KOSDAQ</div>
+        <div class="idx-value">1,026.03</div>
+        <div class="idx-change down">▼ -24.00 (-2.29%)</div>
+        <div class="idx-meta">거래대금: 11.1조 (-1.1조)<br>제약·바이오·건설 약세</div>
+        <div class="idx-streak streak-down">5일 연속 ▼</div>
+      </div>
+      <div class="idx-card">
+        <div class="idx-label">KRX 300</div>
+        <div class="idx-value">6,118.19</div>
+        <div class="idx-change up">▲ +23.30 (+0.38%)</div>
+        <div class="idx-meta">거래대금: 67.0조 (-5.0조)<br>대형주 주도 분화 지속</div>
+        <div class="idx-streak streak-up">대(+0.3%) / 중(-1.9%) / 소(-1.3%)</div>
+      </div>
+    </div>
+
+    <!-- 투자자 수급 — 오늘의 핵심 이슈 -->
+    <div style="margin-bottom:12px; padding:14px 18px; background:rgba(224,92,92,0.05); border:1px solid rgba(224,92,92,0.2); border-radius:8px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--up);">⚡ TODAY'S FLOW SHOCK</span>
+      <span style="font-size:13px; color:var(--text); margin-left:10px;">외국인 <strong style="color:var(--up);">-6조6,094억</strong> (전기전자 단일 -6.3조) vs 개인 <strong style="color:var(--text);">+6조3,486억</strong> 사상급 매수</span>
+    </div>
+
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="flow-who">INSTITUTION (현물)</div>
+        <div class="flow-amt buy">+2,409억</div>
+        <div class="flow-detail">금투 +6,389 / 투신 -1,770</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-who">FOREIGN (현물)</div>
+        <div class="flow-amt sell">-66,094억</div>
+        <div class="flow-detail">전기전자 -62,997<br>IT서비스 -5,404 (역대급)</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-who">RETAIL (현물)</div>
+        <div class="flow-amt buy" style="color:var(--text);">+63,486억</div>
+        <div class="flow-detail">외국인 물량 전부 흡수<br>'개미 방패' 역할</div>
+      </div>
+    </div>
+
+    <div style="margin: 12px 0 18px; padding:12px 16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; font-size:12px; color:var(--muted);">
+      프로그램 매매 · 차익 <strong style="color:var(--up);">+445억</strong> &nbsp;|&nbsp; 비차익 <strong style="color:var(--down);">-48,689억</strong> &nbsp;|&nbsp; 평균베이시스 <span style="font-family:'IBM Plex Mono',monospace;">+5.31p</span>
+      &nbsp; <span style="color:var(--up);">※ 비차익 대규모 이탈 — 프로그램 매도 집중</span>
+    </div>
+
+    <div class="macro-row">
+      <div class="macro-card">
+        <div class="macro-label">USD/KRW</div>
+        <div class="macro-val">1,518.0</div>
+        <div class="macro-chg up">▲ +5.1원 (3일 연속 약세)</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">WTI 유가</div>
+        <div class="macro-val">$91.72</div>
+        <div class="macro-chg down">▼ -0.48%</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">국채 10년</div>
+        <div class="macro-val">4.127%</div>
+        <div class="macro-chg down">▼ -4.6bp</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">US 10년</div>
+        <div class="macro-val">4.449%</div>
+        <div class="macro-chg up">▲ +1.0bp</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S2: 섹터 -->
+  <section id="s2">
+    <div class="section-header">
+      <div class="sec-icon">🏭</div>
+      <div>
+        <div class="sec-title-ko">섹터 분석</div>
+        <div class="sec-title-en">SECTOR ANALYSIS</div>
+      </div>
+    </div>
+
+    <div class="sector-divider sd-up">▲ KOSPI 강세 업종 — 순환매 본격화</div>
+    <div class="sector-list">
+      <div class="sector-row">
+        <div class="sector-name">보험</div>
+        <div class="sector-bar-wrap"><div class="sector-bar up" style="width:100%"></div></div>
+        <div class="sector-pct up">+12.2%</div>
+        <div class="sector-note">삼성생명 +17%, 미래에셋생명 +14% / 금리 하락 기대 + 순환매</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-name">통신</div>
+        <div class="sector-bar-wrap"><div class="sector-bar up" style="width:52%"></div></div>
+        <div class="sector-pct up">+6.4%</div>
+        <div class="sector-note">SK텔레콤 +11.6% / AI 인프라 통신 인프라 기대감</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-name">유통</div>
+        <div class="sector-bar-wrap"><div class="sector-bar up" style="width:38%"></div></div>
+        <div class="sector-pct up">+4.7%</div>
+        <div class="sector-note">신세계 +10.3% / 내수·소비 저평가주 순환매</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-name">금융</div>
+        <div class="sector-bar-wrap"><div class="sector-bar up" style="width:22%"></div></div>
+        <div class="sector-pct up">+2.7%</div>
+        <div class="sector-note">금리인하 사이클 선반영 + 밸류업 기대</div>
+      </div>
+    </div>
+
+    <div class="sector-divider sd-down" style="margin-top:14px;">▼ 차익실현 · 약세 업종</div>
+    <div class="sector-list">
+      <div class="sector-row">
+        <div class="sector-name">전기·전자</div>
+        <div class="sector-bar-wrap"><div class="sector-bar down" style="width:80%"></div></div>
+        <div class="sector-pct down">대규모 이탈</div>
+        <div class="sector-note">외국인 -6.3조 집중 매도 · 삼성전기 -9.6% · LG이노텍 -18.2%</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-name">건설 (KOSDAQ)</div>
+        <div class="sector-bar-wrap"><div class="sector-bar down" style="width:40%"></div></div>
+        <div class="sector-pct down">-3.2%</div>
+        <div class="sector-note">수주 모멘텀 부재 · 자금 이탈</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-name">운송장비·부품</div>
+        <div class="sector-bar-wrap"><div class="sector-bar down" style="width:38%"></div></div>
+        <div class="sector-pct down">-3.1%</div>
+        <div class="sector-note">현대차 -2.8% · 단기 급등 피로감</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-name">화학 (KOSDAQ)</div>
+        <div class="sector-bar-wrap"><div class="sector-bar down" style="width:37%"></div></div>
+        <div class="sector-pct down">-3.0%</div>
+        <div class="sector-note">이차전지 소재 지속 약세</div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px; padding:12px 16px; background:var(--surface2); border-radius:8px; font-size:12px; color:var(--muted); line-height:1.8;">
+      📌 <strong style="color:var(--text);">순환매 패턴 명확화</strong> — AI/반도체 단기 급등주 차익실현 → 보험·통신·유통·금융 등 저평가 내수주로 자금 이동. 개인이 6.3조를 받아내며 지수 지지.
+    </div>
+  </section>
+
+  <!-- S3: 종목 -->
+  <section id="s3">
+    <div class="section-header">
+      <div class="sec-icon">⚡</div>
+      <div>
+        <div class="sec-title-ko">주도 종목</div>
+        <div class="sec-title-en">NOTABLE STOCKS</div>
+      </div>
+    </div>
+
+    <div class="stock-grid">
+      <div class="stock-card">
+        <div class="stock-tag tag-r">급등 · 로봇</div>
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">두산로보틱스</div>
+            <div class="stock-code">454910 · KOSPI</div>
+          </div>
+          <div class="stock-pct up">+20.45%</div>
+        </div>
+        <div class="stock-reason">전일(6/1) 상한가에 이어 이틀 연속 급등. 젠슨 황 6/5 방한 확정 + 4월 매디슨 황 두산타워 방문으로 피지컬AI 협력 논의 기정사실화. LG·네이버에 이어 두산그룹이 엔비디아와의 협력 핵심 수혜주로 부상.</div>
+        <div class="stock-vol">거래대금: 14,755억원</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-tag tag-r">급등 · 통신</div>
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">SK텔레콤</div>
+            <div class="stock-code">017670 · KOSPI</div>
+          </div>
+          <div class="stock-pct up">+11.59%</div>
+        </div>
+        <div class="stock-reason">보험·통신·금융 섹터 순환매 주도. AI 인프라 확장에 따른 통신 인프라(5G·데이터센터 연결망) 수요 확대 기대. SK그룹이 엔비디아 코리아 파트너 나이트(대만 6/1) 참석, 협력 범위 확대 전망.</div>
+        <div class="stock-vol">거래대금: 10,295억원</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-tag tag-r">강세 · 반도체</div>
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">삼성전자</div>
+            <div class="stock-code">005930 · KOSPI</div>
+          </div>
+          <div class="stock-pct up">+3.30%</div>
+        </div>
+        <div class="stock-reason">외국인 대규모 매도(-6.3조) 속에서도 개인·기관이 받아내며 상승 마감. 6/5 젠슨 황과 이재용 회장 HBM·AI 팩토리 협력 회동 기대. 삼성전자+삼성전자우 합산 시총 2,000조 유지.</div>
+        <div class="stock-vol">거래대금: 159,453억원 (시장 최대)</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-tag tag-r">강세 · AI</div>
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">NAVER</div>
+            <div class="stock-code">035420 · KOSPI</div>
+          </div>
+          <div class="stock-pct up">+3.31%</div>
+        </div>
+        <div class="stock-reason">외국인 매도(-5,404억 IT서비스 섹터)에도 불구하고 개인 매수로 반등. 엔비디아 피지컬AI 파트너십 및 6/5 젠슨 황 회동 기대 지속. 클라우드·AI플랫폼 중장기 성장 스토리 건재.</div>
+        <div class="stock-vol">거래대금: 24,817억원</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-tag tag-f">급락 · 차익실현</div>
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">LG이노텍</div>
+            <div class="stock-code">011070 · KOSPI</div>
+          </div>
+          <div class="stock-pct down">-18.17%</div>
+        </div>
+        <div class="stock-reason">5/29 +28.57% 급등 이후 차익실현 물량 대규모 출회. 외국인 집중 매도 타깃. 전일(6/1) +11.19% 반등에도 지속 압박. 피지컬AI 모멘텀은 유효하나 단기 과열 조정 국면.</div>
+        <div class="stock-vol">거래대금: 13,655억원</div>
+      </div>
+      <div class="stock-card">
+        <div class="stock-tag tag-f">급락 · 차익실현</div>
+        <div class="stock-top">
+          <div>
+            <div class="stock-name">삼성전기</div>
+            <div class="stock-code">009150 · KOSPI</div>
+          </div>
+          <div class="stock-pct down">-9.58%</div>
+        </div>
+        <div class="stock-reason">5/29 +15.04% 급등 후 되돌림. 외국인 수급 이탈 지속. 단기 과매수 구간 진입. 그러나 MLCC 수요 회복 + AI 기기 핵심 부품사 펀더멘털은 유지. 조정 후 재진입 구간 탐색 필요.</div>
+        <div class="stock-vol">거래대금: 34,832억원</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: 뉴스 -->
+  <section id="s4">
+    <div class="section-header">
+      <div class="sec-icon">📰</div>
+      <div>
+        <div class="sec-title-ko">주요 뉴스</div>
+        <div class="sec-title-en">NEWS DIGEST</div>
+      </div>
+    </div>
+
+    <div class="news-list">
+      <div class="news-card">
+        <div class="news-impact ni-pos">↑ 호재</div>
+        <div>
+          <div class="news-title">젠슨 황 6월 5일 방한 확정 — 성수동 '제2 깐부회동' 예정</div>
+          <div class="news-body">컴퓨텍스 2026(대만) 일정을 마친 젠슨 황 엔비디아 CEO가 6월 5일 방한 확정. SK·현대차·LG 등 국내 주요 총수들과 회동 가능성 거론. '성수동 삼겹살 회동' 보도. 두산 베어스 잠실 홈경기(6/5~7, 두산 vs 키움) 시구 관측. 대만 6/1 엔비디아 코리아 파트너 나이트에 삼성·SK·현대차·LG 등 이미 참석. 방한 시 HBM·피지컬AI·클라우드 협력 심화 전망.</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-impact ni-neg">↓ 경계</div>
+        <div>
+          <div class="news-title">외국인 현물 -6.6조 역대급 매도 — 전기전자 단일 업종 -6.3조</div>
+          <div class="news-body">KOSPI 현물에서 외국인이 6.6조원 순매도. 전기·전자 업종에만 -6.3조 집중. 5/29부터 3거래일 누적 외국인 매도 약 7~8조 추정. 단기 차익실현 성격이지만 지속 시 수급 불안 요인. 개인이 6.3조 대규모 매수로 지수 방어. 비차익 프로그램도 -4.9조 매도로 가세.</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-impact ni-pos">↑ 호재</div>
+        <div>
+          <div class="news-title">보험·통신·금융 순환매 본격화 — 저평가 내수株 재부각</div>
+          <div class="news-body">삼성생명 +17.07%, 미래에셋생명 +14.29%, SK텔레콤 +11.59% 등 보험·통신 섹터 강세. AI 랠리 수혜 범위가 반도체에서 인프라·금융으로 확산. 국민성장펀드(150조) 투자 범위 포함 + 금리 하락 기대가 보험·금융주 자극. 내수 저평가주 순환매 첫 신호로 해석 가능.</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-impact ni-neg">↓ 경계</div>
+        <div>
+          <div class="news-title">원/달러 3일 연속 약세 1,518원 — 코스닥 5일 연속 하락</div>
+          <div class="news-body">원화가 3일 연속 약세를 보이며 1,518원으로 올라섰다. 달러인덱스도 99.2p로 소폭 강세. 코스닥은 제약·바이오·건설 동반 약세로 5일 연속 하락하며 1,026선까지 후퇴. 코스닥 낙폭 주도는 개인의 KOSPI 대형주 쏠림이 원인. 환율 추가 상승 시 외국인 자금 이탈 심화 가능.</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-impact ni-pos">↑ 호재</div>
+        <div>
+          <div class="news-title">삼성전자·SK하이닉스 앤트로픽 전략투자 + AI 에이전트 협력</div>
+          <div class="news-body">삼성전자와 SK하이닉스가 앤트로픽(Anthropic)에 전략적 투자를 단행. 앤트로픽 "한국 메모리 기업은 AI 에이전트 생태계 핵심 파트너"로 명시. HBM·로직칩 공급 협력 강화. AI 반도체 공급망 내 한국 기업 위상 재확인. 반도체 외 AI 생태계 참여 폭 확대.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S5: 총평 -->
+  <section id="s5">
+    <div class="section-header">
+      <div class="sec-icon">📋</div>
+      <div>
+        <div class="sec-title-ko">금일 총평</div>
+        <div class="sec-title-en">DAILY SUMMARY</div>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-label">▸ MARKET REVIEW · 2026.06.02 · PROFESSIONAL VIEW</div>
+      <div class="summary-text">
+        오늘 장의 핵심 키워드는 <strong>"수급 대전환"</strong>이다. 코스피는 +0.15% 강보합으로 마감했지만 그 이면에는 매우 이례적인 수급 구도가 형성됐다. 외국인이 현물에서 <strong>6.6조원을 순매도</strong>하는 역대급 이탈 속에서, 개인이 <strong>6.3조원을 고스란히 받아내며</strong> 지수 붕괴를 방어했다. 기관은 2,400억 순매수로 사실상 방관자 역할에 그쳤다.<br><br>
+        업종별로는 <strong>순환매 패턴이 명확히 가시화</strong>됐다. 5/29 폭등 이후 LG이노텍(-18.2%), 삼성전기(-9.6%), LG씨엔에스(-5.6%), 삼성에스디에스(-17.0%) 등 단기 급등주에서 차익실현 매물이 쏟아졌다. 반면 보험(+12.2%), 통신(+6.4%), 유통(+4.7%) 등 그간 소외됐던 내수·인프라 섹터로 자금이 이동했다. 이는 AI 랠리의 수혜 반경이 반도체→피지컬AI→통신인프라·금융으로 확장되는 전형적인 순환매 흐름이다.<br><br>
+        <strong>두산로보틱스(+20.45%)</strong>는 젠슨 황 6/5 방한 확정 속 엔비디아 협력 수혜주로 확고히 자리잡으며 이틀 연속 급등했다. 내일(6/3~4)은 비거래일이 없으므로, 6/5 방한 전 마지막 거래일(6/4)에 관련주 주목도가 극대화될 전망이다.
+      </div>
+    </div>
+  </section>
+
+  <!-- S6: 이벤트 & 추천 -->
+  <section id="s6">
+    <div class="section-header">
+      <div class="sec-icon">🔭</div>
+      <div>
+        <div class="sec-title-ko">6/4~6/6 핵심 이벤트 & 투자 전략</div>
+        <div class="sec-title-en">KEY EVENTS &amp; THEMES — PROFESSIONAL VIEW</div>
+      </div>
+    </div>
+
+    <!-- 이벤트 타임라인 -->
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:1px; margin-bottom:14px;">▸ EVENT TIMELINE</div>
+    <div class="event-timeline">
+      <div class="event-row">
+        <div class="event-date">6 / 4<br>수</div>
+        <div class="event-dot hot"></div>
+        <div class="event-content">
+          <div class="event-title">🔴 방한 D-1 · 포지션 확보 마감일</div>
+          <div class="event-desc">젠슨 황 방한 전날 — 6/5 이벤트 선반영 매수 집중 예상. 두산로보틱스·NAVER·SK텔레콤 관련주 변동성 극대화 가능. 잠실종합운동장 두산 vs 키움 경기 시작(6/5~7), 시구 가능성 주목. 외국인 차익실현 추가 출회 여부 확인 필요.</div>
+        </div>
+      </div>
+      <div class="event-row">
+        <div class="event-date">6 / 5<br>목</div>
+        <div class="event-dot hot"></div>
+        <div class="event-content">
+          <div class="event-title">🔴 젠슨 황 방한 D-DAY · 제2 깐부회동</div>
+          <div class="event-desc">방한 후 삼성 이재용, SK 최태원, LG 구광모, 현대차 정의선 회장 연쇄 회동 예상. HBM4 공급 계약·피지컬AI MOU·로봇파운데이션모델(RFM) 개발 협력 등 발표 가능. '성수동 회동' 장소 확정 시 이벤트 드리븐 수급 집중. 잠실 두산 홈경기 시구 여부 → 두산로보틱스 단기 추가 모멘텀.</div>
+        </div>
+      </div>
+      <div class="event-row">
+        <div class="event-date">6 / 6<br>금</div>
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <div class="event-title">📌 6·3 지방선거 재보선 결과 반영 + 회동 후속 공시</div>
+          <div class="event-desc">전날 회동 결과 → 기업 공시 및 파트너십 발표 기대. 6·3 지방선거 결과에 따른 정책 기대감(건설·인프라·내수) 반영. 미국 5월 비농업고용(NFP) 발표(현지 6/5 오후) → 6/6 장전 시장 반영 예정. Fed 인하 기대 유지 여부 확인 필요.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 추천 테마 -->
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:1px; margin: 20px 0 14px;">▸ THEME WATCHLIST — 전문가 추천</div>
+    <div class="theme-grid">
+      <div class="theme-card">
+        <div class="theme-num">THEME 01 · 핵심 이벤트 직결</div>
+        <div class="theme-name">🤖 피지컬AI · 로보틱스</div>
+        <div class="theme-reason"><strong>[전략]</strong> 6/5 회동 결과 발표 전까지 포지션 유지. 6/4(이벤트 전날) 추가 매수 관점. 단, 이미 5/29~6/2 누적 급등 감안해 비중은 30~40%로 제한. 회동 결과 확인 후 MOU 발표 시 추가 매수, 불발 시 즉시 정리 원칙 권고.</div>
+        <div class="watch-chips">
+          <span class="chip chip-hot">두산로보틱스 ★★★</span>
+          <span class="chip chip-hot">LG전자 ★★</span>
+          <span class="chip chip-neu">레인보우로보틱스</span>
+          <span class="chip chip-neu">로보스타</span>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">THEME 02 · 순환매 수혜</div>
+        <div class="theme-name">📡 통신 · AI 인프라</div>
+        <div class="theme-reason"><strong>[전략]</strong> 오늘 +11.6% 급등 이후 단기 조정 시 분할 매수 기회. AI 인프라 투자 확대에 따른 통신망 수요는 구조적 성장 스토리. 젠슨 황 방한과 연계한 클라우드·5G 협력 기대. SK그룹 AI 동맹 참여로 SK텔레콤 장기 모멘텀 유효.</div>
+        <div class="watch-chips">
+          <span class="chip chip-hot">SK텔레콤 ★★★</span>
+          <span class="chip chip-hot">SK스퀘어 ★★</span>
+          <span class="chip chip-neu">KT</span>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">THEME 03 · 반등 노림수</div>
+        <div class="theme-name">💾 HBM · 메모리 반도체</div>
+        <div class="theme-reason"><strong>[전략]</strong> 외국인 대규모 차익실현 후 바닥 탐색 구간. 6/5 이재용 회장 × 젠슨 황 HBM4 협력 발표 시 반등 트리거. 삼성전자+SK하이닉스 앤트로픽 투자로 AI 생태계 참여 확인. 단기 변동성 높으나 중기 상승 스토리 훼손 없음.</div>
+        <div class="watch-chips">
+          <span class="chip chip-hot">SK하이닉스 ★★★</span>
+          <span class="chip chip-hot">삼성전자 ★★</span>
+          <span class="chip chip-neu">한미반도체</span>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">THEME 04 · 재진입 기회</div>
+        <div class="theme-name">📱 삼성전기 · LG이노텍</div>
+        <div class="theme-reason"><strong>[전략]</strong> 5/29 이후 급등→차익실현 조정 중. LG이노텍 -18%, 삼성전기 -9.6% 하락으로 단기 과매도 구간 진입 가능. AI 디바이스·로보틱스 부품 수요 펀더멘털 유효. 6/5 회동 후 피지컬AI 협력 재확인 시 재반등 기대. <strong>조정 추가 확인 후 분할 접근 권고.</strong></div>
+        <div class="watch-chips">
+          <span class="chip chip-hot">삼성전기 ★★</span>
+          <span class="chip chip-hot">LG이노텍 ★★</span>
+          <span class="chip chip-neu">LG디스플레이</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 전문가 관점 -->
+    <div class="pro-box">
+      <div class="pro-label">▸ PROFESSIONAL INSIGHT — 투자전략 종합</div>
+      <div class="pro-text">
+        <strong>① 단기(6/4~6/6) 핵심 전략: "이벤트 드리븐 + 분산"</strong><br>
+        6/5 젠슨 황 방한은 예고된 재료다. 5/29처럼 방한 '소식'에 급등했던 종목들은 이미 상당 부분 선반영됐다. 핵심은 <em>회동 결과의 구체성</em>이다. MOU·공동개발·공급계약 등 '실체 있는 발표'가 나오면 추가 상승 여지가 있고, 막연한 회동 사진만 나오면 차익실현이 재개된다. 따라서 <strong>6/4까지 포지션의 50%를 확보하고, 6/5 장 중 발표 내용 확인 후 나머지를 결정하는 2단계 전략</strong>이 합리적이다.<br><br>
+        <strong>② 중기 관점: 순환매 사이클 명확히 인식하라</strong><br>
+        오늘 보험·통신·유통 강세는 단순 테마가 아니다. AI 인프라 투자 사이클이 ① 반도체 → ② 피지컬AI 디바이스 → ③ 통신·클라우드 인프라 → ④ 금융·내수(소비 진작)로 확산되는 구조적 흐름의 3단계 진입 신호다. 지금은 ②→③ 전환 국면으로 <strong>SK텔레콤·KT 등 통신주를 중기 포트에 편입하는 타이밍</strong>이다.<br><br>
+        <strong>③ 리스크 관리: 외국인 매도와 환율 주시</strong><br>
+        외국인이 3거래일간 누적 약 8조를 매도했음에도 코스피가 버티는 것은 개인 수급 덕분이다. 그러나 원/달러가 1,520원을 돌파하거나 외국인 매도가 10조를 넘어서면 지수 지지력이 흔들릴 수 있다. <strong>환율 1,520원 돌파 여부를 핵심 손절 시그널로 설정</strong>하고 포지션 관리를 권고한다.
+      </div>
+    </div>
+
+    <div class="risk-box" style="margin-top:16px;">
+      <div class="risk-label">▸ RISK MATRIX — 투자 전 필독</div>
+      <div class="risk-list">
+        <div class="risk-item">외국인 3거래일 누적 ~8조 매도 지속 — 방한 이후에도 이탈 멈추지 않으면 지수 지지 한계</div>
+        <div class="risk-item">원/달러 1,518원 · 3일 연속 약세 — 1,520원 돌파 시 외국인 추가 이탈 트리거</div>
+        <div class="risk-item">코스닥 5일 연속 하락 1,026선 — 바이오·이차전지 반등 트리거 부재, 코스닥 투자자 주의</div>
+        <div class="risk-item">회동 결과 실망 리스크 — 구체적 발표 없는 '사진 회동' 시 차익실현 재가속 가능</div>
+        <div class="risk-item">美 6월 NFP(6/5 발표) — 예상 상회 시 Fed 인하 기대 후퇴 → 글로벌 리스크자산 압박</div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  한상훈_AI_투자브리핑 · 2026.06.02 일일 시황 리포트<br>
+  본 리포트는 KRX 마감 데이터 및 공개 뉴스 기반 AI 자동 생성 참고 자료입니다.<br>
+  투자 결정 및 결과에 대한 책임은 투자자 본인에게 있습니다. 본 내용은 투자 권유가 아닙니다.
+</footer>
+
+<script>
+// 섹션 점프 스크롤 스무딩
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>
