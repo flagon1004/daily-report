@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한상훈_AI_투자브리핑 | 일일 시황 + 주간 결산 2026.06.09</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --bg:#f5f5f0;--surface:#fff;--surface2:#f0efe8;--surface3:#e8f4fd;
+  --border:#d8d8d0;--accent:#c8a96e;--accent2:#2196F3;
+  --up:#e05c5c;--down:#4caf82;
+  --text:#1a1a1a;--muted:#6b7280;--dim:#9ca3af;
+  --radius:12px;--warn:#f59e0b;--danger:#dc2626;--purple:#7c3aed;
+}
+[data-theme="dark"]{
+  --bg:#0a0b0e;--surface:#111318;--surface2:#1a1d26;--surface3:#0d1b2a;
+  --border:#2a2d3a;--accent:#c8a96e;--accent2:#4fc3f7;
+  --up:#e05c5c;--down:#4caf82;
+  --text:#e8e6e0;--muted:#7a7f8e;--dim:#4a4f5e;
+  --warn:#fbbf24;--danger:#f87171;--purple:#a78bfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.6;transition:background .3s,color .3s}
+
+header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px;backdrop-filter:blur(8px)}
+.logo{font-family:'DM Serif Display',serif;font-size:16px;color:var(--accent);white-space:nowrap;flex-shrink:0}
+.logo span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-left:6px}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:20px;border:1px solid var(--border);transition:all .2s}
+.nav-links a:hover{color:var(--accent);border-color:var(--accent)}
+.theme-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:6px 14px;cursor:pointer;font-size:13px;flex-shrink:0}
+.container{max-width:1000px;margin:0 auto;padding:32px 20px 60px}
+
+/* WEEKLY BANNER */
+.weekly-banner{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(33,150,243,.06));border:1px solid rgba(124,58,237,.2);border-radius:var(--radius);padding:16px 22px;margin-bottom:20px;display:flex;align-items:flex-start;gap:14px}
+.wb-icon{font-size:22px;flex-shrink:0}
+.wb-text{font-size:13px;line-height:1.75}
+.wb-text strong{color:var(--purple)}
+
+/* HERO */
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px 24px;margin-bottom:28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--danger),var(--warn),var(--down),var(--accent2))}
+.hero-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:8px}
+.hero-title{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:4px}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.75}
+.tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 10px;border-radius:20px;margin:2px 3px 2px 0}
+.tag.r{background:rgba(220,38,38,.08);color:var(--danger);border:1px solid rgba(220,38,38,.2)}
+.tag.g{background:rgba(76,175,130,.1);color:var(--down);border:1px solid rgba(76,175,130,.25)}
+.tag.u{background:rgba(224,92,92,.1);color:var(--up);border:1px solid rgba(224,92,92,.2)}
+.tag.w{background:rgba(245,158,11,.1);color:var(--warn);border:1px solid rgba(245,158,11,.25)}
+.tag.n{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.tag.p{background:rgba(124,58,237,.08);color:var(--purple);border:1px solid rgba(124,58,237,.2)}
+
+/* SECTION */
+.section{margin-bottom:32px}
+.section-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.sec-icon{font-size:22px}
+.sec-title-ko{font-size:17px;font-weight:700}
+.sec-title-en{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px}
+
+/* INDEX CARDS */
+.idx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.idx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;position:relative;overflow:hidden;transition:transform .2s}
+.idx-card:hover{transform:translateY(-2px)}
+.idx-card.up::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--up)}
+.idx-card.dn::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--down)}
+.idx-name{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.idx-val{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600}
+.idx-chg{font-family:'IBM Plex Mono',monospace;font-size:13px;margin-top:4px}
+.idx-chg.u{color:var(--up)}.idx-chg.r{color:var(--danger)}
+.idx-meta{font-size:11px;color:var(--dim);margin-top:6px}
+
+.flow-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.flow-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:center}
+.flow-label{font-size:11px;color:var(--muted);margin-bottom:6px}
+.flow-val{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600}
+
+.macro-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:16px}
+.macro-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.macro-label{font-size:10px;color:var(--dim);font-family:'IBM Plex Mono',monospace;margin-bottom:4px}
+.macro-val{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600}
+.macro-chg{font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:2px}
+
+/* SECTOR */
+.sector-list{display:flex;flex-direction:column;gap:10px}
+.sector-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px}
+.sector-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.sector-name{font-size:13px;font-weight:500}
+.sector-pct{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
+.sector-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden}
+.sector-fill{height:100%;border-radius:2px}
+.sector-desc{font-size:11px;color:var(--muted);margin-top:5px}
+
+/* STOCKS */
+.stock-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:12px}
+.stock-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;transition:transform .2s}
+.stock-card:hover{transform:translateY(-2px)}
+.stock-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.stock-name{font-size:14px;font-weight:700}
+.stock-code{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim)}
+.sbadge{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px}
+.sbadge.u{background:rgba(224,92,92,.1);color:var(--up)}
+.sbadge.r{background:rgba(220,38,38,.08);color:var(--danger)}
+.sbadge.g{background:rgba(76,175,130,.1);color:var(--down)}
+.stock-price{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;margin-bottom:4px}
+.stock-reason{font-size:11px;color:var(--muted);line-height:1.5}
+.mkt{display:inline-block;font-size:10px;font-family:'IBM Plex Mono',monospace;padding:1px 6px;border-radius:4px;margin-bottom:6px}
+.mkt.k{background:rgba(33,150,243,.1);color:var(--accent2)}
+.mkt.q{background:rgba(200,169,110,.1);color:var(--accent)}
+
+/* NEWS */
+.news-list{display:flex;flex-direction:column;gap:12px}
+.news-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;gap:14px}
+.ndot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:6px}
+.ndot.u{background:var(--up)}.ndot.r{background:var(--danger)}.ndot.n{background:var(--dim)}.ndot.w{background:var(--warn)}
+.news-title{font-size:14px;font-weight:600;margin-bottom:5px}
+.news-body{font-size:12px;color:var(--muted);line-height:1.65}
+
+/* WEEKLY ISSUES */
+.wi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.wi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;position:relative;overflow:hidden}
+.wi-card.t1::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--danger),var(--warn))}
+.wi-card.t2::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--up)}
+.wi-card.t3::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent2)}
+.wi-card.t4::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--down)}
+.wi-card.t5::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--purple)}
+.wi-num{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.08em;margin-bottom:8px}
+.wi-title{font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.4}
+.wi-body{font-size:12px;color:var(--muted);line-height:1.75}
+.wi-verdict{margin-top:12px;padding:10px 14px;background:var(--surface2);border-radius:8px;font-size:12px;line-height:1.6}
+.wi-verdict strong{color:var(--accent)}
+
+/* WEEKLY TRACKER */
+.wt-table{width:100%;border-collapse:collapse;font-size:13px}
+.wt-table th{background:var(--surface2);padding:10px 14px;text-align:left;font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
+.wt-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+.wt-table tr:last-child td{border-bottom:none}
+.wt-table tr:hover td{background:var(--surface2)}
+.mono{font-family:'IBM Plex Mono',monospace}
+.cr{color:var(--danger);font-weight:600}.cg{color:var(--down);font-weight:600}.cu{color:var(--up);font-weight:600}.cw{color:var(--warn);font-weight:600}
+
+/* SUMMARY */
+.summary-box{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--up);border-radius:var(--radius);padding:24px 28px}
+.summary-text{font-size:14px;line-height:1.95}
+.kw{color:var(--accent);font-weight:600}
+.ku{color:var(--up);font-weight:600}
+.kg{color:var(--down);font-weight:600}
+.kp{color:var(--purple);font-weight:600}
+.kw2{color:var(--warn);font-weight:600}
+
+footer{text-align:center;padding:24px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:640px){header{padding:0 14px}.nav-links{display:none}.hero{padding:20px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">한상훈_AI_투자브리핑 <span>DAILY + WEEKLY</span></div>
+  <nav class="nav-links">
+    <a href="#s1">지수</a><a href="#s2">섹터</a><a href="#s3">종목</a>
+    <a href="#s4">뉴스</a><a href="#s5">주간이슈</a><a href="#s6">총평</a>
+  </nav>
+  <button class="theme-btn" onclick="toggleTheme()">🌙 다크</button>
+</header>
+
+<div class="container">
+
+<!-- WEEKLY BANNER -->
+<div class="weekly-banner">
+  <div class="wb-icon">📆</div>
+  <div class="wb-text">
+    <strong>주간 결산 특별 포함</strong> — 이번 주(6/1~6/9)는 코스피 사상 최고치 경신(8,788p)→ 4일 연속 급락 → <strong>6/8 서킷브레이커 발동</strong>(역대 9번째, -8.29%) → 6/9 기술적 반등(+8.18%)이라는 극단적 롤러코스터 한 주였습니다. 주간 5대 이슈를 금일 리포트에 함께 수록합니다.
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-date">📅 2026년 6월 9일 (화) · KRX 15:45 마감 기준 · 출처: KRX Brief + KRX CSV</div>
+  <div class="hero-title">KOSPI +8.18% 대반등 — 서킷브레이커 다음날 V자 회복</div>
+  <div class="hero-sub">
+    6월 8일 서킷브레이커(-8.29%, 7,484p)의 충격이 하루 만에 반전됐다. 중동 지정학적 리스크 완화와 아시아 증시 전반 동반 상승 속에 반도체·AI 인프라 업종 중심 기관 매수가 폭발적으로 유입됐다. KOSPI +612p(+8.18%)로 8,097p 회복, KOSDAQ도 +6.19%로 967p. 원/달러는 2일 연속 강세로 1,516원까지 내려와 외국인 복귀 여건이 일부 개선됐으나 외국인은 오늘도 현물 순매도(-1.98조) 기조를 유지했다.
+  </div>
+  <div>
+    <span class="tag u">📈 KOSPI +8.18%</span>
+    <span class="tag u">📈 KOSDAQ +6.19%</span>
+    <span class="tag g">💱 원/달러 1,516원 (2일연속강세)</span>
+    <span class="tag g">🏦 기관 +2.5조 대규모 매수</span>
+    <span class="tag r">⚠️ 외국인 여전히 순매도</span>
+    <span class="tag n">📉 NAVER·LG전자·두산로보틱스 역행 하락</span>
+  </div>
+</div>
+
+<!-- S1 지수 요약 -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <div class="sec-icon">📊</div>
+    <div>
+      <div class="sec-title-ko">일일 지수 요약</div>
+      <div class="sec-title-en">Daily Indices · 2026.06.09 Close · 서킷브레이커 다음날 대반등</div>
+    </div>
+  </div>
+
+  <div class="idx-grid">
+    <div class="idx-card up">
+      <div class="idx-name">KOSPI</div>
+      <div class="idx-val">8,096.93</div>
+      <div class="idx-chg u">▲ +612.52 (+8.18%)</div>
+      <div class="idx-meta">거래대금 46.0조 · 4일 만에 상승</div>
+    </div>
+    <div class="idx-card up">
+      <div class="idx-name">KOSDAQ</div>
+      <div class="idx-val">967.81</div>
+      <div class="idx-chg u">▲ +56.42 (+6.19%)</div>
+      <div class="idx-meta">거래대금 10.2조 · 3일 만에 상승</div>
+    </div>
+    <div class="idx-card up">
+      <div class="idx-name">KRX300</div>
+      <div class="idx-val">5,626.42</div>
+      <div class="idx-chg u">▲ +460.00 (+8.90%)</div>
+      <div class="idx-meta">거래대금 46.8조</div>
+    </div>
+    <div class="idx-card up">
+      <div class="idx-name">KOSPI200 선물</div>
+      <div class="idx-val">1,287.80</div>
+      <div class="idx-chg u">▲ +109.55 (+9.30%)</div>
+      <div class="idx-meta">거래량 196,514계약</div>
+    </div>
+  </div>
+
+  <!-- 수급 -->
+  <div style="margin-top:20px">
+    <div style="font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-bottom:10px">KOSPI 현물 투자자별 순매수 (억원) · ⚠️ 기관 주도, 외국인·개인 여전히 매도</div>
+    <div class="flow-row">
+      <div class="flow-card"><div class="flow-label">외국인</div><div class="flow-val" style="color:var(--danger)">-19,838</div></div>
+      <div class="flow-card"><div class="flow-label">기관</div><div class="flow-val" style="color:var(--up)">+25,043</div></div>
+      <div class="flow-card"><div class="flow-label">개인</div><div class="flow-val" style="color:var(--danger)">-6,182</div></div>
+    </div>
+  </div>
+
+  <!-- 매크로 -->
+  <div style="margin-top:20px">
+    <div style="font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-bottom:10px">거시 지표 · 📉 국내금리 하락, 원화 강세로 부분 개선</div>
+    <div class="macro-row">
+      <div class="macro-card">
+        <div class="macro-label">원/달러</div>
+        <div class="macro-val" style="color:var(--down)">1,516.0</div>
+        <div class="macro-chg" style="color:var(--down)">▲ -10.5원 (2일연속강세)</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">WTI 유가</div>
+        <div class="macro-val">$89.77</div>
+        <div class="macro-chg" style="color:var(--down)">▼ -1.68%</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">달러지수</div>
+        <div class="macro-val">100p</div>
+        <div class="macro-chg" style="color:var(--down)">▼ -0.1%</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">국채 3년</div>
+        <div class="macro-val" style="color:var(--down)">3.855%</div>
+        <div class="macro-chg" style="color:var(--down)">▼ -9.2bp ✅</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">국채 10년</div>
+        <div class="macro-val" style="color:var(--down)">4.273%</div>
+        <div class="macro-chg" style="color:var(--down)">▼ -7.8bp ✅</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">US 10년</div>
+        <div class="macro-val">4.564%</div>
+        <div class="macro-chg" style="color:var(--up)">▲ +4.6bp</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6/8 서킷브레이커 맥락 박스 -->
+  <div style="margin-top:24px;background:linear-gradient(135deg,rgba(220,38,38,.05),rgba(245,158,11,.04));border:1px solid rgba(220,38,38,.2);border-radius:var(--radius);padding:18px 22px">
+    <div style="font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--danger);margin-bottom:12px;font-weight:600">⚡ 6월 8일 서킷브레이커 발동 — 역대 9번째, 올해 3번째</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
+      <div style="text-align:center;padding:10px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">6/8 종가</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:var(--danger)">7,484.41p</div>
+        <div style="font-size:11px;color:var(--danger)">-676p (-8.29%)</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">발동 시각</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700">09:03</div>
+        <div style="font-size:11px;color:var(--muted)">개장 3분 만에 발동</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">6/1 고점 대비</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:var(--danger)">-1,303p</div>
+        <div style="font-size:11px;color:var(--danger)">-14.8% (5거래일)</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">6/9 반등</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:var(--up)">+8.18%</div>
+        <div style="font-size:11px;color:var(--up)">7,484 → 8,097p</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S2 섹터 분석 -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="sec-icon">🏭</div>
+    <div>
+      <div class="sec-title-ko">섹터 분석</div>
+      <div class="sec-title-en">Sector Analysis · 반도체·AI 주도 + 소외 섹터 동시 관찰</div>
+    </div>
+  </div>
+
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px">🟢 KOSPI 강세 업종 — 大(+8.5%) 전반 상승</div>
+  <div class="sector-list">
+    <div class="sector-item">
+      <div class="sector-row">
+        <div class="sector-name">⚡ 전기·전자 (KOSPI)</div>
+        <div class="sector-pct" style="color:var(--up)">+11.1%</div>
+      </div>
+      <div class="sector-bar"><div class="sector-fill" style="width:100%;background:var(--up)"></div></div>
+      <div class="sector-desc">SK하이닉스 +15.9%, 삼성전자 +8.97%, 삼성전기 +18.4%. 6/8 서킷브레이커 과매도 반발 + 중동 리스크 완화로 기관 집중 매수</div>
+    </div>
+    <div class="sector-item">
+      <div class="sector-row">
+        <div class="sector-name">🏥 의료·정밀기기 (KOSPI)</div>
+        <div class="sector-pct" style="color:var(--up)">+10.9%</div>
+      </div>
+      <div class="sector-bar"><div class="sector-fill" style="width:98%;background:var(--up)"></div></div>
+      <div class="sector-desc">알테오젠(+12.8%), 고영(+20.3%). 반도체 급등 속 바이오·정밀기기 동반 상승</div>
+    </div>
+    <div class="sector-item">
+      <div class="sector-row">
+        <div class="sector-name">🔧 기계·장비 (KOSDAQ)</div>
+        <div class="sector-pct" style="color:var(--up)">+8.8%</div>
+      </div>
+      <div class="sector-bar"><div class="sector-fill" style="width:80%;background:var(--up)"></div></div>
+      <div class="sector-desc">테크윙(+21%), HPSP(+20.9%), 피에스케이(+24.3%), 테스(+22.7%). 소부장 재차 급등</div>
+    </div>
+    <div class="sector-item">
+      <div class="sector-row">
+        <div class="sector-name">💹 금융 (KOSDAQ)</div>
+        <div class="sector-pct" style="color:var(--up)">+5.6%</div>
+      </div>
+      <div class="sector-bar"><div class="sector-fill" style="width:56%;background:var(--up)"></div></div>
+      <div class="sector-desc">지수 반등 동반 상승. 전일 안전자산 선호 수혜 후 지수 연동 복귀</div>
+    </div>
+  </div>
+
+  <div style="font-size:12px;color:var(--muted);margin:18px 0 12px">🔴 지수 역행 하락 — 특이 종목</div>
+  <div class="sector-list">
+    <div class="sector-item">
+      <div class="sector-row">
+        <div class="sector-name">📱 NAVER · LG전자 · LG씨엔에스</div>
+        <div class="sector-pct" style="color:var(--danger)">-7~8%</div>
+      </div>
+      <div class="sector-bar"><div class="sector-fill" style="width:78%;background:var(--danger)"></div></div>
+      <div class="sector-desc">NAVER -7.89%, LG전자 -7.46%, LG씨엔에스 -7.04%. 6/1 급등 종목들이 반등장에서도 차익 실현 압력 지속 — 6/1 고점 대비 누적 낙폭이 여전히 큰 종목들</div>
+    </div>
+    <div class="sector-item">
+      <div class="sector-row">
+        <div class="sector-name">🤖 두산로보틱스 · 현대오토에버</div>
+        <div class="sector-pct" style="color:var(--danger)">-8~9%</div>
+      </div>
+      <div class="sector-bar"><div class="sector-fill" style="width:85%;background:var(--danger)"></div></div>
+      <div class="sector-desc">두산로보틱스 -8.33%, 현대오토에버 -8.64%. 반도체 반등장에서 로봇·소프트웨어 테마는 소외. 테마 순환매 이탈 신호</div>
+    </div>
+  </div>
+</section>
+
+<!-- S3 주도 종목 -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="sec-icon">⚡</div>
+    <div>
+      <div class="sec-title-ko">주도 종목</div>
+      <div class="sec-title-en">Notable Stocks · 반도체 급반등 + 역행 하락 동시 분석</div>
+    </div>
+  </div>
+
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px">🚀 반도체·소부장 급반등</div>
+  <div class="stock-grid">
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">SK하이닉스</div><div class="stock-code">000660</div></div>
+        <div class="sbadge u">+15.91%</div>
+      </div>
+      <div class="mkt k">KOSPI</div>
+      <div class="stock-price">2,215,000원</div>
+      <div class="stock-reason">거래대금 1위(12.4조). 6/8 서킷브레이커 당일 저점 대비 하루 만에 +15.9%. 기관 집중 매수 주도.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">삼성전기</div><div class="stock-code">009150</div></div>
+        <div class="sbadge u">+18.39%</div>
+      </div>
+      <div class="mkt k">KOSPI</div>
+      <div class="stock-price">1,970,000원</div>
+      <div class="stock-reason">거래대금 3위(3.1조). 급락 구간 내내 방어 역할 후 반등장 선도. MLCC·전장 강세 지속.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">삼성전자</div><div class="stock-code">005930</div></div>
+        <div class="sbadge u">+8.97%</div>
+      </div>
+      <div class="mkt k">KOSPI</div>
+      <div class="stock-price">322,000원</div>
+      <div class="stock-reason">거래대금 2위(9.4조). 시총 최대 낙폭 회복. 기관 순매수 주도. 6/1 대비 여전히 -7.7% 미회복.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">HPSP</div><div class="stock-code">403870</div></div>
+        <div class="sbadge u">+20.89%</div>
+      </div>
+      <div class="mkt q">KOSDAQ GLOBAL</div>
+      <div class="stock-price">57,000원</div>
+      <div class="stock-reason">거래대금 12위(621억). 급락 구간 전 일정 방어 후 반등 폭발. 고압 수소 어닐링 장비 독점.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">테크윙</div><div class="stock-code">089030</div></div>
+        <div class="sbadge u">+20.97%</div>
+      </div>
+      <div class="mkt q">KOSDAQ</div>
+      <div class="stock-price">59,700원</div>
+      <div class="stock-reason">거래대금 13위(601억). 반도체 핸들러 1위. 소부장 테마 재점화 수혜.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">피에스케이</div><div class="stock-code">319660</div></div>
+        <div class="sbadge u">+24.28%</div>
+      </div>
+      <div class="mkt q">KOSDAQ GLOBAL</div>
+      <div class="stock-price">138,200원</div>
+      <div class="stock-reason">거래대금(1,536억). 지난주 등락률 상위 고정 등장. 반도체 세정 장비 — 반등장 최대 수혜.</div>
+    </div>
+  </div>
+
+  <div style="font-size:12px;color:var(--muted);margin:20px 0 12px">🔴 반등장 역행 하락 — 주의 종목</div>
+  <div class="stock-grid">
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">NAVER</div><div class="stock-code">035420</div></div>
+        <div class="sbadge r">-7.89%</div>
+      </div>
+      <div class="mkt k">KOSPI</div>
+      <div class="stock-price">257,000원</div>
+      <div class="stock-reason">거래대금 4위(1.78조). 6/1 급등 이후 반등장에도 하락 지속. 6/1~6/9 누적 -5.5%.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">두산로보틱스</div><div class="stock-code">454910</div></div>
+        <div class="sbadge r">-8.33%</div>
+      </div>
+      <div class="mkt k">KOSPI</div>
+      <div class="stock-price">116,600원</div>
+      <div class="stock-reason">거래대금 26위(261억). 6/1(+30%) 이후 5거래일 연속 하락. 로봇 테마 완전 소외. 6/1 대비 -61.8%.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">현대오토에버</div><div class="stock-code">307950</div></div>
+        <div class="sbadge r">-8.64%</div>
+      </div>
+      <div class="mkt k">KOSPI</div>
+      <div class="stock-price">687,000원</div>
+      <div class="stock-reason">거래대금 31위(230억). 소프트웨어·IT서비스 섹터 — 반도체 랠리에서 완전 소외.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-header">
+        <div><div class="stock-name">LG전자</div><div class="stock-code">066570</div></div>
+        <div class="sbadge r">-7.46%</div>
+      </div>
+      <div class="mkt k">KOSPI</div>
+      <div class="stock-price">248,000원</div>
+      <div class="stock-reason">거래대금 5위(1.26조). 6/1(+29.86%) 급등의 되돌림 완성 중. 6/1 대비 누적 -24.5%.</div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 주요 뉴스 -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="sec-icon">📰</div>
+    <div>
+      <div class="sec-title-ko">주요 뉴스</div>
+      <div class="sec-title-en">News Digest · 반등 재료 및 잔존 리스크</div>
+    </div>
+  </div>
+  <div class="news-list">
+    <div class="news-item">
+      <div class="ndot u"></div>
+      <div>
+        <span class="tag u" style="font-size:10px;padding:2px 8px">+반등재료</span><span class="tag n" style="font-size:10px;padding:2px 8px">지정학</span>
+        <div class="news-title">중동 지정학적 리스크 완화 + 아시아 증시 전반 동반 상승</div>
+        <div class="news-body">6/8 서킷브레이커를 유발한 중동 불안이 완화되며 일본(+2.2%), 대만(+2.8%), 중국(+1.3%)이 동반 상승, 한국 반등의 외부 환경이 조성됐다. 과매도 상태에서 단기 기술적 반등이 폭발적으로 나타났다. 다만 미-이란 전쟁의 근본적 해결은 아직으로, 재부각 시 다시 하락할 수 있는 구조는 유지 중이다.</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="ndot u"></div>
+      <div>
+        <span class="tag u" style="font-size:10px;padding:2px 8px">+반등재료</span><span class="tag n" style="font-size:10px;padding:2px 8px">환율·금리</span>
+        <div class="news-title">원/달러 1,516원 — 2일 연속 강세, 국내 금리도 대폭 하락</div>
+        <div class="news-body">원/달러가 -10.5원 내려 1,516원을 기록하며 2일 연속 강세를 이어갔다. 국내 3년물 금리도 -9.2bp, 10년물 -7.8bp로 급락해 밸류에이션 부담이 완화됐다. 다만 미국 10년물은 +4.6bp로 오히려 상승해 미국발 금리 리스크는 여전히 존재한다.</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="ndot w"></div>
+      <div>
+        <span class="tag w" style="font-size:10px;padding:2px 8px">⚠️경계</span><span class="tag n" style="font-size:10px;padding:2px 8px">수급</span>
+        <div class="news-title">기관 +2.5조 주도 반등 — 외국인은 오늘도 -1.98조 순매도</div>
+        <div class="news-body">오늘 반등은 기관(+25,043억) 주도였다. 외국인은 -19,838억 순매도를 이어가며 6/1 이후 누적 약 -12.5조 규모를 순매도했다. 개인도 오늘은 -6,182억 순매도로 전환했다. 외국인이 복귀하지 않은 반등은 지속성이 약할 수 있다는 점에서 기술적 반등의 한계를 짚어볼 필요가 있다.</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="ndot n"></div>
+      <div>
+        <span class="tag n" style="font-size:10px;padding:2px 8px">주목</span><span class="tag n" style="font-size:10px;padding:2px 8px">이벤트</span>
+        <div class="news-title">이번 주 CPI(6/10) + FOMC(6/11) + 네 마녀의 날(6/12) 삼중 이벤트 대기 중</div>
+        <div class="news-body">6/10 미국 5월 CPI, 6/11 FOMC 결정 및 파월 기자회견, 6/12 선물·옵션 동시 만기일이 연속 예정돼 있다. 오늘 반등이 이벤트 전 기술적 반발인지 추세 전환인지 결론짓기에는 이르다. FOMC 결과 확인 전까지 변동성 확대 국면이 지속될 것으로 보인다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S5 주간 이슈 TOP5 -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="sec-icon">📆</div>
+    <div>
+      <div class="sec-title-ko">금주 주요 이슈 TOP-5 분석</div>
+      <div class="sec-title-en">Weekly Issue Review · 2026.06.01 ~ 06.09 · 5거래일 총결산</div>
+    </div>
+  </div>
+
+  <!-- 주간 지수 흐름 테이블 -->
+  <div style="overflow-x:auto;margin-bottom:24px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+    <table class="wt-table">
+      <thead>
+        <tr>
+          <th>날짜</th><th>KOSPI(p)</th><th>일간 등락</th><th>핵심 이슈</th><th>외국인</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">6/01 (월)</td>
+          <td class="mono cg">8,788.38</td>
+          <td class="mono cg">+3.68% ↑</td>
+          <td>美-이란 불확실성 완화 · AI 인프라 협력 · 사이드카 발동</td>
+          <td class="mono cr">-29,204억</td>
+        </tr>
+        <tr>
+          <td class="mono">6/04 (목)</td>
+          <td class="mono cr">8,639.41</td>
+          <td class="mono cr">-1.84% ↓</td>
+          <td>해외증시 약세 · 外 6.99조 순매도 · KOSDAQ 6일만 반등</td>
+          <td class="mono cr">-69,880억</td>
+        </tr>
+        <tr>
+          <td class="mono">6/05 (금)</td>
+          <td class="mono cr">8,160.59</td>
+          <td class="mono cr">-5.54% ↓</td>
+          <td>AI 반도체 기대약화 · 환율 1,539원 · 외+기관 동시 매도</td>
+          <td class="mono cr">-35,387억</td>
+        </tr>
+        <tr style="background:rgba(220,38,38,.04)">
+          <td class="mono" style="color:var(--danger);font-weight:700">6/08 (월)</td>
+          <td class="mono cr" style="font-weight:700">7,484.41</td>
+          <td class="mono cr" style="font-weight:700">-8.29% 🚨</td>
+          <td style="color:var(--danger);font-weight:600">서킷브레이커 발동 (역대 9번째) · 미국 반도체주 폭락</td>
+          <td class="mono cr">확인중</td>
+        </tr>
+        <tr style="background:rgba(76,175,130,.04)">
+          <td class="mono" style="color:var(--down);font-weight:700">6/09 (화)</td>
+          <td class="mono cg" style="font-weight:700">8,096.93</td>
+          <td class="mono cg" style="font-weight:700">+8.18% ✅</td>
+          <td style="color:var(--down);font-weight:600">중동 리스크 완화 · 기관 대규모 매수 · 기술적 반등</td>
+          <td class="mono cr">-19,838억</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TOP5 이슈 카드 -->
+  <div class="wi-grid">
+
+    <div class="wi-card t1">
+      <div class="wi-num" style="color:var(--danger)">ISSUE #01 · 최대충격</div>
+      <div class="wi-title">서킷브레이커 발동 — 역대 9번째, 5거래일에 -14.8% 폭락</div>
+      <div class="wi-body">6/1 고점(8,788p)에서 6/8(7,484p)까지 단 5거래일 만에 -1,303p(-14.8%)가 증발했다. 6/8에는 개장 3분 만에 서킷브레이커가 발동됐다. 원인은 ① 미국 반도체주 동반 폭락 ② 원/달러 1,540원 돌파 ③ 국채 금리 급등 ④ 외국인 12.5조 연속 순매도의 복합 충격이었다. 6/1~6/8 외국인 누적 순매도 약 -12.5조원은 역사적으로도 이례적인 규모다.</div>
+      <div class="wi-verdict"><strong>투자 교훈:</strong> 사상 최고치 경신 직후가 가장 위험하다. 8,788p 돌파 후 추격 매수한 개인 투자자들은 단 5일 만에 -15%의 손실을 경험했다. 고점 매수 금지와 분할 매수 원칙의 중요성을 다시 확인한 한 주였다.</div>
+    </div>
+
+    <div class="wi-card t2">
+      <div class="wi-num" style="color:var(--up)">ISSUE #02 · 수급 구조</div>
+      <div class="wi-title">외국인 4일간 -12.5조 순매도 — 개인이 홀로 받아낸 한 주</div>
+      <div class="wi-body">6/1~6/9 외국인은 한국 증시에서 약 12.5조원을 빼냈다. 이 기간 개인은 거의 매일 순매수로 방어했다. 결과적으로 외국인이 높은 가격에 판 물량을 개인이 낮은 가격에 받아가는 구조가 일주일 내내 반복됐다. 기관은 6/9 반등장에서 +2.5조 대규모 매수로 일부 복귀했다. 오늘도 외국인은 -1.98조 순매도를 유지했다는 점이 반등의 지속성에 의문을 남긴다.</div>
+      <div class="wi-verdict"><strong>핵심 관찰:</strong> 외국인이 순매수로 전환하지 않으면 진짜 반등이 아니다. 외국인 2일 연속 순매수 전환이 확인될 때까지는 포트폴리오 확대를 자제하는 것이 합리적이다.</div>
+    </div>
+
+    <div class="wi-card t3">
+      <div class="wi-num" style="color:var(--accent2)">ISSUE #03 · 테마 흐름</div>
+      <div class="wi-title">AI 반도체→소부장→금융지주 로테이션 — 수급의 지형 변화</div>
+      <div class="wi-body">6/1(삼성전자·SK하이닉스 급등) → 6/4(주성엔지·원익IPS 소부장 급등) → 6/5(신한지주·KB금융 방어) → 6/9(반도체+소부장 동반 재급등). 시장이 급등락하는 가운데에서도 자금의 이동 경로가 뚜렷했다. 반면 로봇(두산로보틱스 -61%), IT서비스(NAVER·LG씨엔에스), 소프트웨어는 반등장에서도 소외됐다. 지금은 반도체 중심의 선별 장세다.</div>
+      <div class="wi-verdict"><strong>전략 포인트:</strong> 반등장에서도 오르지 못한 종목은 매도 신호일 수 있다. 두산로보틱스·NAVER는 기관의 집중 매도가 지속되고 있어 단기 반등 기대보다 보유 재검토가 필요하다.</div>
+    </div>
+
+    <div class="wi-card t4">
+      <div class="wi-num" style="color:var(--down)">ISSUE #04 · 매크로</div>
+      <div class="wi-title">원/달러 1,539원 → 1,516원 급반전 — 환율이 증시 방향을 결정했다</div>
+      <div class="wi-body">6/4~6/5 원/달러 1,530~1,540원 구간에서 외국인이 대규모로 이탈하다가, 6/8~6/9 1,516원까지 23원 반락하자 기관이 복귀했다. 환율이 외국인 수급의 방향타로 작동한 한 주였다. 국내 금리는 6/9 하루에만 3년 -9.2bp, 10년 -7.8bp 하락하며 반등을 지원했다. 미국 10년물(+4.6bp)과의 디커플링은 CPI·FOMC 전까지 지속될 수 있다.</div>
+      <div class="wi-verdict"><strong>모니터링 지표:</strong> 원/달러 1,520원 이하 안착 여부가 다음 주 외국인 복귀의 선행 지표다. 1,525원 이상으로 재반등 시 외국인 이탈 재개를 경계해야 한다.</div>
+    </div>
+
+    <div class="wi-card t5">
+      <div class="wi-num" style="color:var(--purple)">ISSUE #05 · 다음주 결전</div>
+      <div class="wi-title">CPI(6/10) + FOMC(6/11) + 네 마녀(6/12) — 방향성의 분수령</div>
+      <div class="wi-body">이번 주 급락과 급반등은 다음 주 삼중 이벤트의 전초전이었다. ① 6/10 미국 5월 CPI: 예상 상회 시 금리 재급등 → 원/달러 재상승 → 추가 하락. 예상 하회 시 FOMC 금리 인하 기대 → 강력 반등. ② 6/11 FOMC: 파월의 발언 톤이 hawkish면 8,000p 재붕괴 가능. ③ 6/12 네 마녀의 날: FOMC 다음날 만기 겹침으로 극단적 변동성 예상. 오늘 반등이 진짜 추세 전환인지는 이 세 이벤트를 통과해야 알 수 있다.</div>
+      <div class="wi-verdict"><strong>행동 원칙:</strong> 이벤트 결과 확인 전 신규 대규모 매수 자제. 보유 중이라면 FOMC 결과 당일(6/12 새벽) 이후 대응이 합리적이다. 변동성이 큰 만큼 분할 대응이 핵심이다.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- S6 금일 총평 -->
+<section class="section" id="s6">
+  <div class="section-header">
+    <div class="sec-icon">📋</div>
+    <div>
+      <div class="sec-title-ko">금일 총평 + 주간 결산</div>
+      <div class="sec-title-en">Daily & Weekly Summary · 한상훈 AI 브리핑</div>
+    </div>
+  </div>
+  <div class="summary-box">
+    <div class="summary-text">
+      6월 9일, KOSPI는 <span class="ku">+8.18%(+612p) 폭발적 반등</span>으로 8,097p를 회복했다. 전일 서킷브레이커(-8.29%, 7,484p)의 충격이 하루 만에 기술적으로 반전된 것이다. 반등의 재료는 <span class="kw">중동 지정학적 리스크 완화</span>와 아시아 증시 동반 상승, 원/달러 1,516원으로의 환율 강세 반전, 국내 금리 대폭 하락(-9.2bp)이었다.<br><br>
+      그러나 진짜 반등인지 기술적 반발인지 판단하기에는 이르다. 오늘도 <span class="kp">외국인은 -1.98조원 순매도</span>를 이어갔고, 반등은 전적으로 <span class="ku">기관(+2.5조)</span>이 주도했다. 주간 누적 외국인 순매도는 약 -12.5조원으로 추정된다 — 이 물량이 시장에 오버행으로 남아있다는 사실이 반등의 천장을 압박할 것이다.<br><br>
+      이번 주(6/1~6/9)는 한국 증시 역사에 기록될 한 주였다. <span class="kw">사상 최고치(8,788p)→ 서킷브레이커(7,484p) → 8%대 반등(8,097p)</span>. 5거래일 동안 1,300p를 내리고 612p를 올렸다. 핵심 교훈은 단순하다 — <span class="kg">고점 추격 금지, 이벤트 전 관망, 분할 대응</span>. 다음 주 CPI·FOMC·네 마녀의 날 삼중 이벤트를 통과한 후 시장 방향성의 진위가 드러날 것이다.
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  한상훈_AI_투자브리핑 · 2026.06.09 · 데이터: KRX Brief(260609) + data_3014/3037 CSV + 주간 결산 · 본 리포트는 투자 참고용이며 투자 결정의 책임은 투자자 본인에게 있습니다.
+</footer>
+
+<script>
+function toggleTheme(){
+  const h=document.documentElement,b=document.querySelector('.theme-btn');
+  if(h.getAttribute('data-theme')==='light'){h.setAttribute('data-theme','dark');b.textContent='☀️ 라이트';}
+  else{h.setAttribute('data-theme','light');b.textContent='🌙 다크';}
+}
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});});
+});
+</script>
+</body>
+</html>
