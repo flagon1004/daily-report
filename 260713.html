@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한상훈_AI_투자브리핑 | 2026.7.13 일일 시황</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #f5f5f0; --surface: #ffffff; --surface2: #f0efe8;
+  --border: #d8d8d0; --accent: #c8a96e; --accent2: #2196F3;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #1a1a1a; --muted: #6b7280; --dim: #9ca3af;
+  --radius: 12px;
+}
+[data-theme="dark"] {
+  --bg: #0a0b0e; --surface: #111318; --surface2: #1a1d26;
+  --border: #2a2d3a; --accent: #c8a96e; --accent2: #4fc3f7;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #e8e6e0; --muted: #7a7f8e; --dim: #4a4f5e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: background .3s, color .3s;
+  padding-bottom: 60px;
+}
+.mono { font-family: 'IBM Plex Mono', monospace; }
+.serif { font-family: 'DM Serif Display', serif; }
+
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px; flex-wrap: wrap; gap: 10px;
+}
+.logo { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--accent); display:flex; flex-direction:column; line-height:1.1;}
+.logo span { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; color: var(--muted); letter-spacing: .05em; }
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+nav a {
+  font-family: 'IBM Plex Mono', monospace; font-size: .72rem;
+  color: var(--muted); text-decoration: none; padding: 6px 12px;
+  border: 1px solid var(--border); border-radius: 20px; transition: .2s;
+  white-space: nowrap;
+}
+nav a:hover { border-color: var(--accent); color: var(--accent); }
+#themeToggle {
+  border: 1px solid var(--border); background: var(--surface2); color: var(--text);
+  border-radius: 20px; padding: 6px 14px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: .72rem;
+}
+
+.container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+.hero {
+  padding: 28px 0 8px;
+}
+.hero .date-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: .75rem; color: var(--accent);
+  border: 1px solid var(--accent); display: inline-block; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+}
+.hero h1 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; line-height: 1.3; }
+.hero .lead { color: var(--muted); font-size: .92rem; margin-top: 8px; line-height: 1.6; }
+
+section { padding: 34px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.sec-icon {
+  width: 40px; height: 40px; border-radius: 10px; background: var(--surface2);
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid var(--border);
+}
+.sec-title-ko { font-family: 'DM Serif Display', serif; font-size: 1.3rem; }
+.sec-title-en { font-family: 'IBM Plex Mono', monospace; font-size: .7rem; color: var(--dim); letter-spacing: .08em; text-transform: uppercase; }
+
+/* Index cards */
+.index-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.index-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 18px; position: relative; overflow: hidden;
+}
+.index-card .name { font-family: 'IBM Plex Mono', monospace; font-size: .75rem; color: var(--muted); margin-bottom: 6px; }
+.index-card .val { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; font-weight: 700; }
+.index-card .chg { font-family: 'IBM Plex Mono', monospace; font-size: .85rem; margin-top: 4px; font-weight: 600; }
+.up { color: var(--up); }
+.down { color: var(--down); }
+.index-card .vol { font-family: 'IBM Plex Mono', monospace; font-size: .68rem; color: var(--dim); margin-top: 10px; }
+
+.flow-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-family: 'IBM Plex Mono', monospace; font-size: .78rem; }
+.flow-table th, .flow-table td { padding: 9px 8px; text-align: right; border-bottom: 1px solid var(--border); }
+.flow-table th:first-child, .flow-table td:first-child { text-align: left; color: var(--muted); }
+.flow-table th { color: var(--dim); font-weight: 500; font-size: .68rem; text-transform: uppercase; }
+.flow-note { font-size: .72rem; color: var(--dim); margin-top: 10px; font-family: 'IBM Plex Mono', monospace; }
+
+.alert-box {
+  background: var(--surface2); border-left: 3px solid var(--up); border-radius: 6px;
+  padding: 14px 16px; margin-top: 16px; font-size: .85rem; line-height: 1.6; color: var(--text);
+}
+
+/* Sector */
+.sector-list { display: flex; flex-direction: column; gap: 10px; }
+.sector-row {
+  display: grid; grid-template-columns: 110px 1fr 70px; align-items: center; gap: 12px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px;
+}
+.sector-row .sname { font-size: .88rem; font-weight: 700; }
+.sector-row .bar-bg { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.sector-row .bar { height: 100%; border-radius: 4px; }
+.sector-row .spct { font-family: 'IBM Plex Mono', monospace; font-size: .85rem; font-weight: 700; text-align: right; }
+.market-label { font-family: 'IBM Plex Mono', monospace; font-size: .68rem; color: var(--dim); margin: 18px 0 8px; text-transform: uppercase; letter-spacing: .08em;}
+
+/* Stocks */
+.stock-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.stock-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px;
+}
+.stock-card .srow { display: flex; justify-content: space-between; align-items: baseline; }
+.stock-card .sname { font-weight: 700; font-size: .95rem; }
+.stock-card .scode { font-family: 'IBM Plex Mono', monospace; font-size: .68rem; color: var(--dim); }
+.stock-card .spct { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1rem; }
+.stock-card .sreason { font-size: .78rem; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+/* News */
+.news-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+.news-item:last-child { border-bottom: none; }
+.news-item .ntitle { font-weight: 700; font-size: .92rem; margin-bottom: 5px; }
+.news-item .nsummary { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+.news-item .nimpact {
+  display: inline-block; margin-top: 7px; font-family: 'IBM Plex Mono', monospace; font-size: .68rem;
+  padding: 2px 8px; border-radius: 10px; background: var(--surface2); color: var(--accent); border: 1px solid var(--border);
+}
+
+/* Summary */
+.summary-box {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 22px; font-size: .92rem; line-height: 1.8;
+}
+.summary-box .stitle { font-family: 'DM Serif Display', serif; color: var(--accent); font-size: 1.05rem; margin-bottom: 10px; }
+
+footer { text-align: center; padding: 30px 0; font-family: 'IBM Plex Mono', monospace; font-size: .7rem; color: var(--dim); }
+
+@media (max-width: 700px) {
+  .index-grid { grid-template-columns: 1fr; }
+  .stock-grid { grid-template-columns: 1fr; }
+  nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">한상훈_AI_투자브리핑<span>DAILY MARKET BRIEFING</span></div>
+  <nav>
+    <a href="#s1">지수요약</a>
+    <a href="#s2">섹터분석</a>
+    <a href="#s3">주도종목</a>
+    <a href="#s4">주요뉴스</a>
+    <a href="#s5">총평</a>
+  </nav>
+  <button id="themeToggle" onclick="toggleTheme()">🌙 다크모드</button>
+</header>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="date-tag mono">2026.07.13 (월) 장 마감 기준</div>
+    <h1>서킷브레이커 발동…코스피 8.95% 급락, 7000선 붕괴</h1>
+    <p class="lead">SK하이닉스 나스닥 정규거래 전환과 국내 반도체 대형주 조정이 맞물리며 AI 피크아웃 우려가 재확산됐다. 코스피는 장중 매도 사이드카에 이어 20분간 서킷브레이커까지 발동되는 극심한 패닉장세 속에 669.01p(-8.95%) 하락한 6,806.93에 마감했고, 코스닥도 전기·전자·건설 업종 중심 외국인 매도세에 3거래일 만에 하락 전환했다.</p>
+  </div>
+
+  <!-- SECTION 1: 일일 개요 -->
+  <section id="s1">
+    <div class="section-header">
+      <div class="sec-icon">📊</div>
+      <div>
+        <div class="sec-title-ko">일일 지수 요약</div>
+        <div class="sec-title-en">Daily Indices</div>
+      </div>
+    </div>
+
+    <div class="index-grid">
+      <div class="index-card">
+        <div class="name">KOSPI</div>
+        <div class="val">6,806.93</div>
+        <div class="chg down">▼ 669.01 (-8.95%)</div>
+        <div class="vol">거래대금 39.8조원 (+8.2)</div>
+      </div>
+      <div class="index-card">
+        <div class="name">KOSDAQ</div>
+        <div class="val">799.36</div>
+        <div class="chg down">▼ 38.07 (-4.55%)</div>
+        <div class="vol">거래대금 7.4조원 (+0.5)</div>
+      </div>
+      <div class="index-card">
+        <div class="name">KRX300</div>
+        <div class="val">4,680.39</div>
+        <div class="chg down">▼ 500.11 (-9.65%)</div>
+        <div class="vol">거래대금 41.3조원 (+8.6)</div>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      ⚠ 코스피는 이날 오전 매도 사이드카에 이어 오후 1시 35분경 낙폭이 8%에 근접하자 20분간 매매거래를 중단하는 서킷브레이커가 발동됐다. 지난 5월 7000선 최초 돌파 이후 약 두 달여 만에 재차 7000선이 붕괴됐으며, 올해 들어서만 서킷브레이커·사이드카 발동이 잇따르고 있다.
+    </div>
+
+    <div class="market-label">투자자별 매매동향 (현물, 억원)</div>
+    <table class="flow-table">
+      <tr><th>구분</th><th>외국인</th><th>기관</th><th>금투</th><th>보험</th><th>투신</th><th>연기금</th><th>개인</th></tr>
+      <tr><td>KOSPI</td><td class="down">-17,219</td><td class="down">-22,108</td><td class="up">+2</td><td class="up">+67</td><td class="down">-16,437</td><td class="down">-662</td><td class="up">+38,908</td></tr>
+      <tr><td>KOSDAQ</td><td class="down">-3,866</td><td class="up">+1,736</td><td class="down">-1,017</td><td class="up">+30</td><td class="up">+3,045</td><td class="down">-107</td><td class="up">+2,114</td></tr>
+    </table>
+    <div class="flow-note">KOSPI 선물(KOSPI200): 외국인 +11,905억 / 기관 -12,392억 · 프로그램매매 차익 +1,176억 · 비차익 -18,890억 (평균베이시스 +9.14p)</div>
+  </section>
+
+  <!-- SECTION 2: 섹터 분석 -->
+  <section id="s2">
+    <div class="section-header">
+      <div class="sec-icon">🏭</div>
+      <div>
+        <div class="sec-title-ko">섹터 분석</div>
+        <div class="sec-title-en">Sector Analysis</div>
+      </div>
+    </div>
+
+    <div class="market-label">KOSPI · 규모별 (大 -9.5% / 中 -2.3% / 小 -2.8%)</div>
+    <div class="sector-list">
+      <div class="sector-row">
+        <div class="sname">전기·전자</div>
+        <div class="bar-bg"><div class="bar down" style="background:var(--down); width:100%"></div></div>
+        <div class="spct down">-12.2%</div>
+      </div>
+      <div class="sector-row">
+        <div class="sname">기계·장비</div>
+        <div class="bar-bg"><div class="bar down" style="background:var(--down); width:45%"></div></div>
+        <div class="spct down">-5.5%</div>
+      </div>
+      <div class="sector-row">
+        <div class="sname">건설</div>
+        <div class="bar-bg"><div class="bar down" style="background:var(--down); width:45%"></div></div>
+        <div class="spct down">-5.5%</div>
+      </div>
+      <div class="sector-row">
+        <div class="sname">의료·정밀기기</div>
+        <div class="bar-bg"><div class="bar down" style="background:var(--down); width:43%"></div></div>
+        <div class="spct down">-5.3%</div>
+      </div>
+    </div>
+
+    <div class="market-label">KOSDAQ</div>
+    <div class="sector-list">
+      <div class="sector-row">
+        <div class="sname">건설</div>
+        <div class="bar-bg"><div class="bar down" style="background:var(--down); width:100%"></div></div>
+        <div class="spct down">-6.1%</div>
+      </div>
+      <div class="sector-row">
+        <div class="sname">전기·전자</div>
+        <div class="bar-bg"><div class="bar down" style="background:var(--down); width:93%"></div></div>
+        <div class="spct down">-5.7%</div>
+      </div>
+      <div class="sector-row">
+        <div class="sname">IT 서비스</div>
+        <div class="bar-bg"><div class="bar down" style="background:var(--down); width:88%"></div></div>
+        <div class="spct down">-5.4%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: 주도 종목 -->
+  <section id="s3">
+    <div class="section-header">
+      <div class="sec-icon">⚡</div>
+      <div>
+        <div class="sec-title-ko">주도 종목</div>
+        <div class="sec-title-en">Notable Stocks</div>
+      </div>
+    </div>
+
+    <div class="market-label">반도체 대형주 급락 (거래대금 상위)</div>
+    <div class="stock-grid">
+      <div class="stock-card">
+        <div class="srow"><span class="sname">삼성전기 <span class="scode">009150</span></span><span class="spct down">-18.62%</span></div>
+        <div class="sreason">AI 피크아웃 우려 확산에 반도체 부품·기판 밸류에이션 부담 심화, 외국인·기관 동반 매도.</div>
+      </div>
+      <div class="stock-card">
+        <div class="srow"><span class="sname">SK스퀘어 <span class="scode">402340</span></span><span class="spct down">-17.60%</span></div>
+        <div class="sreason">SK하이닉스 지분가치 연동 매도 압력, 지주사 디스카운트 확대.</div>
+      </div>
+      <div class="stock-card">
+        <div class="srow"><span class="sname">SK하이닉스 <span class="scode">000660</span></span><span class="spct down">-15.37%</span></div>
+        <div class="sreason">나스닥 ADR(SKHY) 정규거래 전환 첫날, 200만원선 붕괴하며 국내 본주 차익매물 대거 출회.</div>
+      </div>
+      <div class="stock-card">
+        <div class="srow"><span class="sname">LG이노텍 <span class="scode">011070</span></span><span class="spct down">-10.92%</span></div>
+        <div class="sreason">전기전자 업종 전반 매도세에 동반 급락.</div>
+      </div>
+      <div class="stock-card">
+        <div class="srow"><span class="sname">삼성전자 <span class="scode">005930</span></span><span class="spct down">-10.70%</span></div>
+        <div class="sreason">시가총액 1위, 반도체 업황 고점 통과 논란 속 외국인 대량 매도(-1.7조원대 추정).</div>
+      </div>
+      <div class="stock-card">
+        <div class="srow"><span class="sname">S-Oil <span class="scode">010950</span></span><span class="spct up">+5.60%</span></div>
+        <div class="sreason">국제유가(WTI) 3거래일 만에 상승 전환, 중동 리스크 재부각에 정유주 반사 수혜.</div>
+      </div>
+    </div>
+
+    <div class="market-label">등락률 상한가권 테마주</div>
+    <div class="stock-grid">
+      <div class="stock-card">
+        <div class="srow"><span class="sname">콘텐트리중앙 <span class="scode">036420</span></span><span class="spct up">+30.00%</span></div>
+        <div class="sreason">등락률 상위 1위, 상한가 마감.</div>
+      </div>
+      <div class="stock-card">
+        <div class="srow"><span class="sname">STX그린로지스 <span class="scode">465770</span></span><span class="spct up">+29.99%</span></div>
+        <div class="sreason">상한가권 마감, 거래대금 급증.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: 주요 뉴스 -->
+  <section id="s4">
+    <div class="section-header">
+      <div class="sec-icon">📰</div>
+      <div>
+        <div class="sec-title-ko">주요 뉴스</div>
+        <div class="sec-title-en">News Digest</div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="ntitle">코스피, 장중 서킷브레이커 발동…7000선 붕괴</div>
+      <div class="nsummary">코스피가 오후 1시 35분경 전 거래일 대비 8%에 근접하는 낙폭을 보이며 20분간 매매거래가 전면 중단됐다. 지수는 6,806.93으로 마감하며 지난 5월 최초 돌파 이후 두 달여 만에 7000선을 재차 하회했다.</div>
+      <div class="nimpact">지수 영향: 매우 부정적</div>
+    </div>
+    <div class="news-item">
+      <div class="ntitle">SK하이닉스 ADR, 나스닥 정규 티커(SKHY) 전환</div>
+      <div class="nsummary">7월 10일 임시 티커(SKHYV)로 상장한 SK하이닉스 ADR이 13일부터 정식 티커 SKHY로 전환되며 정규 거래를 시작했다. 공모가 대비 국내 본주와의 가격 괴리 및 차익거래 구조가 국내 주가에 새로운 변수로 작용하고 있다.</div>
+      <div class="nimpact">반도체 수급 변수</div>
+    </div>
+    <div class="news-item">
+      <div class="ntitle">반도체 AI 피크아웃 우려 재확산</div>
+      <div class="nsummary">글로벌 투자은행들의 반도체 이익 추정치 모멘텀 둔화 경고가 이어지는 가운데, 최근 급등에 부담을 느낀 투자자들의 차익 실현 매물이 전기·전자 업종 전반으로 확산됐다.</div>
+      <div class="nimpact">업종 전반 영향</div>
+    </div>
+    <div class="news-item">
+      <div class="ntitle">중동發 지정학적 불확실성 재부각</div>
+      <div class="nsummary">중동 정세 불안이 다시 부각되며 국제유가(WTI)가 3거래일 만에 상승 전환(+3.98%)했다. 다만 증권가는 이번 급락의 핵심 요인은 중동 이슈보다 반도체 밸류에이션 되돌림과 레버리지 청산 충격으로 분석하고 있다.</div>
+      <div class="nimpact">환율·유가 변수</div>
+    </div>
+    <div class="news-item">
+      <div class="ntitle">개인 홀로 순매수 3.9조원…외국인·기관은 동반 매도</div>
+      <div class="nsummary">코스피 현물시장에서 개인은 3조 8,908억원 순매수한 반면 외국인과 기관은 각각 1조 7,219억원, 2조 2,108억원 순매도하며 수급 공방이 이어졌다. 증권가는 단일 종목 레버리지 ETF의 일일 리밸런싱에 따른 기계적 매도가 낙폭을 증폭시켰을 가능성을 지적한다.</div>
+      <div class="nimpact">수급 경고</div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: 금일 총평 -->
+  <section id="s5">
+    <div class="section-header">
+      <div class="sec-icon">📋</div>
+      <div>
+        <div class="sec-title-ko">금일 총평</div>
+        <div class="sec-title-en">Daily Summary</div>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="stitle">펀더멘털 훼손보다는 밸류에이션·수급 충격</div>
+      코스피는 SK하이닉스 ADR 나스닥 정규거래 전환과 AI 피크아웃 우려가 겹치며 전기·전자 업종을 중심으로 8%대 폭락, 서킷브레이커까지 발동되는 패닉 장세를 연출했다. 대신증권은 이번 급락을 "펀더멘털 훼손이 아닌 AI 산업 서사의 균열, 밸류에이션 되돌림, 레버리지 청산 충격"으로 진단하며 국내 수급·레버리지 ETF 간 악순환 고리가 형성된 것으로 분석했다. 개인은 3.9조원 가까이 순매수하며 저가 매수에 나섰지만 외국인·기관의 동반 매도를 막기엔 역부족이었다. 코스닥 역시 전주말 미국 기술주 강세로 상승 출발했으나 건설·전기전자·IT서비스 업종 중심 외국인 매도세에 하락 전환했다. 원/달러 환율은 1,503원으로 하루 만에 약세 전환했고, WTI는 중동 리스크 재부각에 3거래일 만에 상승했다. 시장의 다음 분기점은 14일 발표될 미국 6월 CPI로, 통화정책 불확실성 완화 여부가 낙폭 진정의 관건이 될 전망이다.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  한상훈_AI_투자브리핑 · 데이터 기준 2026.07.13 15:45 (KRX) · 본 리포트는 정보 제공 목적이며 투자 판단의 책임은 투자자 본인에게 있습니다.
+</footer>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  if (html.getAttribute('data-theme') === 'light') {
+    html.setAttribute('data-theme', 'dark');
+    btn.textContent = '☀️ 라이트모드';
+  } else {
+    html.setAttribute('data-theme', 'light');
+    btn.textContent = '🌙 다크모드';
+  }
+}
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+
+</body>
+</html>
