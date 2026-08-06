@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026.8.6 일일 시황 리포트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root, [data-theme="light"] {
+    --bg: #f5f5f0; --surface: #ffffff; --surface2: #f0efe8;
+    --border: #d8d8d0; --accent: #c8a96e; --accent2: #2196F3;
+    --up: #e05c5c; --down: #4caf82;
+    --text: #1a1a1a; --muted: #6b7280; --dim: #9ca3af;
+    --radius: 12px;
+  }
+  [data-theme="dark"] {
+    --bg: #0a0b0e; --surface: #111318; --surface2: #1a1d26;
+    --border: #2a2d3a; --accent: #c8a96e; --accent2: #4fc3f7;
+    --up: #e05c5c; --down: #4caf82;
+    --text: #e8e6e0; --muted: #7a7f8e; --dim: #4a4f5e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: background .25s ease, color .25s ease;
+    padding-bottom: 60px;
+  }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .serif { font-family: 'DM Serif Display', serif; }
+
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .logo { display:flex; align-items:center; gap:10px; }
+  .logo .mark { width: 34px; height: 34px; border-radius: 8px; background: var(--accent); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-family:'IBM Plex Mono',monospace; }
+  .logo .title { font-family:'DM Serif Display', serif; font-size: 1.15rem; }
+  .logo .sub { font-family:'IBM Plex Mono', monospace; font-size: .68rem; color: var(--muted); letter-spacing: .04em; }
+  nav { display:flex; gap: 6px; flex-wrap: wrap; align-items:center; }
+  nav a {
+    text-decoration: none; color: var(--muted); font-size: .82rem; padding: 6px 12px;
+    border-radius: 20px; border: 1px solid var(--border); font-family:'IBM Plex Mono',monospace;
+    transition: all .2s;
+  }
+  nav a:hover { color: var(--text); border-color: var(--accent); background: var(--surface2); }
+  #themeToggle {
+    border: 1px solid var(--border); background: var(--surface2); color: var(--text);
+    border-radius: 20px; padding: 6px 14px; cursor: pointer; font-size: .82rem;
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  main { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+  section { padding: 44px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+
+  .section-header { display:flex; align-items:center; gap: 14px; margin-bottom: 24px; }
+  .sec-icon { font-size: 1.6rem; width: 46px; height: 46px; border-radius: 12px; background: var(--surface2); display:flex; align-items:center; justify-content:center; border: 1px solid var(--border); }
+  .sec-title-ko { font-family:'DM Serif Display', serif; font-size: 1.5rem; }
+  .sec-title-en { font-family:'IBM Plex Mono', monospace; font-size: .72rem; color: var(--dim); text-transform: uppercase; letter-spacing: .08em; margin-top: 2px; }
+
+  .date-badge {
+    display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:.76rem;
+    color: var(--accent); background: var(--surface2); border: 1px solid var(--border);
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .hero-title { font-family:'DM Serif Display', serif; font-size: 2rem; margin-bottom: 8px; }
+  .hero-desc { color: var(--muted); font-size: .95rem; line-height:1.7; max-width: 720px; margin-bottom: 30px; }
+
+  .idx-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .idx-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px; position: relative; overflow: hidden;
+  }
+  .idx-card.up { border-left: 4px solid var(--up); }
+  .idx-card.down { border-left: 4px solid var(--down); }
+  .idx-name { font-size: .85rem; color: var(--muted); margin-bottom: 8px; font-weight: 700; }
+  .idx-close { font-family:'IBM Plex Mono',monospace; font-size: 1.7rem; font-weight: 600; margin-bottom: 6px; }
+  .idx-chg { font-family:'IBM Plex Mono',monospace; font-size: .95rem; font-weight: 600; }
+  .idx-chg.up { color: var(--up); }
+  .idx-chg.down { color: var(--down); }
+
+  .flow-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 14px; }
+  .flow-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .flow-label { font-size: .78rem; color: var(--muted); margin-bottom: 6px; }
+  .flow-val { font-family:'IBM Plex Mono',monospace; font-weight: 600; font-size: 1.05rem; }
+  .flow-val.up { color: var(--up); }
+  .flow-val.down { color: var(--down); }
+
+  .misc-table { width:100%; border-collapse: collapse; margin-top: 20px; font-size: .85rem; }
+  .misc-table th, .misc-table td { padding: 10px 12px; text-align: center; border-bottom: 1px solid var(--border); }
+  .misc-table th { color: var(--muted); font-weight: 700; background: var(--surface2); }
+  .misc-table td.mono { font-weight: 600; }
+
+  .sector-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 16px; }
+  .sector-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .sector-card .top { display:flex; justify-content: space-between; align-items:center; margin-bottom: 8px; }
+  .sector-card .name { font-weight: 700; font-size: 1rem; }
+  .sector-card .pct { font-family:'IBM Plex Mono',monospace; font-weight: 700; font-size: 1.05rem; }
+  .sector-card .pct.up { color: var(--up); } .sector-card .pct.down { color: var(--down); }
+  .sector-card .summary { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+  .tag { display:inline-block; font-size: .68rem; font-family:'IBM Plex Mono',monospace; padding: 2px 8px; border-radius: 10px; margin-bottom:8px; }
+  .tag.kospi { background: rgba(33,150,243,.12); color: var(--accent2); }
+  .tag.kosdaq { background: rgba(200,169,110,.18); color: var(--accent); }
+
+  .stock-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 14px; }
+  .stock-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .stock-card .row1 { display:flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .stock-card .name { font-weight: 700; font-size: .98rem; }
+  .stock-card .code { font-family:'IBM Plex Mono',monospace; font-size: .68rem; color: var(--dim); }
+  .stock-card .pct { font-family:'IBM Plex Mono',monospace; font-weight: 700; font-size: 1.1rem; margin: 6px 0; }
+  .stock-card .pct.up { color: var(--up); } .stock-card .pct.down { color: var(--down); }
+  .stock-card .reason { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+  .news-list { display:flex; flex-direction: column; gap: 14px; }
+  .news-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .news-item .title { font-weight: 700; font-size: .98rem; margin-bottom: 6px; }
+  .news-item .summary { font-size: .85rem; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+  .news-item .impact { font-size: .74rem; font-family:'IBM Plex Mono',monospace; color: var(--accent); }
+
+  .summary-box {
+    background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+    border-radius: var(--radius); padding: 26px 28px; font-size: .95rem; line-height: 1.85; color: var(--text);
+  }
+  footer { text-align:center; padding: 30px 0 10px; font-size: .72rem; color: var(--dim); font-family:'IBM Plex Mono',monospace; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="mark">K</div>
+    <div>
+      <div class="title">일일 시황 리포트</div>
+      <div class="sub">DAILY MARKET BRIEF · 2026.08.06</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#s1">📊 개요</a>
+    <a href="#s2">🏭 섹터</a>
+    <a href="#s3">⚡ 종목</a>
+    <a href="#s4">📰 뉴스</a>
+    <a href="#s5">📋 총평</a>
+    <button id="themeToggle">🌙 다크모드</button>
+  </nav>
+</header>
+
+<main>
+
+  <section id="s1">
+    <span class="date-badge mono">2026년 8월 6일 (목) · 장 마감 기준 15:45</span>
+    <div class="hero-title">반도체가 흔든 코스피, 코스닥은 나홀로 상승</div>
+    <p class="hero-desc">미국 반도체주 약세와 샌디스크 실적 가이던스 실망감이 겹치며 삼성전자·SK하이닉스 등 시가총액 상위 반도체주가 급락, 코스피는 4.58% 밀리며 3거래일 만에 하락 전환했다. 반면 코스닥은 기관·개인 순매수에 힘입어 5일 연속 상승 마감했다.</p>
+
+    <div class="section-header">
+      <div class="sec-icon">📊</div>
+      <div>
+        <div class="sec-title-ko">일일 지수 요약</div>
+        <div class="sec-title-en">Daily Indices</div>
+      </div>
+    </div>
+
+    <div class="idx-grid">
+      <div class="idx-card down">
+        <div class="idx-name">KOSPI</div>
+        <div class="idx-close mono">6,296.38</div>
+        <div class="idx-chg down mono">▼ 301.88 (-4.58%)</div>
+      </div>
+      <div class="idx-card up">
+        <div class="idx-name">KOSDAQ</div>
+        <div class="idx-close mono">801.67</div>
+        <div class="idx-chg up mono">▲ 2.08 (+0.26%)</div>
+      </div>
+      <div class="idx-card down">
+        <div class="idx-name">KRX300</div>
+        <div class="idx-close mono">4,280.81</div>
+        <div class="idx-chg down mono">▼ 230.35 (-5.11%)</div>
+      </div>
+      <div class="idx-card down">
+        <div class="idx-name">KOSPI200 선물(2609)</div>
+        <div class="idx-close mono">981.15</div>
+        <div class="idx-chg down mono">▼ 60.90 (-5.84%)</div>
+      </div>
+    </div>
+
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="flow-label">외국인 (KOSPI 현물)</div>
+        <div class="flow-val down mono">-3조 3,494억원</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-label">기관 (KOSPI 현물)</div>
+        <div class="flow-val down mono">-1,212억원</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-label">개인 (KOSPI 현물)</div>
+        <div class="flow-val up mono">+3조 3,385억원</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-label">KOSDAQ 개인·기관 동반 순매수</div>
+        <div class="flow-val up mono">기관 +1,615억 · 개인 +860억</div>
+      </div>
+    </div>
+
+    <table class="misc-table">
+      <tr><th>원/달러</th><th>WTI</th><th>국채10년</th><th>다우</th><th>나스닥</th><th>니케이</th></tr>
+      <tr>
+        <td class="mono">1,425.0 (+2.5)</td>
+        <td class="mono">75.34$/b (+0.16%)</td>
+        <td class="mono">4.194% (+4.6bp)</td>
+        <td class="mono up">54,349p (+0.5%)</td>
+        <td class="mono down">26,363p (-0.8%)</td>
+        <td class="mono down">65,683p (-0.9%)</td>
+      </tr>
+    </table>
+  </section>
+
+  <section id="s2">
+    <div class="section-header">
+      <div class="sec-icon">🏭</div>
+      <div>
+        <div class="sec-title-ko">섹터 분석</div>
+        <div class="sec-title-en">Sector Analysis</div>
+      </div>
+    </div>
+    <div class="sector-grid">
+      <div class="sector-card">
+        <span class="tag kosdaq">KOSDAQ</span>
+        <div class="top"><span class="name">일반서비스</span><span class="pct up mono">+3.5%</span></div>
+        <div class="summary">코스닥 상승을 견인한 최상위 업종. 개인·기관 순매수세 집중.</div>
+      </div>
+      <div class="sector-card">
+        <span class="tag kosdaq">KOSDAQ</span>
+        <div class="top"><span class="name">제약</span><span class="pct up mono">+2.4%</span></div>
+        <div class="summary">반도체 약세 속 순환매 수혜, 개별 종목 급등 다수 포착.</div>
+      </div>
+      <div class="sector-card">
+        <span class="tag kosdaq">KOSDAQ</span>
+        <div class="top"><span class="name">오락·문화</span><span class="pct up mono">+1.9%</span></div>
+        <div class="summary">위험자산 회피 속에서도 견조한 자금 유입.</div>
+      </div>
+      <div class="sector-card">
+        <span class="tag kospi">KOSPI</span>
+        <div class="top"><span class="name">전기·전자</span><span class="pct down mono">-7.5%</span></div>
+        <div class="summary">외국인·기관 동반 매도. 삼성전자·SK하이닉스 등 대형주 낙폭 최대.</div>
+      </div>
+      <div class="sector-card">
+        <span class="tag kospi">KOSPI</span>
+        <div class="top"><span class="name">의료·정밀기기</span><span class="pct down mono">-5.3%</span></div>
+        <div class="summary">반도체 장비·부품 밸류체인 동반 약세 영향권.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="section-header">
+      <div class="sec-icon">⚡</div>
+      <div>
+        <div class="sec-title-ko">주도 종목</div>
+        <div class="sec-title-en">Notable Stocks</div>
+      </div>
+    </div>
+    <div class="stock-grid">
+      <div class="stock-card">
+        <div class="row1"><span class="name">SK하이닉스</span><span class="code mono">000660</span></div>
+        <div class="pct down mono">-10.37%</div>
+        <div class="reason">미국 반도체주 약세·메모리 다운턴 우려로 시총 2위 낙폭 최대권.</div>
+      </div>
+      <div class="stock-card">
+        <div class="row1"><span class="name">SK스퀘어</span><span class="code mono">402340</span></div>
+        <div class="pct down mono">-13.32%</div>
+        <div class="reason">SK하이닉스 지분 가치 부담으로 반도체 계열주 중 낙폭 최대.</div>
+      </div>
+      <div class="stock-card">
+        <div class="row1"><span class="name">삼성전자</span><span class="code mono">005930</span></div>
+        <div class="pct down mono">-6.30%</div>
+        <div class="reason">샌디스크 실적 가이던스 실망감 여파, 외국인 대량 매도 집중.</div>
+      </div>
+      <div class="stock-card">
+        <div class="row1"><span class="name">한화에어로스페이스</span><span class="code mono">012450</span></div>
+        <div class="pct up mono">+4.67%</div>
+        <div class="reason">반도체 약세 속 방산 테마로 순환매 자금 유입.</div>
+      </div>
+      <div class="stock-card">
+        <div class="row1"><span class="name">인바디</span><span class="code mono">041830</span></div>
+        <div class="pct up mono">+23.46%</div>
+        <div class="reason">코스닥 개별 종목 중 거래대금 상위권 급등.</div>
+      </div>
+      <div class="stock-card">
+        <div class="row1"><span class="name">유니켐</span><span class="code mono">011330</span></div>
+        <div class="pct up mono">+30.00%</div>
+        <div class="reason">당일 상한가 기록, 등락률 상위 1위.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="section-header">
+      <div class="sec-icon">📰</div>
+      <div>
+        <div class="sec-title-ko">주요 뉴스</div>
+        <div class="sec-title-en">News Digest</div>
+      </div>
+    </div>
+    <div class="news-list">
+      <div class="news-item">
+        <div class="title">美 반도체주 약세 + 샌디스크 실적 쇼크, 국내 반도체 대장주 동반 급락</div>
+        <div class="summary">미국 반도체 업종 조정과 샌디스크의 부진한 실적 가이던스가 겹치며 투자심리가 위축, 삼성전자·SK하이닉스 등 시총 상위 반도체주가 큰 폭으로 하락하며 코스피 낙폭을 키웠다.</div>
+        <div class="impact">영향: 전기·전자 업종 전반 약세, 지수 하락 주도</div>
+      </div>
+      <div class="news-item">
+        <div class="title">코스피 매도 사이드카 발동, 올해 들어 46번째</div>
+        <div class="summary">장중 코스피 낙폭이 5%대까지 확대되며 매도 사이드카가 발동됐다. 전일 3.76% 상승 이틀째 오름세를 보였던 지수는 3거래일 만에 하락 전환했다.</div>
+        <div class="impact">영향: 장중 변동성 확대 신호</div>
+      </div>
+      <div class="news-item">
+        <div class="title">외국인 3조원대 순매도, 개인이 낙폭 방어</div>
+        <div class="summary">외국인이 유가증권시장에서 3조 3천억원대 대규모 순매도에 나선 반면, 개인은 3조 3천억원대 순매수로 맞서며 지수 추가 하락을 일부 방어했다.</div>
+        <div class="impact">영향: 수급 공방 심화</div>
+      </div>
+      <div class="news-item">
+        <div class="title">코스닥은 나홀로 상승 마감, 일반서비스·제약 강세</div>
+        <div class="summary">코스닥은 기관과 개인의 동반 순매수에 힘입어 5일 연속 상승 마감했다. 일반서비스·제약·오락문화 업종이 상승을 주도했다.</div>
+        <div class="impact">영향: 대형주 약세 속 중소형·코스닥 순환매</div>
+      </div>
+      <div class="news-item">
+        <div class="title">메모리 반도체 다운턴 우려 지속</div>
+        <div class="summary">7월 반도체 출하 감소와 재고 급증 등 메모리 업황 둔화 신호가 이어지며 반도체 투자심리 위축의 배경으로 지목되고 있다.</div>
+        <div class="impact">영향: 반도체 업종 투자심리 장기화 우려</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="section-header">
+      <div class="sec-icon">📋</div>
+      <div>
+        <div class="sec-title-ko">금일 총평</div>
+        <div class="sec-title-en">Daily Summary</div>
+      </div>
+    </div>
+    <div class="summary-box">
+      6일 코스피는 미국 반도체주 약세와 샌디스크의 부진한 실적 가이던스 여파로 메모리 관련 투자심리가 급격히 위축되며 4.58% 급락, 6,296.38에 마감했다. 외국인과 기관이 전기·전자 업종을 중심으로 동반 매도에 나섰고 장중 매도 사이드카까지 발동됐으나, 개인이 3조원대 순매수로 낙폭을 일부 방어했다. 대형주(-5.1%)와 중·소형주(+1.4%, +0.3%) 간 차별화가 뚜렷했고, 소비재·서비스 업종으로의 순환매 양상이 관찰됐다. 코스닥은 기관·개인 순매수세에 힘입어 5일 연속 상승하며 강보합 마감, 대형 반도체주 조정과 무관하게 견조한 흐름을 이어갔다. 원/달러 환율은 4일 만에 약세 전환(1,425.0원), 국제유가(WTI)는 4일 만에 반등했다.
+    </div>
+  </section>
+
+</main>
+
+<footer>Daily Market Brief · Data as of 2026.08.06 15:45 · 본 리포트는 정보 제공을 목적으로 하며 투자 판단의 책임은 본인에게 있습니다.</footer>
+
+<script>
+  const btn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  btn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? '🌙 다크모드' : '☀️ 라이트모드';
+  });
+</script>
+
+</body>
+</html>
