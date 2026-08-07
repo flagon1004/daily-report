@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일일 시황 리포트 · 2026.08.07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #f5f5f0; --surface: #ffffff; --surface2: #f0efe8;
+  --border: #d8d8d0; --accent: #c8a96e; --accent2: #2196F3;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #1a1a1a; --muted: #6b7280; --dim: #9ca3af;
+  --radius: 12px;
+}
+[data-theme="dark"] {
+  --bg: #0a0b0e; --surface: #111318; --surface2: #1a1d26;
+  --border: #2a2d3a; --accent: #c8a96e; --accent2: #4fc3f7;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #e8e6e0; --muted: #7a7f8e; --dim: #4a4f5e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: background .3s, color .3s;
+  padding-bottom: 60px;
+}
+.mono { font-family: 'IBM Plex Mono', monospace; }
+.serif { font-family: 'DM Serif Display', serif; }
+
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), #a8854e);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 900; font-size: 15px;
+}
+.logo-text { font-family: 'DM Serif Display', serif; font-size: 18px; }
+.logo-sub { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .5px; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+nav a {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+  color: var(--muted); text-decoration: none;
+  padding: 7px 12px; border-radius: 20px;
+  border: 1px solid transparent;
+  transition: all .2s;
+}
+nav a:hover { color: var(--text); background: var(--surface2); border-color: var(--border); }
+#theme-toggle {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface2);
+  color: var(--text); cursor: pointer; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+.hero {
+  padding: 36px 24px 24px; max-width: 980px; margin: 0 auto;
+}
+.hero-date { font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-size: 13px; letter-spacing: 1px; margin-bottom: 8px; }
+.hero-title { font-family: 'DM Serif Display', serif; font-size: 34px; margin-bottom: 10px; }
+.hero-note { color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+section { padding: 40px 24px; max-width: 980px; margin: 0 auto; scroll-margin-top: 70px; }
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.sec-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.sec-title-ko { font-family: 'DM Serif Display', serif; font-size: 22px; }
+.sec-title-en { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+/* S1 indices */
+.idx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.idx-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; position: relative; overflow: hidden;
+}
+.idx-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  background: var(--down);
+}
+.idx-card.pos::before { background: var(--up); }
+.idx-name { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: 6px; letter-spacing: 1px; }
+.idx-close { font-family: 'DM Serif Display', serif; font-size: 30px; margin-bottom: 6px; }
+.idx-change { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--down); }
+.idx-change.pos { color: var(--up); }
+
+.flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.flow-card {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px;
+}
+.flow-market { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 1px; margin-bottom: 10px; }
+.flow-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; border-bottom: 1px dashed var(--border); }
+.flow-row:last-child { border-bottom: none; }
+.flow-label { color: var(--muted); }
+.flow-val { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+.flow-val.up { color: var(--up); }
+.flow-val.down { color: var(--down); }
+
+/* S2 sectors */
+.sector-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 640px) { .sector-cols { grid-template-columns: 1fr; } }
+.sector-col-title { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.sector-col-title.strong { color: var(--up); }
+.sector-col-title.weak { color: var(--down); }
+.sector-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+.sector-item-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.sector-item-name { font-weight: 700; font-size: 14px; }
+.sector-item-pct { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 14px; }
+.sector-item-pct.up { color: var(--up); }
+.sector-item-pct.down { color: var(--down); }
+.sector-item-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+/* S3 stocks */
+.stock-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.stock-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.stock-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.stock-name { font-weight: 700; font-size: 15px; }
+.stock-code { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--dim); }
+.stock-pct { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 16px; padding: 3px 8px; border-radius: 6px; }
+.stock-pct.up { color: var(--up); background: rgba(224,92,92,.1); }
+.stock-pct.down { color: var(--down); background: rgba(76,175,130,.1); }
+.stock-reason { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+
+/* S4 news */
+.news-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; display: flex; gap: 16px; }
+.news-num { font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-size: 20px; font-weight: 600; flex-shrink: 0; }
+.news-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.news-summary { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+.news-impact { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); }
+
+/* S5 summary */
+.summary-box {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px; font-size: 15px; line-height: 1.9;
+}
+.summary-box p { margin-bottom: 14px; }
+.summary-box p:last-child { margin-bottom: 0; }
+
+footer { text-align: center; padding: 30px 24px; color: var(--dim); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+</style>
+</head>
+<body data-theme="light">
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">K</div>
+    <div>
+      <div class="logo-text">일일 시황 리포트</div>
+      <div class="logo-sub">DAILY MARKET BRIEFING</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#s1">지수요약</a>
+    <a href="#s2">섹터</a>
+    <a href="#s3">종목</a>
+    <a href="#s4">뉴스</a>
+    <a href="#s5">총평</a>
+  </nav>
+  <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+</header>
+
+<div class="hero">
+  <div class="hero-date mono">2026.08.07 (금요일) · 15:45 마감 기준</div>
+  <div class="hero-title">코스피 2일 연속 하락, 코스닥 6일 만에 하락</div>
+  <div class="hero-note">중동 지역 불확실성 확대에 따른 국제유가 상승과 SK하이닉스 급락이 지수를 눌렀으나, 미국 태양광 관세 수혜 기대감에 한화솔루션·OCI홀딩스가 급등하며 업종·종목간 차별화 장세가 펼쳐졌다.</div>
+</div>
+
+<section id="s1">
+  <div class="section-header">
+    <div class="sec-icon">📊</div>
+    <div>
+      <div class="sec-title-ko">일일 지수 요약</div>
+      <div class="sec-title-en mono">Daily Indices</div>
+    </div>
+  </div>
+
+  <div class="idx-grid">
+    <div class="idx-card">
+      <div class="idx-name mono">KOSPI</div>
+      <div class="idx-close">6,258.77</div>
+      <div class="idx-change">▼ 37.61 (-0.60%)</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name mono">KOSDAQ</div>
+      <div class="idx-close">798.81</div>
+      <div class="idx-change">▼ 2.86 (-0.36%)</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name mono">KRX300</div>
+      <div class="idx-close">4,246.09</div>
+      <div class="idx-change">▼ 34.72 (-0.81%)</div>
+    </div>
+  </div>
+
+  <div class="flow-grid">
+    <div class="flow-card">
+      <div class="flow-market">KOSPI 현물 수급 (억원)</div>
+      <div class="flow-row"><span class="flow-label">외국인</span><span class="flow-val down">-8,634</span></div>
+      <div class="flow-row"><span class="flow-label">기관</span><span class="flow-val up">+5,791</span></div>
+      <div class="flow-row"><span class="flow-label">개인</span><span class="flow-val up">+2,677</span></div>
+      <div class="flow-row"><span class="flow-label">전기·전자 외국인 매도</span><span class="flow-val down">-7,921</span></div>
+    </div>
+    <div class="flow-card">
+      <div class="flow-market">KOSDAQ 현물 수급 (억원)</div>
+      <div class="flow-row"><span class="flow-label">외국인</span><span class="flow-val down">-2,540</span></div>
+      <div class="flow-row"><span class="flow-label">기관</span><span class="flow-val down">-1,028</span></div>
+      <div class="flow-row"><span class="flow-label">개인</span><span class="flow-val up">+3,404</span></div>
+      <div class="flow-row"><span class="flow-label">원/달러</span><span class="flow-val up">1,415.8원 (-8.3)</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="section-header">
+    <div class="sec-icon">🏭</div>
+    <div>
+      <div class="sec-title-ko">섹터 분석</div>
+      <div class="sec-title-en mono">Sector Analysis</div>
+    </div>
+  </div>
+
+  <div class="sector-cols">
+    <div>
+      <div class="sector-col-title strong">▲ 강세 업종</div>
+      <div class="sector-item">
+        <div class="sector-item-top"><span class="sector-item-name">태양광 (한화솔루션·OCI홀딩스)</span><span class="sector-item-pct up">+11%대</span></div>
+        <div class="sector-item-desc">美 정부의 폴리실리콘 및 관련 제품 관세 부과 발표로 비중국산 공급망을 보유한 국내 태양광주 동반 급등</div>
+      </div>
+      <div class="sector-item">
+        <div class="sector-item-top"><span class="sector-item-name">2차전지 (LG엔솔·삼성SDI·SK이노베이션)</span><span class="sector-item-pct up">+4~11%</span></div>
+        <div class="sector-item-desc">순환매 유입 속 2차전지·소재주로 수급 집중, 동화기업은 코스닥 상한가 기록</div>
+      </div>
+      <div class="sector-item">
+        <div class="sector-item-top"><span class="sector-item-name">정유 (국제유가 상승 수혜)</span><span class="sector-item-pct up">강세</span></div>
+        <div class="sector-item-desc">중동 지역 불확실성 확대로 국제유가(WTI +0.94%, Brent +3.04%) 상승하며 정유주 동반 강세</div>
+      </div>
+    </div>
+    <div>
+      <div class="sector-col-title weak">▼ 약세 업종</div>
+      <div class="sector-item">
+        <div class="sector-item-top"><span class="sector-item-name">증권 (KOSPI)</span><span class="sector-item-pct down">-2.4%</span></div>
+        <div class="sector-item-desc">대형주 중심 매도세 확산 속 업종 전반 약세</div>
+      </div>
+      <div class="sector-item">
+        <div class="sector-item-top"><span class="sector-item-name">건설 (KOSPI)</span><span class="sector-item-pct down">-2.1%</span></div>
+        <div class="sector-item-desc">투자심리 위축 속 경기민감 업종 동반 약세, 보험(-1.8%)·통신(-1.7%)도 부진</div>
+      </div>
+      <div class="sector-item">
+        <div class="sector-item-top"><span class="sector-item-name">기계·장비 (KOSDAQ)</span><span class="sector-item-pct down">-3.2%</span></div>
+        <div class="sector-item-desc">비금속(-2.6%), 운송장비·부품(-0.9%)과 함께 코스닥 하락을 주도</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="section-header">
+    <div class="sec-icon">⚡</div>
+    <div>
+      <div class="sec-title-ko">주도 종목</div>
+      <div class="sec-title-en mono">Notable Stocks</div>
+    </div>
+  </div>
+
+  <div class="stock-grid">
+    <div class="stock-card">
+      <div class="stock-top">
+        <div><div class="stock-name">상상인증권</div><div class="stock-code mono">001290</div></div>
+        <div class="stock-pct up">+29.91%</div>
+      </div>
+      <div class="stock-reason">Sh수협은행의 인수 추진 소식에 이틀 연속 상한가. 수협은행은 실사를 진행 중이며 연내 거래 마무리를 목표로 하는 것으로 전해짐</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-top">
+        <div><div class="stock-name">동화기업</div><div class="stock-code mono">025900</div></div>
+        <div class="stock-pct up">+30.00%</div>
+      </div>
+      <div class="stock-reason">2차전지 전해액 생산업체로, 순환매 흐름 속 2차전지 테마 수급이 집중되며 코스닥 상한가 기록</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-top">
+        <div><div class="stock-name">OCI홀딩스</div><div class="stock-code mono">010060</div></div>
+        <div class="stock-pct up">+11.68%</div>
+      </div>
+      <div class="stock-reason">美 폴리실리콘 관세 부과에 따른 반사이익 기대감 부각, 말레이시아산 폴리실리콘 공급망 보유로 수혜 전망</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-top">
+        <div><div class="stock-name">한화솔루션</div><div class="stock-code mono">009830</div></div>
+        <div class="stock-pct up">+11.51%</div>
+      </div>
+      <div class="stock-reason">美 조지아 통합 태양광 생산단지 '솔라 허브' 보유로 관세 수혜 기대감 확산, 장중 20%대까지 급등하기도</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-top">
+        <div><div class="stock-name">SK하이닉스</div><div class="stock-code mono">000660</div></div>
+        <div class="stock-pct down">-4.88%</div>
+      </div>
+      <div class="stock-reason">엔비디아가 차세대 AI칩 '루빈 울트라'의 HBM 사양을 하향 검토 중이라는 소식에 급락, 코스피 시가총액 비중이 커 지수 하락에 영향</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-top">
+        <div><div class="stock-name">삼성전자</div><div class="stock-code mono">005930</div></div>
+        <div class="stock-pct up">+0.22%</div>
+      </div>
+      <div class="stock-reason">SK하이닉스 약세 속에서도 소폭 상승 마감하며 대형주 방어 역할, 거래대금 1위(약 4.8조원) 기록</div>
+    </div>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="section-header">
+    <div class="sec-icon">📰</div>
+    <div>
+      <div class="sec-title-ko">주요 뉴스</div>
+      <div class="sec-title-en mono">News Digest</div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <div class="news-num mono">01</div>
+    <div>
+      <div class="news-title">중동 지역 불확실성 확대, 국제유가 상승</div>
+      <div class="news-summary">호르무즈 해협 인근 긴장이 이어지며 국제유가가 상승(WTI +0.94%, Brent +3.04%)했고, 아시아 증시 전반의 투자심리가 위축됐다.</div>
+      <span class="news-impact">지수 하방 압력</span>
+    </div>
+  </div>
+  <div class="news-item">
+    <div class="news-num mono">02</div>
+    <div>
+      <div class="news-title">美, 폴리실리콘 관세 부과 발표</div>
+      <div class="news-summary">미국 정부가 태양광 핵심 소재인 폴리실리콘과 관련 제품에 관세 및 최저수입가격을 적용하기로 하면서, 비중국산 공급망을 갖춘 한화솔루션·OCI홀딩스가 반사이익 기대감에 급등했다.</div>
+      <span class="news-impact">태양광 테마 강세</span>
+    </div>
+  </div>
+  <div class="news-item">
+    <div class="news-num mono">03</div>
+    <div>
+      <div class="news-title">SK하이닉스, 엔비디아發 HBM 사양 하향 검토 소식에 급락</div>
+      <div class="news-summary">엔비디아의 차세대 AI칩 HBM 사양 하향 검토 소식이 전해지며 SK하이닉스가 4.88% 하락, 코스피 시가총액 상위 비중 종목인 만큼 지수 전반에 부담으로 작용했다.</div>
+      <span class="news-impact">반도체주 약세</span>
+    </div>
+  </div>
+  <div class="news-item">
+    <div class="news-num mono">04</div>
+    <div>
+      <div class="news-title">상상인증권, Sh수협은행 인수 추진에 이틀 연속 상한가</div>
+      <div class="news-summary">Sh수협은행이 상상인증권 인수를 위한 실사를 진행 중이라는 소식이 전해지며 상상인증권이 이틀 연속 상한가를 기록, 증권업 M&A 기대감이 부각됐다.</div>
+      <span class="news-impact">M&A 테마 강세</span>
+    </div>
+  </div>
+  <div class="news-item">
+    <div class="news-num mono">05</div>
+    <div>
+      <div class="news-title">원/달러 환율, 하루 만에 강세 전환</div>
+      <div class="news-summary">원/달러 환율은 전일 대비 8.3원 내린 1,415.8원을 기록하며 하루 만에 강세로 돌아섰다. 국채 10년물 금리는 소폭 상승(+1.0bp)했다.</div>
+      <span class="news-impact">환율 안정</span>
+    </div>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="section-header">
+    <div class="sec-icon">📋</div>
+    <div>
+      <div class="sec-title-ko">금일 총평</div>
+      <div class="sec-title-en mono">Daily Summary</div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <p>코스피는 장 초반 대형주 중심 매수세가 유입되며 상승 출발했으나, 중동 지역 불확실성 확대에 따른 국제유가 상승으로 아시아 증시 전반의 투자심리가 위축되며 업종별 차별화 장세 속 0.60% 하락한 6,258.77에 약보합 마감했다. 코스닥도 전일 미국 증시 약세에도 상승 출발했지만 외국인·기관의 동반 매도세에 밀려 0.36% 내린 798.81로 6거래일 만에 하락 전환했다.</p>
+    <p>종목별로는 미국의 폴리실리콘 관세 부과 발표에 힘입어 한화솔루션(+11.51%)·OCI홀딩스(+11.68%) 등 태양광주가 급등했고, 2차전지·순환매 테마도 강세를 보였다. 반면 SK하이닉스는 엔비디아의 HBM 사양 하향 검토 소식에 4.88% 급락하며 지수 하방 압력으로 작용했다. 수급 측면에서는 외국인이 코스피·코스닥 현물에서 각각 8,634억원, 2,540억원을 순매도한 반면 기관과 개인이 이를 상당 부분 받아내는 모습이었다.</p>
+  </div>
+</section>
+
+<footer>KRX Daily Brief · 자료: 한국거래소(KRX), 언론보도 종합 · 본 자료는 정보 제공 목적이며 투자 판단의 참고자료로만 활용하시기 바랍니다.</footer>
+
+<script>
+function toggleTheme() {
+  const body = document.body;
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  body.setAttribute('data-theme', next);
+  document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+}
+</script>
+
+</body>
+</html>
