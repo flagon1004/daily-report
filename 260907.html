@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일일 시황 리포트 · 2026.09.07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #f5f5f0; --surface: #ffffff; --surface2: #f0efe8;
+  --border: #d8d8d0; --accent: #c8a96e; --accent2: #2196F3;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #1a1a1a; --muted: #6b7280; --dim: #9ca3af;
+  --radius: 12px;
+}
+[data-theme="dark"] {
+  --bg: #0a0b0e; --surface: #111318; --surface2: #1a1d26;
+  --border: #2a2d3a; --accent: #c8a96e; --accent2: #4fc3f7;
+  --up: #e05c5c; --down: #4caf82;
+  --text: #e8e6e0; --muted: #7a7f8e; --dim: #4a4f5e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: background .3s, color .3s;
+  padding-bottom: 60px;
+}
+.mono { font-family: 'IBM Plex Mono', monospace; }
+.serif { font-family: 'DM Serif Display', serif; }
+.up { color: var(--up); }
+.down { color: var(--down); }
+
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px;
+}
+.logo { display:flex; align-items:center; gap:10px; }
+.logo .mark { width:10px; height:10px; border-radius:50%; background: var(--accent); }
+.logo-text { font-family:'DM Serif Display', serif; font-size:19px; letter-spacing:.3px; }
+.logo-sub { font-family:'IBM Plex Mono', monospace; font-size:11px; color: var(--muted); margin-left:8px; }
+nav { display:flex; gap:4px; align-items:center; }
+nav button {
+  background: none; border: 1px solid var(--border); color: var(--muted);
+  font-family:'IBM Plex Mono', monospace; font-size:12px; padding:7px 12px;
+  border-radius: 20px; cursor:pointer; transition: all .2s; white-space:nowrap;
+}
+nav button:hover { border-color: var(--accent); color: var(--accent); }
+#themeToggle {
+  width:34px; height:34px; border-radius:50%; border:1px solid var(--border);
+  background:var(--surface2); cursor:pointer; margin-left:8px; font-size:15px;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+section { padding: 48px 0 8px; scroll-margin-top: 70px; }
+
+.section-header { display:flex; align-items:center; gap:14px; margin-bottom:24px; }
+.sec-icon {
+  width:42px; height:42px; border-radius:10px; background:var(--surface2);
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  border:1px solid var(--border);
+}
+.sec-title-ko { font-family:'DM Serif Display', serif; font-size:23px; }
+.sec-title-en { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin-top:2px;}
+
+.date-badge {
+  display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:12px;
+  color: var(--accent); border:1px solid var(--accent); border-radius:20px;
+  padding:5px 14px; margin-bottom:14px;
+}
+.note { font-size:12px; color: var(--dim); margin-top:6px; }
+
+/* index cards */
+.idx-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-bottom:18px; }
+.idx-card {
+  background: var(--surface); border:1px solid var(--border); border-radius: var(--radius);
+  padding: 22px; position:relative; overflow:hidden;
+}
+.idx-card::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--accent);
+}
+.idx-name { font-size:13px; color:var(--muted); margin-bottom:8px; }
+.idx-close { font-family:'IBM Plex Mono', monospace; font-size:28px; font-weight:600; }
+.idx-chg { font-family:'IBM Plex Mono', monospace; font-size:14px; margin-top:6px; }
+.idx-extra { font-size:11px; color:var(--dim); margin-top:10px; border-top:1px dashed var(--border); padding-top:8px;}
+
+.sub-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; margin-bottom:18px; }
+.mini-card {
+  background: var(--surface); border:1px solid var(--border); border-radius: 10px;
+  padding: 14px 16px;
+}
+.mini-label { font-size:11px; color:var(--muted); margin-bottom:5px; }
+.mini-val { font-family:'IBM Plex Mono', monospace; font-size:16px; font-weight:600; }
+.mini-chg { font-family:'IBM Plex Mono', monospace; font-size:11px; margin-top:3px; }
+
+.flow-table, .data-table {
+  width:100%; border-collapse: collapse; background:var(--surface);
+  border:1px solid var(--border); border-radius: var(--radius); overflow:hidden;
+  font-size:13px; margin-bottom: 20px;
+}
+.flow-table th, .flow-table td, .data-table th, .data-table td {
+  padding:10px 12px; text-align:right; border-bottom:1px solid var(--border);
+}
+.flow-table th:first-child, .flow-table td:first-child,
+.data-table th:first-child, .data-table td:first-child { text-align:left; }
+.flow-table th, .data-table th {
+  background: var(--surface2); font-size:11px; color:var(--muted); font-weight:500;
+  font-family:'IBM Plex Mono', monospace;
+}
+.flow-table tr:last-child td, .data-table tr:last-child td { border-bottom:none; }
+.data-table td.name { position:relative; }
+.data-table .mkt {
+  font-size:10px; color:var(--dim); border:1px solid var(--border); border-radius:8px;
+  padding:1px 6px; margin-left:6px; font-family:'IBM Plex Mono', monospace;
+}
+.data-table td, .flow-table td { font-family:'IBM Plex Mono', monospace; }
+.data-table td.name { font-family:'Noto Sans KR', sans-serif; }
+
+.table-title { font-size:13px; color:var(--muted); margin: 22px 0 8px; font-weight:500; }
+
+/* sector */
+.sector-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-bottom: 10px; }
+.sector-card {
+  background:var(--surface); border:1px solid var(--border); border-radius: var(--radius);
+  padding:16px 18px;
+}
+.sector-name { font-size:14px; font-weight:500; margin-bottom:6px; }
+.sector-pct { font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; }
+.sector-bar { height:4px; background:var(--surface2); border-radius:2px; margin-top:10px; overflow:hidden; }
+.sector-bar-fill { height:100%; background:var(--up); }
+.market-group { margin-bottom: 26px; }
+.market-group-title { font-size:12px; color:var(--muted); font-family:'IBM Plex Mono', monospace; margin-bottom:10px; letter-spacing:.5px;}
+
+/* stock cards */
+.stock-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; margin-bottom:8px; }
+.stock-card {
+  background:var(--surface); border:1px solid var(--border); border-radius: var(--radius);
+  padding:18px 20px;
+}
+.stock-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
+.stock-name { font-size:15px; font-weight:700; }
+.stock-code { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--dim); margin-left:6px; }
+.stock-pct { font-family:'IBM Plex Mono', monospace; font-size:17px; font-weight:600; }
+.stock-reason { font-size:12.5px; color:var(--muted); line-height:1.6; }
+.stock-tag {
+  display:inline-block; font-size:10px; font-family:'IBM Plex Mono', monospace;
+  border:1px solid var(--border); color:var(--muted); border-radius:8px; padding:1px 7px; margin-right:6px;
+}
+
+/* news */
+.news-list { display:flex; flex-direction:column; gap:12px; }
+.news-item {
+  background:var(--surface); border:1px solid var(--border); border-radius: var(--radius);
+  padding:16px 20px; display:flex; gap:16px; align-items:flex-start;
+}
+.news-num { font-family:'IBM Plex Mono', monospace; color:var(--accent); font-size:13px; font-weight:600; padding-top:2px;}
+.news-title { font-size:14.5px; font-weight:700; margin-bottom:4px; }
+.news-summary { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:6px;}
+.news-impact { font-size:11.5px; color:var(--accent); font-family:'IBM Plex Mono', monospace; }
+
+/* summary */
+.summary-box {
+  background: linear-gradient(135deg, var(--surface), var(--surface2));
+  border:1px solid var(--border); border-left:3px solid var(--accent);
+  border-radius: var(--radius); padding:26px 28px; font-size:14.5px; line-height:1.9;
+}
+.summary-box .lead { font-family:'DM Serif Display', serif; font-size:18px; margin-bottom:12px; color:var(--accent); }
+
+footer { text-align:center; padding: 40px 0 10px; font-size:11px; color:var(--dim); font-family:'IBM Plex Mono', monospace; }
+
+@media (max-width: 800px) {
+  .idx-grid { grid-template-columns: 1fr; }
+  .sub-grid { grid-template-columns: repeat(2,1fr); }
+  .sector-grid { grid-template-columns: 1fr; }
+  .stock-grid { grid-template-columns: 1fr; }
+  nav { display:none; }
+  .data-table { font-size:11px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="mark"></div>
+    <div class="logo-text">일일 시황</div>
+    <div class="logo-sub">DAILY MARKET REPORT</div>
+  </div>
+  <nav>
+    <button onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">개요</button>
+    <button onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">섹터</button>
+    <button onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})">종목</button>
+    <button onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})">뉴스</button>
+    <button onclick="document.getElementById('s5').scrollIntoView({behavior:'smooth'})">총평</button>
+    <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<section id="s1">
+  <span class="date-badge">2026.09.07 (월) · 장마감 15:45 기준</span>
+  <div class="section-header">
+    <div class="sec-icon">📊</div>
+    <div>
+      <div class="sec-title-ko">일일 지수 요약</div>
+      <div class="sec-title-en">Daily Indices</div>
+    </div>
+  </div>
+
+  <div class="idx-grid">
+    <div class="idx-card">
+      <div class="idx-name">KOSPI</div>
+      <div class="idx-close">6,995.39</div>
+      <div class="idx-chg up">▲ 308.18 (+4.61%)</div>
+      <div class="idx-extra">3일 연속 상승 · 거래대금 21.5조원(+3.7조)</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">KOSDAQ</div>
+      <div class="idx-close">822.19</div>
+      <div class="idx-chg up">▲ 8.69 (+1.07%)</div>
+      <div class="idx-extra">2일 연속 상승 · 거래대금 6.3조원(-0.4조)</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">KRX300</div>
+      <div class="idx-close">4,794.42</div>
+      <div class="idx-chg up">▲ 226.03 (+4.95%)</div>
+      <div class="idx-extra">거래대금 22.2조원(+3.5조)</div>
+    </div>
+  </div>
+
+  <div class="table-title">선물 · 파생</div>
+  <div class="sub-grid">
+    <div class="mini-card">
+      <div class="mini-label">KOSPI200 선물(2609)</div>
+      <div class="mini-val">1,109.75</div>
+      <div class="mini-chg up">+57.25 (+5.44%)</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">KOSDAQ150 선물</div>
+      <div class="mini-val">1,417.60</div>
+      <div class="mini-chg up">+20.30 (+1.45%)</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">KRX300 선물</div>
+      <div class="mini-val">4,800.00</div>
+      <div class="mini-chg up">+229.20 (+5.01%)</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">프로그램 매매(비차익)</div>
+      <div class="mini-val">+16,280억</div>
+      <div class="mini-chg" style="color:var(--muted)">차익 +2,287억 · 베이시스 +1.93p</div>
+    </div>
+  </div>
+
+  <div class="table-title">투자자별 매매동향 (KOSPI 현물, 억원)</div>
+  <table class="flow-table">
+    <tr><th>구분</th><th>외국인</th><th>기관</th><th>금융투자</th><th>보험</th><th>투신</th><th>연기금</th><th>개인</th></tr>
+    <tr>
+      <td>현물</td>
+      <td class="up">+25,862</td><td class="up">+26,423</td><td class="up">+22,100</td>
+      <td class="up">+156</td><td class="up">+3,502</td><td class="up">+96</td>
+      <td class="down">-68,299</td>
+    </tr>
+    <tr>
+      <td>선물</td>
+      <td class="up">+26,992</td><td class="down">-28,994</td><td class="down">-33,613</td>
+      <td class="up">+20</td><td class="up">+5,604</td><td class="down">-784</td>
+      <td class="up">+1,834</td>
+    </tr>
+  </table>
+
+  <div class="table-title">투자자별 매매동향 (KOSDAQ 현물, 억원)</div>
+  <table class="flow-table">
+    <tr><th>구분</th><th>외국인</th><th>기관</th><th>금융투자</th><th>보험</th><th>투신</th><th>연기금</th><th>개인</th></tr>
+    <tr>
+      <td>현물</td>
+      <td class="down">-715</td><td class="down">-1,310</td><td class="down">-956</td>
+      <td class="down">-3</td><td class="up">+70</td><td class="down">-45</td>
+      <td class="up">+1,893</td>
+    </tr>
+  </table>
+
+  <div class="table-title">환율 · 금리 · 유가</div>
+  <div class="sub-grid">
+    <div class="mini-card"><div class="mini-label">원/달러</div><div class="mini-val">1,341.5</div><div class="mini-chg down">-8.6원 · 4일 연속 강세</div></div>
+    <div class="mini-card"><div class="mini-label">달러인덱스</div><div class="mini-val">99.1p</div><div class="mini-chg up">+0.2%</div></div>
+    <div class="mini-card"><div class="mini-label">WTI</div><div class="mini-val">92.34$</div><div class="mini-chg up">+0.94% · 6일 연속 상승</div></div>
+    <div class="mini-card"><div class="mini-label">Brent</div><div class="mini-val">96.28$</div><div class="mini-chg up">+0.76%</div></div>
+    <div class="mini-card"><div class="mini-label">국고채 3년</div><div class="mini-val">3.902%</div><div class="mini-chg up">+1.8bp</div></div>
+    <div class="mini-card"><div class="mini-label">국고채 10년</div><div class="mini-val">4.385%</div><div class="mini-chg up">+2.4bp</div></div>
+    <div class="mini-card"><div class="mini-label">美 10년물</div><div class="mini-val">4.785%</div><div class="mini-chg up">+1.6bp</div></div>
+    <div class="mini-card"><div class="mini-label">위안/달러</div><div class="mini-val">6.7094</div><div class="mini-chg up">+0.0015</div></div>
+  </div>
+
+  <div class="table-title">해외 증시 (전일 종가 기준)</div>
+  <div class="sub-grid">
+    <div class="mini-card"><div class="mini-label">美 다우</div><div class="mini-val">53,414p</div><div class="mini-chg down">-0.5%</div></div>
+    <div class="mini-card"><div class="mini-label">美 나스닥</div><div class="mini-val">26,507p</div><div class="mini-chg down">-0.3%</div></div>
+    <div class="mini-card"><div class="mini-label">獨 DAX</div><div class="mini-val">26,046p</div><div class="mini-chg up">+0.2%</div></div>
+    <div class="mini-card"><div class="mini-label">日 니케이</div><div class="mini-val">66,400p</div><div class="mini-chg up">+2.1%</div></div>
+    <div class="mini-card"><div class="mini-label">中 상해종합</div><div class="mini-val">3,933p</div><div class="mini-chg up">+0.1%</div></div>
+    <div class="mini-card"><div class="mini-label">대만 TWI</div><div class="mini-val">47,326p</div><div class="mini-chg up">+1.7%</div></div>
+    <div class="mini-card"><div class="mini-label">홍콩 HSI</div><div class="mini-val">25,456p</div><div class="mini-chg down">-0.8%</div></div>
+    <div class="mini-card"><div class="mini-label">호주 ASX</div><div class="mini-val">9,201p</div><div class="mini-chg up">+0.1%</div></div>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="section-header">
+    <div class="sec-icon">🏭</div>
+    <div>
+      <div class="sec-title-ko">섹터 분석</div>
+      <div class="sec-title-en">Sector Analysis</div>
+    </div>
+  </div>
+
+  <div class="market-group">
+    <div class="market-group-title">KOSPI · 규모별 / 업종별 (전 업종 상승 마감)</div>
+    <div class="sector-grid">
+      <div class="sector-card"><div class="sector-name">기계·장비</div><div class="sector-pct up">+6.6%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:100%"></div></div></div>
+      <div class="sector-card"><div class="sector-name">전기·전자</div><div class="sector-pct up">+6.3%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:96%"></div></div></div>
+      <div class="sector-card"><div class="sector-name">건설</div><div class="sector-pct up">+4.8%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:73%"></div></div></div>
+      <div class="sector-card"><div class="sector-name">대형주</div><div class="sector-pct up">+4.9%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:74%"></div></div></div>
+      <div class="sector-card"><div class="sector-name">금융</div><div class="sector-pct up">+3.2%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:48%"></div></div></div>
+      <div class="sector-card"><div class="sector-name">중형주</div><div class="sector-pct up">+1.5%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:23%"></div></div></div>
+    </div>
+  </div>
+
+  <div class="market-group">
+    <div class="market-group-title">KOSDAQ · 업종별</div>
+    <div class="sector-grid">
+      <div class="sector-card"><div class="sector-name">비금속</div><div class="sector-pct up">+4.5%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:100%"></div></div></div>
+      <div class="sector-card"><div class="sector-name">의료·정밀기기</div><div class="sector-pct up">+2.8%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:62%"></div></div></div>
+      <div class="sector-card"><div class="sector-name">기계·장비</div><div class="sector-pct up">+2.4%</div><div class="sector-bar"><div class="sector-bar-fill" style="width:53%"></div></div></div>
+    </div>
+  </div>
+  <p class="note">※ KOSPI는 대형·중형·소형 전 규모, 업종 전반이 상승 마감(대형 +4.9%, 중형 +1.5%, 소형 +0.2%). 외국인은 전기·전자(+2조 6,247억원)를 중심으로 순매수, KOSPI 현물은 외국인·기관 동반 매수 vs 개인 매도, KOSDAQ은 반대로 개인 매수 vs 외국인·기관 매도 구도.</p>
+</section>
+
+<section id="s3">
+  <div class="section-header">
+    <div class="sec-icon">⚡</div>
+    <div>
+      <div class="sec-title-ko">주도 종목</div>
+      <div class="sec-title-en">Notable Stocks</div>
+    </div>
+  </div>
+
+  <div class="stock-grid">
+    <div class="stock-card">
+      <div class="stock-top"><div><span class="stock-name">SK하이닉스</span><span class="stock-code">000660</span></div><div class="stock-pct up">+8.26%</div></div>
+      <div><span class="stock-tag">거래대금 1위</span><span class="stock-tag">시총 2위</span></div>
+      <div class="stock-reason" style="margin-top:8px;">전기·전자 업종 강세(+6.3%)를 견인한 대장주로, 거래대금 6.1조원을 기록하며 하루 거래대금 전체 1위 기록. 외국인의 전기·전자 업종 대규모 순매수(+2조 6,247억원) 흐름과 맥을 같이 함.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-top"><div><span class="stock-name">두산에너빌리티</span><span class="stock-code">034020</span></div><div class="stock-pct up">+10.98%</div></div>
+      <div><span class="stock-tag">기계·장비</span><span class="stock-tag">거래대금 7위</span></div>
+      <div class="stock-reason" style="margin-top:8px;">기계·장비 업종 전체 강세(+6.6%, 업종 내 1위) 속 시가총액 상위주 중 가장 큰 상승폭 기록. 거래대금도 5,319억원으로 상위권.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-top"><div><span class="stock-name">삼성전자</span><span class="stock-code">005930</span></div><div class="stock-pct up">+5.68%</div></div>
+      <div><span class="stock-tag">시총 1위</span><span class="stock-tag">거래대금 2위</span></div>
+      <div class="stock-reason" style="margin-top:8px;">시가총액 비중 25.31%의 대표주로 지수 상승을 실질적으로 견인. 거래대금 4.9조원, 전기·전자 업종 외국인 매수세의 중심축.</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-top"><div><span class="stock-name">스카이랩스</span><span class="stock-code">386380</span></div><div class="stock-pct up">+30.00%</div></div>
+      <div><span class="stock-tag">KOSDAQ 상한가</span><span class="stock-tag">거래대금 4위</span></div>
+      <div class="stock-reason" style="margin-top:8px;">코스닥 등락률 상위 1위이자 거래대금 4위(7,804억원)로 자금이 집중. 구체적인 상승 재료는 확인불가.</div>
+    </div>
+  </div>
+
+  <div class="market-group" style="margin-top:28px;">
+    <div class="table-title">시가총액 상위 TOP 10</div>
+    <table class="data-table">
+      <tr><th>순위</th><th>종목명</th><th>종가</th><th>등락률</th><th>시가총액</th></tr>
+      <tr><td>1</td><td class='name'>삼성전자<span class='mkt'>KOSPI</span></td><td>270,000</td><td class='up'>+5.68%</td><td>1,578.5조</td></tr>
+<tr><td>2</td><td class='name'>SK하이닉스<span class='mkt'>KOSPI</span></td><td>1,783,000</td><td class='up'>+8.26%</td><td>1,302.5조</td></tr>
+<tr><td>3</td><td class='name'>삼성전자우<span class='mkt'>KOSPI</span></td><td>199,600</td><td class='up'>+4.18%</td><td>160.2조</td></tr>
+<tr><td>4</td><td class='name'>SK스퀘어<span class='mkt'>KOSPI</span></td><td>1,125,000</td><td class='up'>+8.07%</td><td>148.4조</td></tr>
+<tr><td>5</td><td class='name'>삼성전기<span class='mkt'>KOSPI</span></td><td>1,454,000</td><td class='up'>+3.78%</td><td>108.6조</td></tr>
+<tr><td>6</td><td class='name'>LG에너지솔루션<span class='mkt'>KOSPI</span></td><td>362,500</td><td class='up'>+1.12%</td><td>84.8조</td></tr>
+<tr><td>7</td><td class='name'>현대차<span class='mkt'>KOSPI</span></td><td>393,000</td><td class='up'>+2.48%</td><td>80.5조</td></tr>
+<tr><td>8</td><td class='name'>삼성바이오로직스<span class='mkt'>KOSPI</span></td><td>1,466,000</td><td class='up'>+1.31%</td><td>67.9조</td></tr>
+<tr><td>9</td><td class='name'>삼성생명<span class='mkt'>KOSPI</span></td><td>312,000</td><td class='up'>+4.87%</td><td>62.4조</td></tr>
+<tr><td>10</td><td class='name'>KB금융<span class='mkt'>KOSPI</span></td><td>175,900</td><td class='up'>+2.27%</td><td>62.4조</td></tr>
+    </table>
+  </div>
+
+  <div class="market-group">
+    <div class="table-title">거래대금 상위 TOP 10</div>
+    <table class="data-table">
+      <tr><th>순위</th><th>종목명</th><th>종가</th><th>등락률</th><th>거래대금</th></tr>
+      <tr><td>1</td><td class='name'>SK하이닉스<span class='mkt'>KOSPI</span></td><td>1,783,000</td><td class='up'>+8.26%</td><td>61,132억</td></tr>
+<tr><td>2</td><td class='name'>삼성전자<span class='mkt'>KOSPI</span></td><td>270,000</td><td class='up'>+5.68%</td><td>49,001억</td></tr>
+<tr><td>3</td><td class='name'>삼성전기<span class='mkt'>KOSPI</span></td><td>1,454,000</td><td class='up'>+3.78%</td><td>7,886억</td></tr>
+<tr><td>4</td><td class='name'>스카이랩스<span class='mkt'>KOSDAQ</span></td><td>30,550</td><td class='up'>+30.00%</td><td>7,804억</td></tr>
+<tr><td>5</td><td class='name'>삼성전자우<span class='mkt'>KOSPI</span></td><td>199,600</td><td class='up'>+4.18%</td><td>7,766억</td></tr>
+<tr><td>6</td><td class='name'>SK스퀘어<span class='mkt'>KOSPI</span></td><td>1,125,000</td><td class='up'>+8.07%</td><td>6,034억</td></tr>
+<tr><td>7</td><td class='name'>두산에너빌리티<span class='mkt'>KOSPI</span></td><td>87,900</td><td class='up'>+10.98%</td><td>5,319억</td></tr>
+<tr><td>8</td><td class='name'>LG전자<span class='mkt'>KOSPI</span></td><td>214,000</td><td class='up'>+6.20%</td><td>3,663억</td></tr>
+<tr><td>9</td><td class='name'>로보티즈<span class='mkt'>KOSDAQ</span></td><td>301,500</td><td class='down'>-0.99%</td><td>2,431억</td></tr>
+<tr><td>10</td><td class='name'>주성엔지니어링<span class='mkt'>KOSDAQ GLOBAL</span></td><td>187,200</td><td class='up'>+4.99%</td><td>2,127억</td></tr>
+    </table>
+  </div>
+
+  <div class="market-group">
+    <div class="table-title">등락률 상위 TOP 10 (급등주)</div>
+    <table class="data-table">
+      <tr><th>순위</th><th>종목명</th><th>종가</th><th>등락률</th><th>거래대금</th></tr>
+      <tr><td>1</td><td class='name'>스카이랩스<span class='mkt'>KOSDAQ</span></td><td>30,550</td><td class='up'>+30.00%</td><td>7,804억</td></tr>
+<tr><td>1</td><td class='name'>신라에스지<span class='mkt'>KOSDAQ</span></td><td>1,495</td><td class='up'>+30.00%</td><td>2억</td></tr>
+<tr><td>1</td><td class='name'>케이엠제약<span class='mkt'>KOSDAQ</span></td><td>923</td><td class='up'>+30.00%</td><td>1억</td></tr>
+<tr><td>4</td><td class='name'>우리바이오<span class='mkt'>KOSDAQ</span></td><td>5,830</td><td class='up'>+29.99%</td><td>8억</td></tr>
+<tr><td>5</td><td class='name'>네오오토<span class='mkt'>KOSDAQ</span></td><td>11,880</td><td class='up'>+29.98%</td><td>159억</td></tr>
+<tr><td>6</td><td class='name'>더코디<span class='mkt'>KOSDAQ</span></td><td>4,510</td><td class='up'>+29.97%</td><td>6억</td></tr>
+<tr><td>7</td><td class='name'>에이엔피<span class='mkt'>KOSPI</span></td><td>352</td><td class='up'>+29.89%</td><td>26억</td></tr>
+<tr><td>8</td><td class='name'>삼익제약<span class='mkt'>KOSDAQ</span></td><td>8,780</td><td class='up'>+29.88%</td><td>343억</td></tr>
+<tr><td>9</td><td class='name'>수성웹툰<span class='mkt'>KOSDAQ</span></td><td>513</td><td class='up'>+29.87%</td><td>10억</td></tr>
+<tr><td>10</td><td class='name'>필옵틱스<span class='mkt'>KOSDAQ</span></td><td>33,500</td><td class='up'>+29.84%</td><td>322억</td></tr>
+    </table>
+    <p class="note">※ 등락률 상위 종목 다수가 코스닥 소형주로, 상한가(+30.00%) 3종목(스카이랩스, 신라에스지, 케이엠제약) 포함 다수 종목이 급등. 개별 재료성 수급 영향으로 추정되며 구체적 상승 사유는 확인불가.</p>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="section-header">
+    <div class="sec-icon">📰</div>
+    <div>
+      <div class="sec-title-ko">주요 뉴스</div>
+      <div class="sec-title-en">News Digest</div>
+    </div>
+  </div>
+
+  <div class="news-list">
+    <div class="news-item">
+      <div class="news-num">01</div>
+      <div>
+        <div class="news-title">전일 해외증시 약세에도 국내증시는 강세 출발, 4%대 상승 마감</div>
+        <div class="news-summary">KOSPI는 美 FOMC 금리인상 우려와 국제유가 상승세 지속 등 대외 불확실성이 이어지는 가운데서도 전기·전자 업종을 중심으로 외국인 매수세가 유입되며 업종별 차별화 장세 속 강세 마감했다.</div>
+        <div class="news-impact">영향: KOSPI +4.61%, KOSDAQ +1.07%</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="news-num">02</div>
+      <div>
+        <div class="news-title">외국인, 전기·전자 업종 2조 6,247억원 순매수</div>
+        <div class="news-summary">외국인 투자자는 KOSPI 현물에서 2조 5,862억원 순매수를 기록했으며, 그중 전기·전자 업종에 2조 6,247억원이 집중돼 반도체·전자 대형주 강세를 이끌었다. 금융(+575억원), 기계·장비(+302억원) 업종도 순매수 대상에 포함됐다.</div>
+        <div class="news-impact">영향: SK하이닉스 +8.26%, 삼성전자 +5.68%</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="news-num">03</div>
+      <div>
+        <div class="news-title">국제유가(WTI) 6거래일 연속 상승, 배럴당 92달러 돌파</div>
+        <div class="news-summary">WTI는 92.34달러로 전일 대비 +0.94% 오르며 6일 연속 상승세를 이어갔고, 브렌트유도 96.28달러(+0.76%)를 기록했다. 국채 금리도 동반 상승(국고채 10년 +2.4bp, 美 10년물 +1.6bp)하며 유가발 인플레이션 경계감이 부각됐다.</div>
+        <div class="news-impact">영향: 대외 불확실성 요인으로 지목, 금리 상승 압력</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="news-num">04</div>
+      <div>
+        <div class="news-title">원화, 4거래일 연속 강세로 1,341.5원 마감</div>
+        <div class="news-summary">원/달러 환율은 전일 대비 8.6원 하락한 1,341.5원으로 마감하며 4일 연속 강세 흐름을 나타냈다. 달러인덱스는 99.1p(+0.2%)로 소폭 상승했다.</div>
+        <div class="news-impact">영향: 외국인 자금 유입 우호적 환경 조성</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="news-num">05</div>
+      <div>
+        <div class="news-title">아시아 증시 대체로 강세, 美 증시는 약보합</div>
+        <div class="news-summary">일본 니케이지수가 +2.1% 급등했고 대만 TWI(+1.7%), 상해종합(+0.1%)도 상승한 반면, 홍콩 HSI는 -0.8% 하락했다. 전일 미국 다우(-0.5%)와 나스닥(-0.3%)은 약보합 마감했다.</div>
+        <div class="news-impact">영향: 국내증시는 해외 약세 흐름과 무관하게 독자적 강세</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="section-header">
+    <div class="sec-icon">📋</div>
+    <div>
+      <div class="sec-title-ko">금일 총평</div>
+      <div class="sec-title-en">Daily Summary</div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <div class="lead">전기·전자 중심 외국인 매수세, 대외 불확실성 속 나홀로 강세</div>
+    KOSPI는 美 FOMC 금리인상 우려와 국제유가 6일 연속 상승이라는 대외 불확실성에도 불구하고 전기·전자 업종을 중심으로 외국인 매수세(+2조 5,862억원)가 유입되며 3일 연속 상승, 6,995.39p(+4.61%)로 마감했다. SK하이닉스(+8.26%), 삼성전자(+5.68%) 등 반도체 대형주와 두산에너빌리티(+10.98%) 등 기계·장비주가 상승을 견인했으며, 업종 전반이 상승하는 가운데 대형주(+4.9%)의 강세가 두드러졌다. 다만 개인 투자자는 KOSPI 현물에서 6조 8,299억원을 순매도하며 상승 랠리와 반대 포지션을 취했다. KOSDAQ은 비금속·기계장비 업종 강세 속 개인 매수(+1,893억원) 주도로 822.19p(+1.07%)를 기록했고, 스카이랩스·신라에스지·케이엠제약 등 소형주 다수가 상한가를 기록하며 개별 종목 장세도 함께 나타났다. 원화 강세(4일 연속)와 국채금리 상승이 동시에 나타난 점은 향후 대외 변수(FOMC, 유가)에 대한 주시가 필요함을 시사한다.
+  </div>
+</section>
+
+</div>
+
+<footer>
+  DAILY MARKET REPORT · 자료: KRX 증시 Brief(2026.09.07, 사업총괄팀 15:45 기준) · 시가총액/거래대금/등락률 상위 데이터<br>
+  본 리포트는 정보 제공 목적이며 투자 판단의 근거로 사용될 수 없습니다.
+</footer>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  if (html.getAttribute('data-theme') === 'light') {
+    html.setAttribute('data-theme', 'dark');
+    btn.textContent = '☀️';
+  } else {
+    html.setAttribute('data-theme', 'light');
+    btn.textContent = '🌙';
+  }
+}
+</script>
+
+</body>
+</html>
